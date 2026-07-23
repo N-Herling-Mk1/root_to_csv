@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>root2csv — TEST 1</title>
 <link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
-<link rel="stylesheet" href="../assets/css/tron_light.css?v=31">
+<link rel="stylesheet" href="../assets/css/tron_light.css?v=32">
 </head>
 <body>
 
@@ -74,6 +74,24 @@ sample. 2026-07-22. Findings feed straight back into the pages.</p></div>
     <tr><td>sample set</td><td>six HSS fastframe files, 6.2&ndash;75 MB,
         mH 125&rarr;1000 GeV — the 75 MB mH1000 file is the phase-7 stress case</td></tr>
   </table>
+</section>
+
+<section>
+  <h2>THE INSTALL THAT WORKS — AS VETTED HERE</h2>
+  <p class="sect-sub">RHEL 9 ships no <code>pip</code> at all — bare
+  <code>pip</code> is command-not-found and <code>python3 -m pip</code> answers
+  <em>"No module named pip"</em>. This exact sequence is what passed:</p>
+  <div class="cmd"><button data-copy>COPY</button>git clone https://github.com/N-Herling-Mk1/root_to_csv.git
+cd root_to_csv
+python3 -m ensurepip --user                        <span class="cm"># bootstraps pip user-side; harmless if present</span>
+python3 -m pip install --user --upgrade pip
+python3 -m pip install --user -r requirements.txt
+python3 -c "import uproot, awkward; print(uproot.__version__, awkward.__version__)"</div>
+  <div class="tip"><b>If even <code>ensurepip</code> is missing</b> (some RHEL
+  builds strip it): <code>curl -sS https://bootstrap.pypa.io/get-pip.py -o
+  /tmp/get-pip.py &amp;&amp; python3 /tmp/get-pip.py --user</code> — still no
+  sudo. And answer <b>N</b> to any system prompt offering to install
+  <code>python3-pip</code>; you never need it.</div>
 </section>
 
 <section>
@@ -154,6 +172,6 @@ sample. 2026-07-22. Findings feed straight back into the pages.</p></div>
 
 </main>
 
-<script src="../assets/js/site.js?v=31"></script>
+<script src="../assets/js/site.js?v=32"></script>
 </body>
 </html>
