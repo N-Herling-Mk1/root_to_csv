@@ -555,3 +555,7 @@ td.fn{color:var(--dim);font-weight:700;text-align:center}
 .okflag{display:inline-block;font-family:var(--display);font-size:10px;
   letter-spacing:.14em;color:var(--ua-green);border:1px solid var(--ua-green);
   border-radius:3px;padding:1px 7px;margin-left:8px;vertical-align:3px}
+
+/* ============ v33: transcript pass/fail marks ============ */
+.tx-bad{color:#ff9b8f;font-weight:700}
+.tx-ok{color:#7fe0a8;font-weight:700}

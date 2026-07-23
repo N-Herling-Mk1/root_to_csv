@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>root2csv — TEST 1</title>
 <link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
-<link rel="stylesheet" href="../assets/css/tron_light.css?v=32">
+<link rel="stylesheet" href="../assets/css/tron_light.css?v=34">
 </head>
 <body>
 
@@ -36,6 +36,65 @@
 <div class="ph"><h1>TEST 1 — <b>first live vet · atlng02</b></h1>
 <p>Tier 1 followed exactly as written against a real Run-3 HSS fastframe
 sample. 2026-07-22. Findings feed straight back into the pages.</p></div>
+
+<section>
+  <h2>THE FULL RUN — COMMANDS · WHAT BROKE · WHAT FIXED IT · WHAT TO EXPECT</h2>
+  <p class="sect-sub">The complete session, exactly as run. Your numbers will
+  differ per file — the <em>shape</em> of the output (the synopsis blocks, the
+  matching column counts) is what you should see.</p>
+
+  <h3>1 · INSTALL — THE HICCUP AND THE FIX</h3>
+  <div class="cmd sample">[naherlin@atlng02 root_to_csv]$ pip install --user -r requirements.txt
+<span class="cm">bash: pip: command not found</span>                        <span class="tx-bad">&#10007; RHEL 9 ships no pip</span>
+<span class="cm">Install package 'python3-pip' to provide command 'pip'? [N/y] y
+ * Waiting for authentication... Failed to obtain authentication.</span>
+                                                    <span class="tx-bad">&#10007; system route blocked — correctly; answer N, sudo never needed</span>
+
+[naherlin@atlng02 root_to_csv]$ python3 -m pip --version
+<span class="cm">/usr/bin/python3: No module named pip</span>               <span class="tx-bad">&#10007; the module is absent too</span>
+
+[naherlin@atlng02 root_to_csv]$ python3 -m ensurepip --user
+<span class="cm">Successfully installed pip-21.3.1</span>                   <span class="tx-ok">&#10003; THE FIX — pip bootstrapped user-side, no sudo</span>
+
+[naherlin@atlng02 root_to_csv]$ python3 -m pip install --user --upgrade pip
+[naherlin@atlng02 root_to_csv]$ python3 -m pip install --user -r requirements.txt
+                                                    <span class="tx-ok">&#10003; both clean</span>
+[naherlin@atlng02 root_to_csv]$ python3 -c "import uproot, awkward; print('uproot', uproot.__version__, '| awkward', awkward.__version__)"
+<span class="cm">uproot 5.6.5 | awkward 2.8.8</span>                        <span class="tx-ok">&#10003; install verified</span></div>
+  <p class="sect-sub" style="margin:6px 0 4px">Clean copy-paste of the working sequence:</p>
+  <div class="cmd"><button data-copy>COPY</button>git clone https://github.com/N-Herling-Mk1/root_to_csv.git
+cd root_to_csv
+python3 -m ensurepip --user
+python3 -m pip install --user --upgrade pip
+python3 -m pip install --user -r requirements.txt</div>
+
+  <h3>2 · PRE-SCAN — WHAT TO EXPECT</h3>
+  <div class="cmd sample">[naherlin@atlng02 r2c_vet]$ python3 root_to_csv/scan.py /data2/kjohns/run3_sample_fastframe_files/HSS_mH125_mS55_ct5320_537840_mc23e_fullsim.root --name v1 --out ./v1_scan
+<span class="cm">Pass 1 done: 1.0s  readable=227  unreadable=0
+Writing canonical parquet (bulk storage, lists stay lists) ...
+  Parquet: ./v1_scan/v1_canonical.parquet  (9.2 MB, 0.2s)
+  Manifest JSON: ./v1_scan/v1_manifest.json
+  Manifest TXT:  ./v1_scan/v1_manifest.txt
+  ------------------------------------------------------------
+  SYNOPSIS  v1   events=423
+    branches 227 = readable 227 + unreadable 0
+    bins: scalar 47 | vec1 38 | jagged 117 | jagged-deep 0 | empty 25
+    CSV columns as-is (base policy): 24,925
+  ------------------------------------------------------------</span>
+                                                    <span class="tx-ok">&#10003; the synopsis is the checkpoint — note the as-is column count</span></div>
+
+  <h3>3 · CONVERT — WHAT TO EXPECT</h3>
+  <div class="cmd sample">[naherlin@atlng02 r2c_vet]$ python3 root_to_csv/convert.py --from-scan ./v1_scan
+<span class="cm">  Loading parquet ... 0.3s  (fields=202)
+  (build progress lines elided)
+  CSV:   ./v1_scan/v1_flat.csv   (85.6 MB, 13.9s)
+  Fill:     '-999.0'</span>                              <span class="tx-bad">&#10007; cosmetic: quoted — fixed; current builds print -999</span>
+<span class="cm">  ------------------------------------------------------------
+  SYNOPSIS  v1   423 rows x 24,925 cols -&gt; v1_flat.csv
+    85.6 MB | fill -999 | dropped by policy: 0
+  ------------------------------------------------------------</span>
+                                                    <span class="tx-ok">&#10003; 24,925 = the scan's as-is projection, matched to the digit — the invariant that proves the flow</span></div>
+</section>
 
 <section>
   <h2>AT A GLANCE</h2>
@@ -74,24 +133,6 @@ sample. 2026-07-22. Findings feed straight back into the pages.</p></div>
     <tr><td>sample set</td><td>six HSS fastframe files, 6.2&ndash;75 MB,
         mH 125&rarr;1000 GeV — the 75 MB mH1000 file is the phase-7 stress case</td></tr>
   </table>
-</section>
-
-<section>
-  <h2>THE INSTALL THAT WORKS — AS VETTED HERE</h2>
-  <p class="sect-sub">RHEL 9 ships no <code>pip</code> at all — bare
-  <code>pip</code> is command-not-found and <code>python3 -m pip</code> answers
-  <em>"No module named pip"</em>. This exact sequence is what passed:</p>
-  <div class="cmd"><button data-copy>COPY</button>git clone https://github.com/N-Herling-Mk1/root_to_csv.git
-cd root_to_csv
-python3 -m ensurepip --user                        <span class="cm"># bootstraps pip user-side; harmless if present</span>
-python3 -m pip install --user --upgrade pip
-python3 -m pip install --user -r requirements.txt
-python3 -c "import uproot, awkward; print(uproot.__version__, awkward.__version__)"</div>
-  <div class="tip"><b>If even <code>ensurepip</code> is missing</b> (some RHEL
-  builds strip it): <code>curl -sS https://bootstrap.pypa.io/get-pip.py -o
-  /tmp/get-pip.py &amp;&amp; python3 /tmp/get-pip.py --user</code> — still no
-  sudo. And answer <b>N</b> to any system prompt offering to install
-  <code>python3-pip</code>; you never need it.</div>
 </section>
 
 <section>
@@ -172,6 +213,6 @@ python3 -c "import uproot, awkward; print(uproot.__version__, awkward.__version_
 
 </main>
 
-<script src="../assets/js/site.js?v=32"></script>
+<script src="../assets/js/site.js?v=34"></script>
 </body>
 </html>
