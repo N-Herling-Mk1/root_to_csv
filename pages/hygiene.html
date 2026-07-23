@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>root2csv — CLEAN UP TUNNEL/PROCESSES</title>
+<link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
+<link rel="stylesheet" href="../assets/css/tron_light.css">
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">
+    <img src="../assets/images/mark.png" alt="root2csv mark"
+         onerror="this.style.display='none'">
+    <div><div class="t">root<b>2</b>csv</div>
+    <div class="v">v0.1.0 · TRON LIGHT</div></div>
+  </div>
+  <nav>
+    <a href="../index.html">HOME</a>
+    <a href="deploy.html">INSTRUCTIONS</a>
+    <a href="run.html">RUN ORDER</a>
+    <a href="bins.html">SIX BINS</a>
+    <a href="outputs.html">OUTPUTS</a>
+    <a href="glossary.html">GLOSSARY</a>
+    <a href="access.html">ACCESS</a>
+    <a href="hygiene.html" class="on">CLEAN UP TUNNEL/PROCESSES</a>
+  </nav>
+  <div class="foot">UA ATLAS · Run-3<br>lineage: flatten_events.py</div>
+</aside>
+
+<main>
+
+<div class="ph"><h1>CLEAN UP — <b>tunnel / processes</b></h1>
+<p>Rule zero: bind loopback only, so even a forgotten server is reachable from
+the node itself and nowhere else. Then close up anyway.</p></div>
+
+<section>
+  <div class="warn"><b>Never</b> bind <code>0.0.0.0</code> on a shared server.
+  If a command or tutorial suggests it, use <code>127.0.0.1</code> instead and
+  tunnel.</div>
+
+  <ul class="chk">
+    <li><b>Audit listeners</b> — empty output = clean:
+      <div class="cmd"><button data-copy>COPY</button>lsof -iTCP -sTCP:LISTEN -a -u $USER</div></li>
+    <li><b>Kill anything left over</b> (e.g. a forgotten
+      <code>http.server</code> or <code>code-server</code>):
+      <div class="cmd"><button data-copy>COPY</button>kill &lt;PID&gt;</div></li>
+    <li><b>Optional</b> — clear lingering VS Code remote processes:
+      <div class="cmd"><button data-copy>COPY</button>pkill -u $USER -f vscode-server</div></li>
+    <li><b>Local side</b> — a foreground <code>ssh -L</code> tunnel dies with
+      its terminal. Find stray backgrounded ones:
+      <div class="cmd"><button data-copy>COPY</button>ps aux | grep '[s]sh -L'</div></li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  root2csv v0.1.0 · UA ATLAS Run-3 · lineage: flatten_events.py (2026-04-21)
+  · design: TRON LIGHT · stage C — design lock-in lives in SPEC.txt
+</footer>
+
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

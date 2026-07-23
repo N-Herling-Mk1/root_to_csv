@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>root2csv — MANIFEST</title>
+<link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
+<link rel="stylesheet" href="../assets/css/tron_light.css?v=23">
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">
+    <img src="../assets/images/mark.png" alt="root2csv mark"
+         onerror="this.style.display='none'">
+    <div><div class="t">root<b>2</b>csv</div>
+    <div class="v">v0.1.0 · style: TRON LIGHT</div></div>
+  </div>
+  <nav>
+    <a href="../index.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="tier1.html">TIER 1</a>
+    <a href="tier2.html">TIER 2 <span class="ucflag">WIP</span></a>
+    <a href="tier3.html">TIER 3 <span class="ucflag">WIP</span></a>
+    <a href="manifest.html" class="on">MANIFEST <span class="ucflag">WIP</span></a>
+    <a href="bins.html">SIX BINS</a>
+    <a href="glossary.html">GLOSSARY</a>
+  </nav>
+  <div class="foot">UA ATLAS · Run-3<br>lineage: flatten_events.py</div>
+</aside>
+
+<main>
+
+<div class="ucbanner">
+  <div class="ucpad">
+    <div class="uct">&#9888; UNDER CONSTRUCTION</div>
+    <div class="ucx">This page is still in development — the examples below are
+    queued for vetting against real files.</div>
+  </div>
+</div>
+
+<div class="ph"><h1>MANIFEST.JSON — <b>the control surface</b></h1>
+<p>The pre-scan writes it; step 4 obeys it. One file, one editable field:
+<code>"policy"</code>. Everything else is evidence.</p></div>
+
+<section>
+  <h2>THE SHAPE — WHAT YOU'RE LOOKING AT</h2>
+  <div class="cmd sample"><span class="cm">// header — identity of the scan (read-only)</span>
+{
+  "name": "s1",
+  "source": "PT_ovchan.root",
+  "tree": "reco",
+  "n_events": 3233,
+  "tags": {"mH": 125, "mS": 35},
+<span class="cm">// one entry per readable branch — all evidence, except "policy"</span>
+  "branches": {
+    "met": {
+      "category": "scalar",          <span class="cm">// its bin — read-only</span>
+      "cpp_type": "float",
+      "len": null,
+      "fill": 1.0,
+      "policy": null                 <span class="cm">// scalars have no policy</span>
+    },
+    "jet_pt": {
+      "category": "jagged",
+      "cpp_type": "vector&lt;float&gt;",
+      "len": {"min": 0, "med": 4, "p95": 9, "max": 412},
+      "fill": 0.87,
+      "samples": [45.2, 12.1],
+      "fanout": 412,                 <span class="cm">// columns this makes as-is</span>
+      "policy": "pad_max"            <span class="cm">// &lt;&lt;&lt; THE FIELD YOU EDIT</span>
+    }
+  },
+<span class="cm">// couldn't be read — recorded, never silent (read-only)</span>
+  "unreadable": [
+    {"name": "InputMapNN1b", "cpp_type": "map&lt;string,float&gt;", "reason": "unsupported container"}
+  ]
+}</div>
+  <div class="tip"><b>The one rule:</b> you only ever edit <code>"policy"</code>
+  values, and only on <code>jagged</code> branches. The rebuild reads nothing
+  else back — editing the stats changes nothing.</div>
+</section>
+
+<section>
+  <h2>THE THREE EDITS — WORKED EXAMPLES</h2>
+  <div class="paths3">
+    <div class="path">
+      <div class="tt">CAP AN OUTLIER <em>· first:N</em></div>
+      <p class="lx">The stats say <code>med 4 · p95 9 · max 412</code> — one
+      fat event is minting 412 columns.</p>
+      <div class="cmd"><span class="jold">"policy": "pad_max"</span>
+<span class="jnew">"policy": "first:9"</span></div>
+      <p class="lx">Columns go <code>jet_pt_0&hellip;_411</code> &rarr;
+      <code>jet_pt_0&hellip;_8</code>. Events longer than 9 are truncated;
+      shorter ones pad <code>-999</code>.</p>
+    </div>
+    <div class="path b">
+      <div class="tt">DROP A GHOST <em>· drop</em></div>
+      <p class="lx"><code>"fill": 0.03</code> — the block would be 97%
+      pads.</p>
+      <div class="cmd"><span class="jold">"policy": "pad_max"</span>
+<span class="jnew">"policy": "drop"</span></div>
+      <p class="lx">No columns in the CSV. The branch stays whole in the
+      parquet and is named in <code>build.txt</code> — nothing silent.</p>
+    </div>
+    <div class="path">
+      <div class="tt">STAND DOWN <em>· pad_max</em></div>
+      <p class="lx">Changed your mind? Set it back — or never touch it.</p>
+      <div class="cmd"><span class="jold">"policy": "first:9"</span>
+<span class="jnew">"policy": "pad_max"</span></div>
+      <p class="lx">The base policy: explode to the longest event, pad
+      <code>-999</code>. Untouched manifest = quick-path output.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>POLICY REFERENCE</h2>
+  <table>
+    <tr><th>POLICY</th><th>COLUMNS MADE</th><th>REACH FOR IT WHEN</th></tr>
+    <tr><td><code>pad_max</code></td>
+        <td><code>name_0 &hellip; name_(max-1)</code></td>
+        <td>default — fan-out is sane, keep everything</td></tr>
+    <tr><td><code>first:N</code></td>
+        <td><code>name_0 &hellip; name_(N-1)</code></td>
+        <td><code>max &Gt; med</code> — outliers set the width; pick N near
+        <code>p95</code></td></tr>
+    <tr><td><code>drop</code></td>
+        <td>none</td>
+        <td>low <code>fill</code> — the block would be mostly
+        <code>-999</code></td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>APPLY IT</h2>
+  <div class="cmd"><button data-copy>COPY</button>python3 convert.py --from-scan ./s1_scan</div>
+  <p class="sect-sub" style="margin-top:10px">Seconds, not minutes — the rebuild
+  reads the parquet, never the ROOT file. Iterate on policies freely; every
+  build's <code>build.txt</code> records shape, fill, and what was dropped, and
+  the terminal synopsis shows the new column count.</p>
+</section>
+
+</main>
+
+<script src="../assets/js/site.js?v=23"></script>
+</body>
+</html>

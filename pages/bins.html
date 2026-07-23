@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>root2csv — THE SIX BINS</title>
+<link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
+<link rel="stylesheet" href="../assets/css/tron_light.css?v=23">
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">
+    <img src="../assets/images/mark.png" alt="root2csv mark"
+         onerror="this.style.display='none'">
+    <div><div class="t">root<b>2</b>csv</div>
+    <div class="v">v0.1.0 · style: TRON LIGHT</div></div>
+  </div>
+  <nav>
+    <a href="../index.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="tier1.html">TIER 1</a>
+    <a href="tier2.html">TIER 2 <span class="ucflag">WIP</span></a>
+    <a href="tier3.html">TIER 3 <span class="ucflag">WIP</span></a>
+    <a href="manifest.html">MANIFEST <span class="ucflag">WIP</span></a>
+    <a href="bins.html" class="on">SIX BINS</a>
+    <a href="glossary.html">GLOSSARY</a>
+  </nav>
+  <div class="foot">UA ATLAS · Run-3<br>lineage: flatten_events.py</div>
+</aside>
+
+<main>
+
+
+<div class="ph"><h1>THE <b>SIX BINS</b></h1>
+<p>Pass 1 reads every branch and files it into exactly one of six bins. The bin
+decides its fate in the flat CSV. Colors run cool &rarr; hot with structural
+difficulty.</p></div>
+
+<section>
+  <div class="bin b-scalar">
+    <div class="head"><span class="nm">SCALAR</span>
+      <span class="rule">detection: ndim == 1</span>
+      <span class="fate">CSV: straight through</span></div>
+    <p>One value per event. The easy case — becomes a single CSV column
+    unchanged. Counter branches auto-written by ROOT (<code>njet_pt</code> and
+    friends) land here too. Struct-typed scalars that would crash pandas are
+    detected and stringified safely.</p>
+    <div class="eg">eventNumber &rarr; 4021        met &rarr; 37.2</div>
+  </div>
+
+  <div class="bin b-vec1">
+    <div class="head"><span class="nm">VEC1</span>
+      <span class="rule">detection: ndim == 2, length == 1 in every event</span>
+      <span class="fate">CSV: collapsed to scalar</span></div>
+    <p>A vector that always holds exactly one element — common after a
+    one-vertex selection, where per-vertex quantities are length-1 lists.
+    Collapsed via <code>[:, 0]</code> into a plain column, no suffix, no
+    padding. If even one event has length 0 or 2+, the branch is jagged
+    instead.</p>
+    <div class="eg">msvtx_eta &rarr; [1.24] &rarr; 1.24</div>
+  </div>
+
+  <div class="bin b-jagged">
+    <div class="head"><span class="nm">JAGGED</span>
+      <span class="rule">detection: ndim == 2, variable length</span>
+      <span class="fate">CSV: exploded + padded</span></div>
+    <p>A variable-length vector per event — the defining ATLAS shape. Exploded
+    into <code>name_0 &hellip; name_{max-1}</code> columns; events shorter than
+    the maximum are padded with the flag value <code>-999</code> by default (numeric — columns
+    stay numeric; <code>--fill x</code> restores the legacy sentinel,
+    <code>--fill nan</code> pads NaN).</p>
+    <p><b>The catch:</b> column count is set by the single fattest event in the
+    file. One event with 200 tracks &rarr; 200 columns, even if the median is 5.
+    The manifest's <code>len_med / len_p95 / len_max</code> shows this
+    <em>before</em> you build; the <code>first:N</code> and <code>drop</code>
+    policies tame it.</p>
+    <div class="eg">jet_pt &rarr; [45.2, 12.1]      (max_len 4)
+       &rarr; jet_pt_0=45.2  jet_pt_1=12.1  jet_pt_2=-999  jet_pt_3=-999</div>
+  </div>
+
+  <div class="bin b-deep">
+    <div class="head"><span class="nm">JAGGED-DEEP</span>
+      <span class="rule">detection: ndim &gt; 2</span>
+      <span class="fate">parquet only — never CSV</span></div>
+    <p>A list of lists per event — e.g. per-vertex, per-cluster times: variable
+    vertices per event, variable clusters per vertex. Not a tensor (no fixed
+    shape); jagged-of-jagged. Fully flattening one is combinatorial column
+    explosion, so it is never written to CSV. It is preserved
+    <em>intact</em> in the canonical parquet, and the manifest records its full
+    structure: ndim, per-axis max lengths, leaf dtype, and the hypothetical
+    column count you were spared.</p>
+    <div class="eg">msvtx_cluster_time &rarr; [[t00, t01], [t10]]   ndim=3   axes: 2 &times; 2</div>
+  </div>
+
+  <div class="bin b-empty">
+    <div class="head"><span class="nm">EMPTY</span>
+      <span class="rule">detection: max length == 0 in every event</span>
+      <span class="fate">skipped</span></div>
+    <p>The branch exists but never holds a value in this sample — usually a
+    selection upstream drained it. Nothing to write; skipped from the CSV and
+    listed in the manifest so its absence is documented, not mysterious.</p>
+    <div class="eg">some_branch &rarr; []  []  []  &hellip;  (all events)</div>
+  </div>
+
+  <div class="bin b-unread">
+    <div class="head"><span class="nm">UNREADABLE</span>
+      <span class="rule">detection: uproot raises on read</span>
+      <span class="fate">name + reason recorded — nothing else possible</span></div>
+    <p>Custom C++ classes uproot has no interpretation for. Historical
+    offenders in <code>events.root</code>: <code>InputMapNN1b</code>,
+    <code>caloClusterEnergies</code>, <code>msegNCB_counts</code>. The manifest
+    records the branch name, C++ typename, and failure reason — recording the
+    name is all that can be done, and it's good enough. Nothing is lost
+    silently.</p>
+    <div class="eg">InputMapNN1b    type: map&lt;&hellip;&gt;    reason: no interpretation</div>
+  </div>
+</section>
+
+
+</main>
+
+
+<script src="../assets/js/site.js?v=23"></script>
+</body>
+</html>

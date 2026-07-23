@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>root2csv — REMOTE ACCESS</title>
+<link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
+<link rel="stylesheet" href="../assets/css/tron_light.css">
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">
+    <img src="../assets/images/mark.png" alt="root2csv mark"
+         onerror="this.style.display='none'">
+    <div><div class="t">root<b>2</b>csv</div>
+    <div class="v">v0.1.0 · TRON LIGHT</div></div>
+  </div>
+  <nav>
+    <a href="../index.html">HOME</a>
+    <a href="deploy.html">INSTRUCTIONS</a>
+    <a href="run.html">RUN ORDER</a>
+    <a href="bins.html">SIX BINS</a>
+    <a href="outputs.html">OUTPUTS</a>
+    <a href="glossary.html">GLOSSARY</a>
+    <a href="access.html" class="on">ACCESS</a>
+    <a href="hygiene.html">CLEAN UP TUNNEL/PROCESSES</a>
+  </nav>
+  <div class="foot">UA ATLAS · Run-3<br>lineage: flatten_events.py</div>
+</aside>
+
+<main>
+
+<div class="ph"><h1>REMOTE ACCESS — <b>headless viewing</b></h1>
+<p>Three paths, easiest first. Everything served binds 127.0.0.1 only — the
+ssh tunnel is the only door.</p></div>
+
+<section>
+  <h3>1 · COPY THE FILE DOWN</h3>
+  <div class="cmd"><button data-copy>COPY</button>scp user@server:/path/to/s1_scan/s1_manifest.txt .</div>
+
+  <h3>2 · CODE-SERVER (VS CODE IN THE BROWSER)</h3>
+  <p>Check for it: <code>command -v code-server &amp;&amp; code-server --version</code>.
+  Install without root if missing:</p>
+  <div class="cmd"><button data-copy>COPY</button>curl -fsSL https://code-server.dev/install.sh | sh -s -- --method=standalone --prefix=$HOME/.local
+export PATH="$HOME/.local/bin:$PATH"</div>
+  <p>Run it (loopback only), then tunnel from your local machine:</p>
+  <div class="cmd"><button data-copy>COPY</button><span class="cm"># on the server</span>
+code-server --bind-addr 127.0.0.1:8080
+<span class="cm"># on your local machine, new terminal</span>
+ssh -L 8080:localhost:8080 user@server</div>
+  <p>Browse to <code>http://localhost:8080</code>. <b>Password:</b>
+  auto-generated at first run, stored on the server in
+  <code>~/.config/code-server/config.yaml</code>:</p>
+  <div class="cmd"><button data-copy>COPY</button>cat ~/.config/code-server/config.yaml</div>
+  <p>Download any file: right-click it in the Explorer sidebar &rarr;
+  <b>Download</b>. Paste only bare commands into terminals — never lines that
+  include a <code>[user@host]$</code> prompt.</p>
+
+  <h3>3 · TUNNEL A TINY WEB SERVER</h3>
+  <div class="cmd"><button data-copy>COPY</button><span class="cm"># on the server — 127.0.0.1 bind ONLY</span>
+python3 -m http.server 8888 --bind 127.0.0.1
+<span class="cm"># on your local machine</span>
+ssh -L 8888:localhost:8888 user@server
+<span class="cm"># browse: http://localhost:8888</span></div>
+</section>
+
+</main>
+
+<footer>
+  root2csv v0.1.0 · UA ATLAS Run-3 · lineage: flatten_events.py (2026-04-21)
+  · design: TRON LIGHT · stage C — design lock-in lives in SPEC.txt
+</footer>
+
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

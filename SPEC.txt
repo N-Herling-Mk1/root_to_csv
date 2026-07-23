@@ -1,0 +1,132 @@
+==============================================================================
+  root2csv — STAGE-A SPEC  (lock-in reference, v0.1.0, 2026-07-20)
+==============================================================================
+  Purpose: ROOT -> CSV tooling for ATLAS ntuples with jagged structures.
+  First target: /data2/kjohns/run3_sample_fastframe_files (Laura's files).
+  Lineage: carved from flatten_events.py (2026-04-21), the battle-tested
+  events.root two-pass flattener. This doc is the drift guard — feed it to
+  any LLM session touching this repo.
+==============================================================================
+
+------------------------------------------------------------------------------
+LOCKED DECISIONS
+------------------------------------------------------------------------------
+  1. Six branch bins (names and semantics are FIXED):
+       scalar       ndim 1                       -> straight through
+       vec1         ndim 2, length 1 everywhere  -> collapsed via [:, 0]
+       jagged       ndim 2, variable length      -> exploded + padded
+       jagged_deep  ndim > 2                     -> parquet only, never CSV
+       empty        max_len 0 everywhere         -> skipped
+       unreadable   uproot cannot decode         -> recorded by NAME + reason
+                                                    only; that is good enough
+  2. Canonical parquet = bulk storage. Lists stay lists, jagged_deep intact.
+     CSVs are disposable views regenerable without re-touching ROOT.
+  3. Two layers, two scripts:
+       Layer 1  scan.py     census every struct -> parquet + manifest.json
+                            + manifest.txt
+       Layer 2  convert.py  ROOT -> flat CSV
+                  2a QUICK      no pre-scan; scan+flatten one shot, default
+                                policies == events.root behavior (hard
+                                structs removed from CSV)
+                  2b FROM-SCAN  manifest-driven; honors per-branch policy
+                                edits in manifest.json; reads canonical
+                                parquet, never re-reads ROOT
+  4. Jagged policies (per branch, "policy" field in manifest.json):
+       pad_max (default) | first:N | drop
+  5. BASE-POLICY pad flag: -999 (numeric; jagged-derived columns stay
+     numeric dtype). Chosen over -99/-255 as the entrenched HEP sentinel,
+     far from physical ranges. --fill x restores the legacy events.root
+     'x' sentinel (byte-parity with the original CSVs); --fill nan pads
+     NaN; --fill <number> pads that number. NOTE: default output now
+     DIVERGES from the April events.root CSVs unless --fill x is passed.
+  6. Tree resolution: --tree, else auto-detect = the TTree/RNTuple with the
+     most entries (fastframe files carry reco/truth/etc, not 'analysis').
+     Both TTree and RNTuple read paths supported.
+  7. --tag KEY=VALUE integer columns stamped on every row (kept from
+     flatten_events).
+  8. Headless-first: pip-only deps (uproot awkward pandas numpy pyarrow),
+     argparse CLI, custom \r progress bars on every pass, zero display
+     requirements. Deploy = git clone + pip install -r requirements.txt.
+  9. Any served pages bind 127.0.0.1 ONLY; ssh tunnel is the only door.
+     Port/tunnel hygiene checklist lives in README ("before you log out").
+
+------------------------------------------------------------------------------
+STAGE MAP  (A/B/C/D workflow)
+------------------------------------------------------------------------------
+  A  [done]     this document + the conversation record
+  B  [this drop] scan.py / convert.py / common.py + tests — python/txt/csv
+                 only, no html/css/js
+  C  [partial]   front end, TRON LIGHT + dark highlights, tiered site.
+                 Nav: HOME / ABOUT / TIER 1 / TIER 2 / TIER 3 / SIX BINS
+                 / GLOSSARY. index.html (only page at root): solid-dark
+                 hero "ROOT->CSV | SCAN·CLASSIFY·UNFOLD", THE THREE
+                 TIERS stepper (clickable 1/2/3 swapping one box; tier 2
+                 pane shows assets/images/tier2_codeserver.png; tier 3
+                 pane shows a PENDING screenshot placeholder), CERN
+                 strip. pages/about.html = the former home: HOW-TO box
+                 + runs/bins/fate-map stepper (fate map keeps the
+                 n|type 1-6 column). pages/tier1.html = command-line
+                 instructions (FASTEST + FULL worked example) + outputs
+                 table + scp; no ports, nothing to clean. pages/
+                 tier2.html = code-server via tunnel (install, run,
+                 password location, http.server viewing) + screenshot +
+                 WARNING-[FYI] clean-up box. pages/tier3.html = full
+                 stack (Tier 2 + Flask), planned loopback:5000 recipe,
+                 PENDING screenshot, WARNING-[FYI] box. bins + glossary
+                 kept. Dissolved pages (content folded into the above):
+                 deploy, run, outputs, access, hygiene. All served
+                 pages: rail mark = 3x white badge, icon.ico favicon.
+                 Round-10 home polish: rail mark 198px + wordmark 24px
+                 (rail 250px), nav items 2x (25px), version line reads
+                 'v0.1.0 - style: TRON LIGHT', hero arrow UA blue +
+                 bar/subtitle UA red at full h1 size (glow for dark-bg
+                 legibility), tier stepper = SQUARES colored UA
+                 blue/green/red, home body text >=16px, persistent
+                 GO-TO-TIER access box fixed right of the panes
+                 (sticky, syncs with active tier), site footer removed
+                 everywhere, CERN strip no longer names the data path.
+                 Round-11 home: brand version line centered; hero title
+                 one line, arrow + SCAN·CLASSIFY·UNFOLD solid vivid
+                 blue #2D6CBF (official #0C234B unreadable on dark),
+                 bar stays UA red; top row = hero | decorative
+                 blue->red bar | CERN card (UA ATLAS group, top
+                 right, no data path); body text centered; server
+                 name spelled @atlng02.physics.arizona.edu.
+                 Rounds 12-14 polish: content centered right of the
+                 rail (max 1240); tiers = left column (heading +
+                 stepper + GO-TO-TIER box) / right column (active
+                 pane); anti-jiggle (img intrinsic dims + aspect-
+                 ratio, pane min-height, scrollbar-gutter stable);
+                 nav text 24px = wordmark; top decorative bar solid
+                 UA red; hero narrowed (660px) with bigger arrow, UA
+                 card widened to row layout; EVERY tier pane shows a
+                 uniform 1645x854 picture slot — real capture or
+                 assets/images/screenshot_pending.png placeholder.
+                 Edge GUIDE rail (right, >=1440px): tracer rests STILL
+                 at rail center when idle and slides to the hovered
+                 object's vertical spot; card explains the object;
+                 amber CLICKABLE badge on interactive targets; label
+                 shows 'GUIDE · vN · armed' only when JS is bound.
+                 REMAINING: per-file report.html generator (scan side);
+                 Flask server + full-stack screenshot (stage D).
+  D  [reserved]  GitHub repo + Pages + optional Flask stack per the
+                 four-option deployment ladder.
+
+------------------------------------------------------------------------------
+KNOWN LIMITS / ROADMAP  (deliberately deferred)
+------------------------------------------------------------------------------
+  - Pass 1 caches all branch arrays in RAM (transplanted behavior). Fine
+    for sample-scale files; big files want bigmem3 or a future chunked mode.
+  - CSV assembled as one in-RAM DataFrame; chunked CSV writes are roadmap.
+  - pad_p99 / overflow-flag policy: roadmap (first:N covers most of it).
+  - Outlier fan-out warning: manifest exposes len_med/len_p95/len_max so
+    column explosions are visible BEFORE committing to a flatten.
+
+------------------------------------------------------------------------------
+TEST STATUS
+------------------------------------------------------------------------------
+  NO synthetic data ships in the repo (Steve, 2026-07-22). The end-to-end
+  suite (synthetic TTree/RNTuple, 36 checks) lives ONLY on Claude's backend
+  and is run there before every drop — last run green. Real-data validation
+  happens on the fastframe files once the UI/UX is locked.
+==============================================================================

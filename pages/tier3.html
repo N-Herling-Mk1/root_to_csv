@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>root2csv — TIER 3</title>
+<link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
+<link rel="stylesheet" href="../assets/css/tron_light.css?v=23">
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">
+    <img src="../assets/images/mark.png" alt="root2csv mark"
+         onerror="this.style.display='none'">
+    <div><div class="t">root<b>2</b>csv</div>
+    <div class="v">v0.1.0 · style: TRON LIGHT</div></div>
+  </div>
+  <nav>
+    <a href="../index.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="tier1.html">TIER 1</a>
+    <a href="tier2.html">TIER 2 <span class="ucflag">WIP</span></a>
+    <a href="tier3.html" class="on">TIER 3 <span class="ucflag">WIP</span></a>
+    <a href="manifest.html">MANIFEST <span class="ucflag">WIP</span></a>
+    <a href="bins.html">SIX BINS</a>
+    <a href="glossary.html">GLOSSARY</a>
+  </nav>
+  <div class="foot">UA ATLAS · Run-3<br>lineage: flatten_events.py</div>
+</aside>
+
+<main>
+
+<div class="ucbanner">
+  <div class="ucpad">
+    <div class="uct">&#9888; UNDER CONSTRUCTION</div>
+    <div class="ucx">Tier 3 is still in development — scope and commands are
+    being engineered. Tier 1 is the vetted path.</div>
+  </div>
+</div>
+
+<div class="ph"><h1>TIER 3 — <b>full stack (Tier 2 + Flask)</b></h1>
+<p>Tier 2 plus the repo's Flask server — the full-stack unlock. STATUS: the
+Flask layer is staged for stage D; commands below are the planned shape.</p></div>
+
+<section>
+  <h2>WHAT TIER 3 UNLOCKS</h2>
+  <p class="sect-sub">A local Flask server included in the repo, serving the
+  front end from the node itself: live scan reports rendered from
+  <code>manifest.json</code>, browse-and-build without leaving the browser,
+  re-runs of <code>scan.py</code> / <code>convert.py</code> triggered from the
+  page. Same loopback + tunnel discipline as Tier 2.</p>
+
+  <div class="tip"><b>Scope note</b> — Tier 3 is slated to let you generate
+  additional UI files (reports, viewers) straight from your runs. More
+  involved; the engineering is still being decided.</div>
+
+  <h3>PLANNED RUN RECIPE&nbsp; (shape may shift at stage D)</h3>
+  <div class="cmd"><button data-copy>COPY</button><span class="cm"># on the server — loopback only</span>
+python3 server.py            <span class="cm"># Flask, binds 127.0.0.1:5000</span>
+<span class="cm"># on your local machine</span>
+ssh -L 5000:localhost:5000 user@server
+<span class="cm"># browse: http://localhost:5000</span></div>
+
+  <div class="pending">FULL-STACK SCREENSHOT — PENDING FIRST DEPLOY</div>
+</section>
+
+<section>
+  <h2>WARNING — [FYI] · CLEAN UP TUNNEL/PROCESSES</h2>
+  <p class="sect-sub">Before you log out: rule zero is loopback-only binds, so the tunnel is the only door — then close up anyway.</p>
+  <div class="warn"><b>Never</b> bind <code>0.0.0.0</code> on a shared server.
+  If a command or tutorial suggests it, use <code>127.0.0.1</code> instead and
+  tunnel.</div>
+
+  <ul class="chk">
+    <li><b>Audit listeners</b> — empty output = clean:
+      <div class="cmd"><button data-copy>COPY</button>lsof -iTCP -sTCP:LISTEN -a -u $USER</div></li>
+    <li><b>Kill anything left over</b> (e.g. a forgotten
+      <code>http.server</code> or <code>code-server</code>):
+      <div class="cmd"><button data-copy>COPY</button>kill &lt;PID&gt;</div></li>
+    <li><b>Optional</b> — clear lingering VS Code remote processes:
+      <div class="cmd"><button data-copy>COPY</button>pkill -u $USER -f vscode-server</div></li>
+    <li><b>Local side</b> — a foreground <code>ssh -L</code> tunnel dies with
+      its terminal. Find stray backgrounded ones:
+      <div class="cmd"><button data-copy>COPY</button>ps aux | grep '[s]sh -L'</div></li>
+  </ul>
+</section>
+
+</main>
+
+
+<script src="../assets/js/site.js?v=23"></script>
+</body>
+</html>

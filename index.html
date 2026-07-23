@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>root2csv — HOME</title>
+<link rel="icon" type="image/x-icon" href="assets/images/icon.ico">
+<link rel="stylesheet" href="assets/css/tron_light.css?v=23">
+</head>
+<body>
+
+<aside class="rail" data-guide-click="1" data-guide-title="SITE PANELS" data-guide="Every page of the site: ABOUT explains the toolkit, the TIER pages hold instructions, SIX BINS and GLOSSARY are reference.">
+  <div class="brand">
+    <img src="assets/images/mark.png" alt="root2csv mark"
+         onerror="this.style.display='none'">
+    <div><div class="t">root<b>2</b>csv</div>
+    <div class="v">v0.1.0 · style: TRON LIGHT</div></div>
+  </div>
+  <nav>
+    <a href="index.html" class="on">HOME</a>
+    <a href="pages/about.html">ABOUT</a>
+    <a href="pages/tier1.html">TIER 1</a>
+    <a href="pages/tier2.html">TIER 2 <span class="ucflag">WIP</span></a>
+    <a href="pages/tier3.html">TIER 3 <span class="ucflag">WIP</span></a>
+    <a href="pages/manifest.html">MANIFEST <span class="ucflag">WIP</span></a>
+    <a href="pages/bins.html">SIX BINS</a>
+    <a href="pages/glossary.html">GLOSSARY</a>
+  </nav>
+  <div class="foot">UA ATLAS · Run-3<br>lineage: flatten_events.py</div>
+</aside>
+
+<main class="home">
+
+<div class="toprow">
+  <div class="hero solid" data-guide-title="THE HEADLINE" data-guide="What this toolkit does: scan a ROOT file, classify every branch into six bins, and unfold the jagged ones into a flat CSV.">
+  <div class="beam"></div>
+  <h1>ROOT <b>&rarr;</b> CSV <span class="hsep">|</span>
+      <span class="hsub">SCAN &middot; CLASSIFY &middot; UNFOLD</span></h1>
+  <p class="sub">ATLAS ntuples carry jagged structures a flat CSV can't hold as-is.
+  This toolkit scans, classifies, and unfolds them.</p>
+</div>
+  <div class="topdiv" aria-hidden="true"></div>
+  <aside class="instcard" data-guide-title="THE GROUP" data-guide="University of Arizona ATLAS group — tooling built for the Run-3 LLP analysis.">
+    <img src="assets/images/0_CERN_logo.png" alt="CERN"
+         onerror="this.style.display='none'">
+    <div class="d">University of Arizona ATLAS group<br>Run-3 LLP analysis tooling</div>
+  </aside>
+</div>
+
+<section>
+  <div class="tierlayout">
+    <div class="tierleft">
+      <h2>THE THREE TIERS</h2>
+      <p class="cap">Three ways to run the toolkit — pick the tier that matches your
+  setup. Each tier page carries its complete, self-contained instructions,
+  including the clean-up warnings where tunnels are involved.</p>
+      <div class="tsteps tiersq" role="tablist" aria-label="the three tiers" data-guide-click="1" data-guide-title="TIER SELECTOR" data-guide="Three ways to run the toolkit. Click a numbered square to preview that tier on the right — blue 1: command line, green 2: VS Code tunnel, red 3: full stack.">
+    <button class="tstep on" data-c="1" data-pane="pane1" role="tab" aria-selected="true">
+      <span class="tnum">1</span><span class="tlabel">TIER 1</span></button>
+    <div class="tconn c1"></div>
+    <button class="tstep" data-c="2" data-pane="pane2" role="tab" aria-selected="false">
+      <span class="tnum">2</span><span class="tlabel">TIER 2</span></button>
+    <div class="tconn c2"></div>
+    <button class="tstep" data-c="3" data-pane="pane3" role="tab" aria-selected="false">
+      <span class="tnum">3</span><span class="tlabel">TIER 3</span></button>
+  </div>
+      <aside class="taccess" aria-label="open tier instructions" data-guide-click="1" data-guide-title="JUMP BOX" data-guide="Shortcuts straight to each tier&#39;s full instructions page. The highlighted entry follows your selection.">
+    <div class="tt">GO TO TIER</div>
+    <a class="ta t1 on" data-pane="pane1" href="pages/tier1.html">TIER 1 &middot; COMMAND LINE</a>
+    <a class="ta t2" data-pane="pane2" href="pages/tier2.html">TIER 2 &middot; VS CODE TUNNEL</a>
+    <a class="ta t3" data-pane="pane3" href="pages/tier3.html">TIER 3 &middot; FULL STACK</a>
+  </aside>
+    </div>
+    <div class="tierright" data-guide-title="TIER PREVIEW" data-guide="A snapshot of the selected tier — what it is and what it looks like. The complete, copy-paste instructions live on that tier&#39;s page.">
+      <div class="tpane on" id="pane1" role="tabpanel">
+    <h2>TIER 1 — COMMAND LINE</h2>
+    <p class="cap">Run through the command line on a headless server
+    (e.g. <code>@atlng02.physics.arizona.edu</code>). Pure ssh + python: clone, pip install, run
+    <code>scan.py</code> / <code>convert.py</code>. No display, no ports, no
+    tunnels — outputs are files you <code>scp</code> down.</p>
+    <div class="shot"><img src="assets/images/tier1_commands.png" width="1645" height="854" alt="tier 1 — the command card" onerror="this.src='assets/images/screenshot_pending.png'"></div>
+  </div>
+      <div class="tpane" id="pane2" role="tabpanel">
+    <h2>TIER 2 — VS CODE VIA TUNNELING</h2>
+    <p class="cap">Run through Visual Studio Code in a browser — code-server on
+    the headless node, reached through an ssh tunnel. GUI editing, one-click
+    file downloads, integrated terminal (every Tier&nbsp;1 command works
+    inside it).</p>
+    <div class="shot"><img src="assets/images/tier2_codeserver.png" width="1645" height="854"
+      alt="code-server in a browser via ssh tunnel"
+      onerror="this.parentElement.style.display='none'"></div>
+  </div>
+      <div class="tpane" id="pane3" role="tabpanel">
+    <h2>TIER 3 — FULL STACK (TIER 2 + FLASK)</h2>
+    <p class="cap">Tier&nbsp;2 plus the repo's Flask server — unlocking full-stack
+    capabilities: live report views served from the node, re-runs from the
+    browser. The Flask layer is the stage-D unlock; commands are staged on the
+    tier page.</p>
+    <div class="shot"><img src="assets/images/screenshot_pending.png" width="1645" height="854" alt="tier 3 full-stack screenshot pending" onerror="this.src='assets/images/screenshot_pending.png'"></div>
+  </div>
+    </div>
+  </div>
+</section>
+
+
+</main>
+
+
+<aside class="edgerail" id="edgerail" aria-hidden="true">
+  <div class="er-line"></div>
+  <span class="er-tracer" id="erTracer"></span>
+  <div class="er-card" id="erCard">
+    <div class="ec-t" id="erTitle"></div>
+    <span class="ec-click" id="erClick">&#9889; CLICKABLE — try it</span>
+    <div class="ec-x" id="erText"></div>
+  </div>
+</aside>
+
+<script src="assets/js/site.js?v=23"></script>
+
+
+</body>
+</html>

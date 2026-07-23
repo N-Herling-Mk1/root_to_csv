@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>root2csv — RUN ORDER</title>
+<link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
+<link rel="stylesheet" href="../assets/css/tron_light.css">
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">
+    <img src="../assets/images/mark.png" alt="root2csv mark"
+         onerror="this.style.display='none'">
+    <div><div class="t">root<b>2</b>csv</div>
+    <div class="v">v0.1.0 · TRON LIGHT</div></div>
+  </div>
+  <nav>
+    <a href="../index.html">HOME</a>
+    <a href="deploy.html">INSTRUCTIONS</a>
+    <a href="run.html" class="on">RUN ORDER</a>
+    <a href="bins.html">SIX BINS</a>
+    <a href="outputs.html">OUTPUTS</a>
+    <a href="glossary.html">GLOSSARY</a>
+    <a href="access.html">ACCESS</a>
+    <a href="hygiene.html">CLEAN UP TUNNEL/PROCESSES</a>
+  </nav>
+  <div class="foot">UA ATLAS · Run-3<br>lineage: flatten_events.py</div>
+</aside>
+
+<main>
+
+<div class="ph"><h1>RUN ORDER — <b>two paths</b></h1>
+<p>Both paths end at the same flat CSV. Path A is one command with sane
+defaults. Path B puts a curation step in the middle so you control exactly how
+each jagged branch unfolds.</p></div>
+
+<section>
+  <div class="paths">
+    <div class="path">
+      <div class="tt">PATH A — QUICK <em>(2a · no pre-scan)</em></div>
+      <ol>
+        <li>Run <code>convert.py</code> on the .root file.</li>
+        <li>Done. Scan + flatten happen in one shot with default policies —
+            the original <code>events.root</code> behavior.</li>
+      </ol>
+      <div class="cmd"><button data-copy>COPY</button>python3 convert.py /data2/kjohns/run3_sample_fastframe_files/&lt;file&gt;.root</div>
+    </div>
+    <div class="path b">
+      <div class="tt">PATH B — CURATED <em>(2b · scan, edit, build)</em></div>
+      <ol>
+        <li><code>scan.py</code> the file &rarr; census + parquet + manifests.</li>
+        <li>Read <code>&lt;name&gt;_manifest.txt</code>; edit per-branch
+            <code>"policy"</code> in <code>&lt;name&gt;_manifest.json</code>.</li>
+        <li><code>convert.py --from-scan</code> &rarr; CSV built from the
+            parquet. ROOT is never re-read.</li>
+      </ol>
+      <div class="cmd"><button data-copy>COPY</button>python3 scan.py &lt;file&gt;.root --name s1 --out ./s1_scan
+<span class="cm"># edit ./s1_scan/s1_manifest.json ("policy" per jagged branch)</span>
+python3 convert.py --from-scan ./s1_scan</div>
+    </div>
+  </div>
+
+  <div class="diagram" role="img" aria-label="pipeline diagram">
+  <svg viewBox="0 0 900 250" xmlns="http://www.w3.org/2000/svg" font-family="'Share Tech Mono',monospace">
+    <defs>
+      <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#00a9c9"/>
+      </marker>
+      <marker id="arA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L10 5 L0 10 z" fill="#ff8b17"/>
+      </marker>
+    </defs>
+    <rect x="20" y="95" width="130" height="56" rx="5" fill="#ffffff" stroke="#b9d2da"/>
+    <text x="85" y="119" text-anchor="middle" font-size="14" fill="#10222e">file.root</text>
+    <text x="85" y="138" text-anchor="middle" font-size="10.5" fill="#54687a">TTree / RNTuple</text>
+    <rect x="215" y="95" width="110" height="56" rx="5" fill="#ffffff" stroke="#00a9c9" stroke-width="1.6"/>
+    <text x="270" y="119" text-anchor="middle" font-size="13" fill="#00798f">scan.py</text>
+    <text x="270" y="137" text-anchor="middle" font-size="10.5" fill="#54687a">Layer 1</text>
+    <rect x="392" y="52" width="196" height="140" rx="5" fill="#ffffff" stroke="#b9d2da"/>
+    <text x="490" y="76" text-anchor="middle" font-size="11.5" fill="#00798f" letter-spacing="1.5">SCAN DIR</text>
+    <text x="404" y="100" font-size="12" fill="#10222e">canonical.parquet</text>
+    <text x="404" y="122" font-size="12" fill="#10222e">manifest.json</text>
+    <text x="558" y="122" font-size="11" fill="#c46a00">&#9998;</text>
+    <text x="404" y="144" font-size="12" fill="#10222e">manifest.txt</text>
+    <text x="404" y="175" font-size="10" fill="#54687a">edit "policy" per branch &#9998;</text>
+    <rect x="652" y="95" width="128" height="56" rx="5" fill="#ffffff" stroke="#00a9c9" stroke-width="1.6"/>
+    <text x="716" y="115" text-anchor="middle" font-size="12.5" fill="#00798f">convert.py</text>
+    <text x="716" y="134" text-anchor="middle" font-size="10.5" fill="#54687a">--from-scan</text>
+    <rect x="820" y="95" width="66" height="56" rx="5" fill="#ffffff" stroke="#b9d2da"/>
+    <text x="853" y="128" text-anchor="middle" font-size="13" fill="#10222e">CSV</text>
+    <line x1="150" y1="123" x2="211" y2="123" stroke="#00a9c9" stroke-width="1.6" marker-end="url(#ar)"/>
+    <line x1="325" y1="123" x2="388" y2="123" stroke="#00a9c9" stroke-width="1.6" marker-end="url(#ar)"/>
+    <line x1="588" y1="123" x2="648" y2="123" stroke="#00a9c9" stroke-width="1.6" marker-end="url(#ar)"/>
+    <line x1="780" y1="123" x2="816" y2="123" stroke="#00a9c9" stroke-width="1.6" marker-end="url(#ar)"/>
+    <path d="M 85 151 C 85 228, 716 228, 716 155" fill="none" stroke="#ff8b17" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#arA)"/>
+    <text x="400" y="243" font-size="11.5" fill="#b06200">PATH A · QUICK — convert.py file.root  (scan + flatten, one shot)</text>
+    <text x="360" y="40" font-size="11.5" fill="#00798f">PATH B · CURATED</text>
+  </svg>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  root2csv v0.1.0 · UA ATLAS Run-3 · lineage: flatten_events.py (2026-04-21)
+  · design: TRON LIGHT · stage C — design lock-in lives in SPEC.txt
+</footer>
+
+<script src="../assets/js/site.js"></script>
+</body>
+</html>
