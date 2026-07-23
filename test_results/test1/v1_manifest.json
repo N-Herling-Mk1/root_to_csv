@@ -1,0 +1,4200 @@
+{
+ "meta": {
+  "name": "v1",
+  "source": "/data2/kjohns/run3_sample_fastframe_files/HSS_mH125_mS55_ct5320_537840_mc23e_fullsim.root",
+  "tree": "analysis",
+  "all_trees": [
+   "analysis"
+  ],
+  "n_events": 423,
+  "note": null,
+  "generated": "2026-07-22 20:22:01",
+  "pass1_seconds": 1.0,
+  "canonical_parquet": "./v1_scan/v1_canonical.parquet",
+  "tool_version": "0.1.0"
+ },
+ "tags": {},
+ "branches": {
+  "HLTmuRoIClus_eta": {
+   "ak_type": "423 * var * float32",
+   "category": "vec1",
+   "dtype": "float32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "collapse",
+   "samples": [
+    "[-0.23409172892570496]",
+    "[-0.6736646890640259]"
+   ]
+  },
+  "HLTmuRoIClus_nRoI": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[3]",
+    "[5]"
+   ]
+  },
+  "HLTmuRoIClus_phi": {
+   "ak_type": "423 * var * float32",
+   "category": "vec1",
+   "dtype": "float32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "collapse",
+   "samples": [
+    "[-3.0474696159362793]",
+    "[-2.1980912685394287]"
+   ]
+  },
+  "L1MuRoI_eta": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 33,
+   "n_spacers": 8888,
+   "fanout": 33,
+   "len_min": 3,
+   "len_med": 12.0,
+   "len_p95": 22.0,
+   "len_max": 33,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-0.3587356209754944, -0.20970067381858826, -0.1942260414361...",
+    "[-0.6019446849822998, -0.6019446849822998, -0.67957746982574..."
+   ]
+  },
+  "L1MuRoI_phi": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 33,
+   "n_spacers": 8888,
+   "fanout": 33,
+   "len_min": 3,
+   "len_med": 12.0,
+   "len_p95": 22.0,
+   "len_max": 33,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[2.8806068897247314, 3.083502769470215, -2.971139669418335, ...",
+    "[-2.4139766693115234, -2.298412322998047, -2.185741424560547..."
+   ]
+  },
+  "L1MuRoI_sectorID": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 33,
+   "n_spacers": 8888,
+   "fanout": 33,
+   "len_min": 3,
+   "len_med": 12.0,
+   "len_p95": 22.0,
+   "len_max": 33,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[14.0, 15.0, 16.0, 16.0, 17.0]",
+    "[19.0, 20.0, 20.0, 21.0, 21.0]"
+   ]
+  },
+  "L1MuRoI_threshold": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 33,
+   "n_spacers": 8888,
+   "fanout": 33,
+   "len_min": 3,
+   "len_med": 12.0,
+   "len_p95": 22.0,
+   "len_max": 33,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[4.0, 14.0, 14.0, 8.0, 4.0]",
+    "[12.0, 14.0, 14.0, 14.0, 14.0]"
+   ]
+  },
+  "L1MuRoI_word": {
+   "ak_type": "423 * var * uint32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 33,
+   "n_spacers": 8888,
+   "fanout": 33,
+   "len_min": 3,
+   "len_med": 12.0,
+   "len_p95": 22.0,
+   "len_max": 33,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<uint32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[2206212359, 2210403840, 2214594051, 2214593286, 2218787079]",
+    "[2227176712, 2231371273, 2231375374, 2235569682, 2235569685]"
+   ]
+  },
+  "actualInteractionsPerCrossing": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "56.5",
+    "61.500003814697266"
+   ]
+  },
+  "averageInteractionsPerCrossing": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "56.5",
+    "61.500003814697266"
+   ]
+  },
+  "caloCluster_EMB1": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[25041.61328125, 0.0, 5060.439453125, 3870.034912109375, -56...",
+    "[0.0, 0.0, 0.0, 0.0, -93.8539047241211, 237.7406768798828, 0..."
+   ]
+  },
+  "caloCluster_EMB2": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[127340.390625, 486.21319580078125, 8789.625, 7136.37890625,...",
+    "[0.0, 0.0, 0.0, 0.0, 314.65618896484375, 7197.94775390625, 0..."
+   ]
+  },
+  "caloCluster_EMB3": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[9355.5986328125, 162.130615234375, 79.63815307617188, 425.5...",
+    "[0.0, 0.0, 0.0, 0.0, 44.64944076538086, 5456.91357421875, 0...."
+   ]
+  },
+  "caloCluster_EME1": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,...",
+    "[1561.6693115234375, 0.0, 0.0, 11329.3759765625, 0.0, 0.0, 0..."
+   ]
+  },
+  "caloCluster_EME2": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,...",
+    "[247346.890625, 1.566685438156128, 0.0, 35093.84765625, 0.0,..."
+   ]
+  },
+  "caloCluster_EME3": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,...",
+    "[6299.9619140625, 5773.857421875, 0.0, 92.92569732666016, 0...."
+   ]
+  },
+  "caloCluster_FCAL0": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,...",
+    "[0.0, 1146.1337890625, 342965.71875, 0.0, 0.0, 0.0, 0.0, 0.0..."
+   ]
+  },
+  "caloCluster_FCAL1": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,...",
+    "[0.0, 0.0, 127136.296875, 0.0, 0.0, 0.0, 0.0, 0.0, 17909.773..."
+   ]
+  },
+  "caloCluster_FCAL2": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,...",
+    "[0.0, 0.0, 1764.991943359375, 0.0, 0.0, 0.0, 0.0, 0.0, -1046..."
+   ]
+  },
+  "caloCluster_HEC0": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,...",
+    "[777.4921875, 200034.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0..."
+   ]
+  },
+  "caloCluster_HEC1": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,...",
+    "[0.0, 44629.296875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ..."
+   ]
+  },
+  "caloCluster_HEC2": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,...",
+    "[0.0, 18932.921875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ..."
+   ]
+  },
+  "caloCluster_HEC3": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,...",
+    "[0.0, -1377.0826416015625, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0..."
+   ]
+  },
+  "caloCluster_PreSamplerB": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[6377.3359375, 0.0, 326.7595520019531, 886.8006591796875, 0....",
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 6.08317756652832, 0.0, 0.0, 0.0, 3..."
+   ]
+  },
+  "caloCluster_PreSamplerE": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,...",
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,..."
+   ]
+  },
+  "caloCluster_TileBar0": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 0.01751326210796833, 56.92249298095703, -40.8823890686...",
+    "[0.0, 0.0, 0.0, 0.0, 9810.423828125, 35.656917572021484, 0.0..."
+   ]
+  },
+  "caloCluster_TileBar1": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, -187.77059936523438, 0.0, 0.0, 46.284568786621094, 0.0...",
+    "[0.0, 0.0, 0.0, 0.0, 2436.0595703125, 0.0, 0.0, 0.0, 0.0, 0...."
+   ]
+  },
+  "caloCluster_TileBar2": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 12.276535987854004, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,...",
+    "[0.0, 0.0, 0.0, 0.0, 17.107574462890625, 0.0, 0.0, 0.0, 0.0,..."
+   ]
+  },
+  "caloCluster_TileExt0": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 1167.4810791015625, 0.0, 0.0, 0.011715881526470184, 0....",
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,..."
+   ]
+  },
+  "caloCluster_TileExt1": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 16944.091796875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0....",
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,..."
+   ]
+  },
+  "caloCluster_TileExt2": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 6744.7412109375, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0....",
+    "[0.0, 0.0, 0.0, 0.0, 0.07959775626659393, 0.0, 0.0, 0.0, 0.0..."
+   ]
+  },
+  "caloCluster_TileGap1": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 1589.4783935546875, 0.0, 0.0, 0.0019020044710487127, 0...",
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,..."
+   ]
+  },
+  "caloCluster_TileGap2": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 552.9705200195312, 0.0, 0.0, -0.0001360471942462027, 0...",
+    "[0.0, 0.0, 0.0, 0.0, 5.513789653778076, 0.0, 0.0, 0.0, 0.0, ..."
+   ]
+  },
+  "caloCluster_TileGap3": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 17848.650390625, 0.0, 0.0, 1731.8734130859375, 0.0, 0....",
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,..."
+   ]
+  },
+  "caloCluster_e": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[184494.390625, 54345.609375, 16887.62109375, 17835.9296875,...",
+    "[315173.625, 393557.0, 721476.3125, 50921.203125, 16685.4980..."
+   ]
+  },
+  "caloCluster_eta": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[1.0426772832870483, 1.059767723083496, 0.767392098903656, 0...",
+    "[-2.6095893383026123, -2.9612183570861816, -4.46238803863525..."
+   ]
+  },
+  "caloCluster_phi": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.07401181012392044, 0.11803422123193741, 2.987959146499634...",
+    "[0.6619051694869995, 1.20794677734375, 1.3417792320251465, -..."
+   ]
+  },
+  "caloCluster_pt": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[115695.4375, 33627.2421875, 12899.3720703125, 13877.2089843...",
+    "[46121.734375, 40628.90234375, 16641.93359375, 11379.9013671..."
+   ]
+  },
+  "caloCluster_time": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 442,
+   "n_spacers": 129985,
+   "fanout": 442,
+   "len_min": 10,
+   "len_med": 117.0,
+   "len_p95": 288.0,
+   "len_max": 442,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.1584773063659668, 2.0204031467437744, 0.419644296169281, ...",
+    "[-0.5705097317695618, 0.7933865785598755, 0.5441341996192932..."
+   ]
+  },
+  "coreFlags": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "False",
+    "False"
+   ]
+  },
+  "el_caloClusterEnergyReso": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "el_charge": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "el_e_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "el_eta": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "el_id_effSF_baseline_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "el_isol_effSF_baseline_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "el_phi": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "el_pt_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "el_reco_effSF_baseline_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "el_select_baseline_NOSYS": {
+   "ak_type": "423 * var * int8",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<int8_t>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "el_trigMatched_HLT_e140_lhloose_L1eEM26M": {
+   "ak_type": "423 * var * int8",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<int8_t>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "el_trigMatched_HLT_e26_lhtight_ivarloose_L1eEM26M": {
+   "ak_type": "423 * var * int8",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<int8_t>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "el_trigMatched_HLT_e300_etcut_L1eEM26M": {
+   "ak_type": "423 * var * int8",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<int8_t>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "el_trigMatched_HLT_e60_lhmedium_L1eEM26M": {
+   "ak_type": "423 * var * int8",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<int8_t>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "eventNumber": {
+   "ak_type": "423 * uint64",
+   "category": "scalar",
+   "dtype": "uint64",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "uint64_t",
+   "policy": "direct",
+   "samples": [
+    "234020",
+    "238528"
+   ]
+  },
+  "globalTriggerEffSF_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "1.0",
+    "1.0"
+   ]
+  },
+  "globalTriggerMatch_NOSYS": {
+   "ak_type": "423 * int8",
+   "category": "scalar",
+   "dtype": "int8",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "int8_t",
+   "policy": "direct",
+   "samples": [
+    "0",
+    "0"
+   ]
+  },
+  "hasGoodPV": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "True",
+    "True"
+   ]
+  },
+  "htmissScalar_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "190685.234375",
+    "195601.828125"
+   ]
+  },
+  "htmiss_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "190685.234375",
+    "139937.90625"
+   ]
+  },
+  "htmiss_x_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "190110.734375",
+    "118555.015625"
+   ]
+  },
+  "htmiss_y_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "14790.7216796875",
+    "74345.9765625"
+   ]
+  },
+  "isCompleteEvent": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "True",
+    "True"
+   ]
+  },
+  "isGoodLAr": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "True",
+    "True"
+   ]
+  },
+  "isGoodSCT": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "True",
+    "True"
+   ]
+  },
+  "isGoodTile": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "True",
+    "True"
+   ]
+  },
+  "jet_EMFrac_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 15,
+   "n_spacers": 5324,
+   "fanout": 15,
+   "len_min": 1,
+   "len_med": 2.0,
+   "len_p95": 5.0,
+   "len_max": 15,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.5395764112472534]",
+    "[0.499826580286026, 0.9088153839111328, 0.4274965822696686]"
+   ]
+  },
+  "jet_HadEMRatioLog10_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 15,
+   "n_spacers": 5324,
+   "fanout": 15,
+   "len_min": 1,
+   "len_med": 2.0,
+   "len_p95": 5.0,
+   "len_max": 15,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-0.0688953846693039]",
+    "[0.00030125994817353785, -0.9985541105270386, 0.126845449209..."
+   ]
+  },
+  "jet_e_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 15,
+   "n_spacers": 5324,
+   "fanout": 15,
+   "len_min": 1,
+   "len_med": 2.0,
+   "len_p95": 5.0,
+   "len_max": 15,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[304653.15625]",
+    "[871962.0, 430487.1875, 250841.78125]"
+   ]
+  },
+  "jet_eta": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 15,
+   "n_spacers": 5324,
+   "fanout": 15,
+   "len_min": 1,
+   "len_med": 2.0,
+   "len_p95": 5.0,
+   "len_max": 15,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[1.044295310974121]",
+    "[-3.0832366943359375, -2.6144771575927734, -2.23216342926025..."
+   ]
+  },
+  "jet_fjvtEfficiency_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 15,
+   "n_spacers": 5324,
+   "fanout": 15,
+   "len_min": 1,
+   "len_med": 2.0,
+   "len_p95": 5.0,
+   "len_max": 15,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-1.0]",
+    "[-1.0, -1.0, -1.0]"
+   ]
+  },
+  "jet_jvtEfficiency_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 15,
+   "n_spacers": 5324,
+   "fanout": 15,
+   "len_min": 1,
+   "len_med": 2.0,
+   "len_p95": 5.0,
+   "len_max": 15,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-1.0]",
+    "[-1.0, -1.0, 0.994890034198761]"
+   ]
+  },
+  "jet_n_NOSYS": {
+   "ak_type": "423 * int32",
+   "category": "scalar",
+   "dtype": "int32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "int32_t",
+   "policy": "direct",
+   "samples": [
+    "1",
+    "3"
+   ]
+  },
+  "jet_phi": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 15,
+   "n_spacers": 5324,
+   "fanout": 15,
+   "len_min": 1,
+   "len_med": 2.0,
+   "len_p95": 5.0,
+   "len_max": 15,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.07764415442943573]",
+    "[1.163836121559143, 0.665294349193573, -0.7836759090423584]"
+   ]
+  },
+  "jet_pt_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 15,
+   "n_spacers": 5324,
+   "fanout": 15,
+   "len_min": 1,
+   "len_med": 2.0,
+   "len_p95": 5.0,
+   "len_max": 15,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[190685.234375]",
+    "[79711.09375, 62690.6171875, 53200.109375]"
+   ]
+  },
+  "jet_pt_max_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "190685.234375",
+    "79711.09375"
+   ]
+  },
+  "jet_select_baselineFJvt_NOSYS": {
+   "ak_type": "423 * var * int8",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 15,
+   "n_spacers": 5324,
+   "fanout": 15,
+   "len_min": 1,
+   "len_med": 2.0,
+   "len_p95": 5.0,
+   "len_max": 15,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int8_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[1]",
+    "[1, 1, 1]"
+   ]
+  },
+  "jet_select_baselineJvt_NOSYS": {
+   "ak_type": "423 * var * int8",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 15,
+   "n_spacers": 5324,
+   "fanout": 15,
+   "len_min": 1,
+   "len_med": 2.0,
+   "len_p95": 5.0,
+   "len_max": 15,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int8_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[1]",
+    "[1, 1, 1]"
+   ]
+  },
+  "lumi": {
+   "ak_type": "423 * float64",
+   "category": "scalar",
+   "dtype": "float64",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "double",
+   "policy": "direct",
+   "samples": [
+    "109400.0",
+    "109400.0"
+   ]
+  },
+  "mcChannelNumber": {
+   "ak_type": "423 * uint32",
+   "category": "scalar",
+   "dtype": "uint32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "uint32_t",
+   "policy": "direct",
+   "samples": [
+    "537840",
+    "537840"
+   ]
+  },
+  "met_met_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "195133.796875",
+    "152813.515625"
+   ]
+  },
+  "met_phi_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "-3.119323492050171",
+    "-2.6118078231811523"
+   ]
+  },
+  "met_significance_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "11.095280647277832",
+    "10.94161319732666"
+   ]
+  },
+  "met_sumet_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "208881.78125",
+    "227449.15625"
+   ]
+  },
+  "msegNCB_chIndex": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 36,
+   "n_spacers": 8545,
+   "fanout": 36,
+   "len_min": 1,
+   "len_med": 16.0,
+   "len_p95": 28.0,
+   "len_max": 36,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[8, 8, 8, 8, 8, 7, 8, 8, 7, 8, 8, 8, 8, 8, 7, 8, 8, 8]",
+    "[8, 7, 7, 7, 7, 8, 8, 7, 8, 8, 7, 8, 8, 8, 8, 8, 8, 8, 8]"
+   ]
+  },
+  "msegNCB_chiSquared": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 36,
+   "n_spacers": 8545,
+   "fanout": 36,
+   "len_min": 1,
+   "len_med": 16.0,
+   "len_p95": 28.0,
+   "len_max": 36,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[19.452190399169922, 21.525774002075195, 20.736572265625, 20...",
+    "[32.00907897949219, 21.102224349975586, 20.48487091064453, 1..."
+   ]
+  },
+  "msegNCB_nDOF": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 36,
+   "n_spacers": 8545,
+   "fanout": 36,
+   "len_min": 1,
+   "len_med": 16.0,
+   "len_p95": 28.0,
+   "len_max": 36,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[19.0, 15.0, 15.0, 20.0, 16.0, 9.0, 2.0, 15.0, 9.0, 16.0, 14...",
+    "[10.0, 28.0, 19.0, 20.0, 20.0, 18.0, 8.0, 22.0, 8.0, 14.0, 9..."
+   ]
+  },
+  "msegNCB_nPhiLayers": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 36,
+   "n_spacers": 8545,
+   "fanout": 36,
+   "len_min": 1,
+   "len_med": 16.0,
+   "len_p95": 28.0,
+   "len_max": 36,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[15, 9, 8, 16, 8, 6, 0, 8, 10, 8, 16, 9, 7, 8, 8, 5, 9, 0]",
+    "[0, 16, 16, 16, 10, 16, 0, 16, 6, 7, 0, 7, 8, 6, 0, 14, 0, 1..."
+   ]
+  },
+  "msegNCB_nPrecisionHits": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 36,
+   "n_spacers": 8545,
+   "fanout": 36,
+   "len_min": 1,
+   "len_med": 16.0,
+   "len_p95": 28.0,
+   "len_max": 36,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[8, 10, 11, 8, 12, 7, 4, 11, 3, 12, 2, 12, 6, 9, 9, 5, 5, 4]",
+    "[12, 16, 7, 8, 14, 6, 10, 10, 6, 11, 11, 15, 14, 5, 4, 7, 5,..."
+   ]
+  },
+  "msegNCB_nTrigEtaLayers": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 36,
+   "n_spacers": 8545,
+   "fanout": 36,
+   "len_min": 1,
+   "len_med": 16.0,
+   "len_p95": 28.0,
+   "len_max": 36,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",
+    "[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]"
+   ]
+  },
+  "msegNCB_t0": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 36,
+   "n_spacers": 8545,
+   "fanout": 36,
+   "len_min": 1,
+   "len_med": 16.0,
+   "len_p95": 28.0,
+   "len_max": 36,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,...",
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,..."
+   ]
+  },
+  "msegNCB_techIndex": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 36,
+   "n_spacers": 8545,
+   "fanout": 36,
+   "len_min": 1,
+   "len_med": 16.0,
+   "len_p95": 28.0,
+   "len_max": 36,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]",
+    "[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]"
+   ]
+  },
+  "msegNCB_x": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 36,
+   "n_spacers": 8545,
+   "fanout": 36,
+   "len_min": 1,
+   "len_med": 16.0,
+   "len_p95": 28.0,
+   "len_max": 36,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-1807.9830322265625, 1299.98779296875, -99.38471984863281, ...",
+    "[1.5616829118943187e-13, -512.8419799804688, -868.7651367187..."
+   ]
+  },
+  "msegNCB_xDir": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 36,
+   "n_spacers": 8545,
+   "fanout": 36,
+   "len_min": 1,
+   "len_med": 16.0,
+   "len_p95": 28.0,
+   "len_max": 36,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-0.21502546966075897, 0.2844778895378113, -0.01172514911741...",
+    "[5.5054401949340746e-17, -0.09599599242210388, -0.0584509111..."
+   ]
+  },
+  "msegNCB_y": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 36,
+   "n_spacers": 8545,
+   "fanout": 36,
+   "len_min": 1,
+   "len_med": 16.0,
+   "len_p95": 28.0,
+   "len_max": 36,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[270.7485046386719, -77.25598907470703, -1107.358154296875, ...",
+    "[2515.887939453125, 1350.273193359375, 2618.893310546875, 30..."
+   ]
+  },
+  "msegNCB_yDir": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 36,
+   "n_spacers": 8545,
+   "fanout": 36,
+   "len_min": 1,
+   "len_med": 16.0,
+   "len_p95": 28.0,
+   "len_max": 36,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.08336416631937027, 0.02702045813202858, -0.16395588219165...",
+    "[0.43766874074935913, 0.1894458383321762, 0.2853839993476867..."
+   ]
+  },
+  "msegNCB_z": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 36,
+   "n_spacers": 8545,
+   "fanout": 36,
+   "len_min": 1,
+   "len_med": 16.0,
+   "len_p95": 28.0,
+   "len_max": 36,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-7543.7275390625, 7561.66015625, 7535.60009765625, 7550.525...",
+    "[7550.1826171875, 7079.27197265625, 7103.43896484375, -7086...."
+   ]
+  },
+  "msegNCB_zDir": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 36,
+   "n_spacers": 8545,
+   "fanout": 36,
+   "len_min": 1,
+   "len_med": 16.0,
+   "len_p95": 28.0,
+   "len_max": 36,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-0.9730439186096191, 0.9583017230033875, 0.9863979816436768...",
+    "[0.8991363048553467, 0.9771873354911804, 0.95662921667099, -..."
+   ]
+  },
+  "msegUnAssoc_chIndex": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[8, 8, 8, 8, 8, 8, 8, 7, 8, 8, 7, 7, 3, 8, 3, 3, 3, 3, 3, 3,...",
+    "[7, 8, 7, 7, 7, 8, 8, 7, 8, 8, 8, 8, 8, 7, 4, 8, 5, 8, 4, 4,..."
+   ]
+  },
+  "msegUnAssoc_chiSquared": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[31.373937606811523, 22.7166690826416, 21.955364227294922, 2...",
+    "[49.52560806274414, 20.01360321044922, 21.6596622467041, 22...."
+   ]
+  },
+  "msegUnAssoc_eta_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-2.125026226043701, 1.7406327724456787, -2.451319456100464,...",
+    "[-1.4906259775161743, 2.058401584625244, 1.8811582326889038,..."
+   ]
+  },
+  "msegUnAssoc_nDOF": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[22.0, 21.0, 19.0, 17.0, 16.0, 16.0, 16.0, 14.0, 14.0, 12.0,...",
+    "[25.0, 22.0, 20.0, 20.0, 20.0, 20.0, 19.0, 21.0, 19.0, 17.0,..."
+   ]
+  },
+  "msegUnAssoc_nPhiLayers": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[15, 16, 9, 8, 8, 9, 8, 8, 8, 8, 6, 8, 2, 5, 2, 2, 2, 2, 2, ...",
+    "[16, 16, 13, 16, 10, 13, 8, 16, 8, 13, 7, 11, 11, 9, 3, 7, 3..."
+   ]
+  },
+  "msegUnAssoc_nPrecisionHits": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[10, 8, 13, 12, 11, 10, 11, 9, 9, 7, 7, 4, 4, 5, 5, 3, 6, 6,...",
+    "[12, 9, 10, 7, 13, 10, 14, 8, 14, 7, 11, 5, 3, 4, 6, 5, 6, 6..."
+   ]
+  },
+  "msegUnAssoc_nTrigEtaLayers": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 3, 4, 2, 2, 3, 3,...",
+    "[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 0, 3, 2,..."
+   ]
+  },
+  "msegUnAssoc_t0": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,...",
+    "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,..."
+   ]
+  },
+  "msegUnAssoc_techIndex": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 0, 0, 0, 0, 0, 0,...",
+    "[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 0, 4, 0, 0,..."
+   ]
+  },
+  "msegUnAssoc_x": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-1807.2841796875, 1954.6788330078125, -13.270620346069336, ...",
+    "[-1529.1507568359375, 1916.0189208984375, -1983.899291992187..."
+   ]
+  },
+  "msegUnAssoc_xDir": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-0.21532653272151947, 0.3053469657897949, 0.007723124232143...",
+    "[-0.1962089091539383, 0.2580908238887787, -0.408040970563888..."
+   ]
+  },
+  "msegUnAssoc_y": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[268.593994140625, -1910.025146484375, -1310.7781982421875, ...",
+    "[2995.103759765625, -422.61279296875, 976.7493286132812, 261..."
+   ]
+  },
+  "msegUnAssoc_yDir": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.04413861036300659, -0.31852060556411743, -0.2363067567348...",
+    "[0.38135117292404175, -0.04855729639530182, 0.24468015134334..."
+   ]
+  },
+  "msegUnAssoc_z": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-7540.2958984375, 7550.48681640625, -7548.81005859375, -754...",
+    "[-7086.66357421875, 7559.65185546875, 7085.798828125, 7103.3..."
+   ]
+  },
+  "msegUnAssoc_zDir": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 233,
+   "n_spacers": 51216,
+   "fanout": 233,
+   "len_min": 52,
+   "len_med": 110.0,
+   "len_p95": 157.0,
+   "len_max": 233,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-0.9755440950393677, 0.8973894715309143, -0.971647799015045...",
+    "[-0.9033677577972412, 0.9648996591567993, 0.8795647621154785..."
+   ]
+  },
+  "mseg_chIndex": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 54,
+   "n_spacers": 19140,
+   "fanout": 54,
+   "len_min": 0,
+   "len_med": 7.0,
+   "len_p95": 20.899999999999977,
+   "len_max": 54,
+   "fill_frac": 0.9621749408983451,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[1, 3, 3, 5, 2, 4, 8, 9, 11, 3, 5, 9, 11, 2, 4, 3, 4]",
+    "[7, 9, 11, 3, 4, 2, 4, 9, 12, 10, 11, 7, 3, 1, 1]"
+   ]
+  },
+  "mseg_chiSquared": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 54,
+   "n_spacers": 19140,
+   "fanout": 54,
+   "len_min": 0,
+   "len_med": 7.0,
+   "len_p95": 20.899999999999977,
+   "len_max": 54,
+   "fill_frac": 0.9621749408983451,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[1.5266356468200684, 2.0409421920776367, 3.431025266647339, ...",
+    "[21.93877410888672, 6.232171058654785, 1.2937312126159668, 1..."
+   ]
+  },
+  "mseg_nDOF": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 54,
+   "n_spacers": 19140,
+   "fanout": 54,
+   "len_min": 0,
+   "len_med": 7.0,
+   "len_p95": 20.899999999999977,
+   "len_max": 54,
+   "fill_frac": 0.9621749408983451,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[4.0, 4.0, 3.0, 1.0, 4.0, 3.0, 17.0, 4.0, 4.0, 1.0, 2.0, 3.0...",
+    "[29.0, 4.0, 3.0, 2.0, 4.0, 1.0, 3.0, 2.0, 2.0, 3.0, 4.0, 20...."
+   ]
+  },
+  "mseg_nPhiLayers": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 54,
+   "n_spacers": 19140,
+   "fanout": 54,
+   "len_min": 0,
+   "len_med": 7.0,
+   "len_p95": 20.899999999999977,
+   "len_max": 54,
+   "fill_frac": 0.9621749408983451,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[0, 3, 2, 1, 2, 2, 8, 0, 0, 2, 1, 0, 0, 3, 1, 2, 2]",
+    "[16, 3, 0, 1, 3, 0, 0, 3, 0, 0, 0, 10, 2, 0, 0]"
+   ]
+  },
+  "mseg_nPrecisionHits": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 54,
+   "n_spacers": 19140,
+   "fanout": 54,
+   "len_min": 0,
+   "len_med": 7.0,
+   "len_p95": 20.899999999999977,
+   "len_max": 54,
+   "fill_frac": 0.9621749408983451,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[6, 6, 5, 3, 6, 5, 12, 6, 6, 3, 4, 5, 5, 6, 7, 4, 4]",
+    "[16, 6, 5, 4, 6, 3, 5, 4, 4, 5, 6, 13, 5, 4, 4]"
+   ]
+  },
+  "mseg_nTrigEtaLayers": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 54,
+   "n_spacers": 19140,
+   "fanout": 54,
+   "len_min": 0,
+   "len_med": 7.0,
+   "len_p95": 20.899999999999977,
+   "len_max": 54,
+   "fill_frac": 0.9621749408983451,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[0, 3, 3, 2, 2, 2, 0, 0, 0, 4, 1, 0, 0, 3, 1, 4, 2]",
+    "[0, 2, 0, 1, 3, 0, 0, 3, 0, 0, 0, 0, 2, 0, 0]"
+   ]
+  },
+  "mseg_t0": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 54,
+   "n_spacers": 19140,
+   "fanout": 54,
+   "len_min": 0,
+   "len_med": 7.0,
+   "len_p95": 20.899999999999977,
+   "len_max": 54,
+   "fill_frac": 0.9621749408983451,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[3.3213841915130615, 40.62846374511719, 59.63893508911133, 0...",
+    "[0.0, 0.0, 0.0, -9.050431251525879, 0.0, 0.0, -6.30548143386..."
+   ]
+  },
+  "mseg_techIndex": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 54,
+   "n_spacers": 19140,
+   "fanout": 54,
+   "len_min": 0,
+   "len_med": 7.0,
+   "len_p95": 20.899999999999977,
+   "len_max": 54,
+   "fill_frac": 0.9621749408983451,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]",
+    "[4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0]"
+   ]
+  },
+  "mseg_x": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 54,
+   "n_spacers": 19140,
+   "fanout": 54,
+   "len_min": 0,
+   "len_med": 7.0,
+   "len_p95": 20.899999999999977,
+   "len_max": 54,
+   "fill_frac": 0.9621749408983451,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-5467.982421875, -7152.615234375, -7198.09375, -9467.967773...",
+    "[-514.032470703125, -1632.95068359375, -3505.94775390625, -4..."
+   ]
+  },
+  "mseg_xDir": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 54,
+   "n_spacers": 19140,
+   "fanout": 54,
+   "len_min": 0,
+   "len_med": 7.0,
+   "len_p95": 20.899999999999977,
+   "len_max": 54,
+   "fill_frac": 0.9621749408983451,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-0.9433735609054565, -0.7376938462257385, -0.96593731641769...",
+    "[-0.08425064384937286, -0.20373046398162842, -0.199941217899..."
+   ]
+  },
+  "mseg_y": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 54,
+   "n_spacers": 19140,
+   "fanout": 54,
+   "len_min": 0,
+   "len_med": 7.0,
+   "len_p95": 20.899999999999977,
+   "len_max": 54,
+   "fill_frac": 0.9621749408983451,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[1162.2564697265625, -1322.1920166015625, 810.6448974609375,...",
+    "[1349.782470703125, 3784.6171875, 7874.48876953125, -5825.94..."
+   ]
+  },
+  "mseg_yDir": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 54,
+   "n_spacers": 19140,
+   "fanout": 54,
+   "len_min": 0,
+   "len_med": 7.0,
+   "len_p95": 20.899999999999977,
+   "len_max": 54,
+   "fill_frac": 0.9621749408983451,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.20052039623260498, -0.6383355855941772, -0.22146651148796...",
+    "[0.19433824717998505, 0.4461158215999603, 0.4490754008293152..."
+   ]
+  },
+  "mseg_z": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 54,
+   "n_spacers": 19140,
+   "fanout": 54,
+   "len_min": 0,
+   "len_med": 7.0,
+   "len_p95": 20.899999999999977,
+   "len_max": 54,
+   "fill_frac": 0.9621749408983451,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-1044.490966796875, -1530.779052734375, -1145.2904052734375...",
+    "[7079.259765625, 13887.3330078125, 21861.87890625, -5808.467..."
+   ]
+  },
+  "mseg_zDir": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 54,
+   "n_spacers": 19140,
+   "fanout": 54,
+   "len_min": 0,
+   "len_med": 7.0,
+   "len_p95": 20.899999999999977,
+   "len_max": 54,
+   "fill_frac": 0.9621749408983451,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-0.264268696308136, -0.21985331177711487, -0.13385707139968...",
+    "[0.9773098230361938, 0.8714783787727356, 0.8708356618881226,..."
+   ]
+  },
+  "msvtx_chiSquared": {
+   "ak_type": "423 * var * float32",
+   "category": "vec1",
+   "dtype": "float32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "collapse",
+   "samples": [
+    "[6.445944786071777]",
+    "[2.730055570602417]"
+   ]
+  },
+  "msvtx_closestJet_pt_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "190685.234375",
+    "53200.109375"
+   ]
+  },
+  "msvtx_eta_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "vec1",
+   "dtype": "float32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<float>",
+   "policy": "collapse",
+   "samples": [
+    "[-0.16441790759563446]",
+    "[-0.6566733121871948]"
+   ]
+  },
+  "msvtx_inBarrel_NOSYS": {
+   "ak_type": "423 * var * uint8",
+   "category": "vec1",
+   "dtype": "uint8",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<uint8_t>",
+   "policy": "collapse",
+   "samples": [
+    "[1]",
+    "[1]"
+   ]
+  },
+  "msvtx_inEndcaps_NOSYS": {
+   "ak_type": "423 * var * uint8",
+   "category": "vec1",
+   "dtype": "uint8",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<uint8_t>",
+   "policy": "collapse",
+   "samples": [
+    "[0]",
+    "[0]"
+   ]
+  },
+  "msvtx_jetMinDR_NOSYS": {
+   "ak_type": "423 * var * float64",
+   "category": "vec1",
+   "dtype": "float64",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<double>",
+   "policy": "collapse",
+   "samples": [
+    "[3.3511321269441607]",
+    "[2.178427491185125]"
+   ]
+  },
+  "msvtx_muRoIClusTrig_mindR_NOSYS": {
+   "ak_type": "423 * var * float64",
+   "category": "vec1",
+   "dtype": "float64",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<double>",
+   "policy": "collapse",
+   "samples": [
+    "[0.07688768628730482]",
+    "[0.09162634778987926]"
+   ]
+  },
+  "msvtx_nCaloClusters_Egt300MeV_NOSYS": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[0]",
+    "[8]"
+   ]
+  },
+  "msvtx_nCaloClusters_NOSYS": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[0]",
+    "[8]"
+   ]
+  },
+  "msvtx_nMDT": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[602]",
+    "[929]"
+   ]
+  },
+  "msvtx_nMDTExtendedStation": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[0]",
+    "[15]"
+   ]
+  },
+  "msvtx_nMDTInnerStation": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[93]",
+    "[76]"
+   ]
+  },
+  "msvtx_nMDTInwards": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[0]",
+    "[73]"
+   ]
+  },
+  "msvtx_nMDTMiddleStation": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[182]",
+    "[273]"
+   ]
+  },
+  "msvtx_nMDTOuterStation": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[327]",
+    "[565]"
+   ]
+  },
+  "msvtx_nRPC": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[1341]",
+    "[2211]"
+   ]
+  },
+  "msvtx_nRPCExtendedStation": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[0]",
+    "[0]"
+   ]
+  },
+  "msvtx_nRPCInnerStation": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[0]",
+    "[0]"
+   ]
+  },
+  "msvtx_nRPCInwards": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[0]",
+    "[196]"
+   ]
+  },
+  "msvtx_nRPCMiddleStation": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[496]",
+    "[719]"
+   ]
+  },
+  "msvtx_nRPCOuterStation": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[845]",
+    "[1492]"
+   ]
+  },
+  "msvtx_nTGC": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[0]",
+    "[29]"
+   ]
+  },
+  "msvtx_nTGCExtendedStation": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[0]",
+    "[18]"
+   ]
+  },
+  "msvtx_nTGCInnerStation": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[0]",
+    "[0]"
+   ]
+  },
+  "msvtx_nTGCInwards": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[0]",
+    "[0]"
+   ]
+  },
+  "msvtx_nTGCMiddleStation": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[0]",
+    "[6]"
+   ]
+  },
+  "msvtx_nTGCOuterStation": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[0]",
+    "[5]"
+   ]
+  },
+  "msvtx_nTrk": {
+   "ak_type": "423 * var * int32",
+   "category": "vec1",
+   "dtype": "int32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "collapse",
+   "samples": [
+    "[7]",
+    "[6]"
+   ]
+  },
+  "msvtx_phi_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "vec1",
+   "dtype": "float32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<float>",
+   "policy": "collapse",
+   "samples": [
+    "[-3.0799853801727295]",
+    "[-2.28812837600708]"
+   ]
+  },
+  "msvtx_trackHardMinDR_NOSYS": {
+   "ak_type": "423 * var * float64",
+   "category": "vec1",
+   "dtype": "float64",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<double>",
+   "policy": "collapse",
+   "samples": [
+    "[3.2984273161197586]",
+    "[2.1398007356596715]"
+   ]
+  },
+  "msvtx_trackSoftSumPt_NOSYS": {
+   "ak_type": "423 * var * float64",
+   "category": "vec1",
+   "dtype": "float64",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<double>",
+   "policy": "collapse",
+   "samples": [
+    "[0.0]",
+    "[0.0]"
+   ]
+  },
+  "msvtx_x": {
+   "ak_type": "423 * var * float32",
+   "category": "vec1",
+   "dtype": "float32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "collapse",
+   "samples": [
+    "[-4482.16015625]",
+    "[-4309.69091796875]"
+   ]
+  },
+  "msvtx_y": {
+   "ak_type": "423 * var * float32",
+   "category": "vec1",
+   "dtype": "float32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "collapse",
+   "samples": [
+    "[-276.48333740234375]",
+    "[-4940.27392578125]"
+   ]
+  },
+  "msvtx_z": {
+   "ak_type": "423 * var * float32",
+   "category": "vec1",
+   "dtype": "float32",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "collapse",
+   "samples": [
+    "[-741.6793212890625]",
+    "[-4621.2265625]"
+   ]
+  },
+  "muRoIClusTrig_eta_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 16,
+   "n_spacers": 4495,
+   "fanout": 16,
+   "len_min": 1,
+   "len_med": 5.0,
+   "len_p95": 9.0,
+   "len_max": 16,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-0.23409172892570496, -0.23409172892570496, -0.234091728925...",
+    "[-0.6736646890640259, -0.6736646890640259, -0.67366468906402..."
+   ]
+  },
+  "muRoIClusTrig_phi_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 16,
+   "n_spacers": 4495,
+   "fanout": 16,
+   "len_min": 1,
+   "len_med": 5.0,
+   "len_p95": 9.0,
+   "len_max": 16,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-3.0474696159362793, -3.0474696159362793, -3.04746961593627...",
+    "[-2.1980912685394287, -2.1980912685394287, -2.19809126853942..."
+   ]
+  },
+  "mu_TTVA_effSF_baseline_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "mu_charge": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "mu_e_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "mu_eta": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "mu_isol_effSF_baseline_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "mu_phi": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "mu_pt_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "mu_reco_effSF_baseline_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "mu_select_baseline_NOSYS": {
+   "ak_type": "423 * var * int8",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<int8_t>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "mu_trigMatched_HLT_mu24_ivarmedium_L1MU14FCH": {
+   "ak_type": "423 * var * int8",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<int8_t>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "mu_trigMatched_HLT_mu50_L1MU14FCH": {
+   "ak_type": "423 * var * int8",
+   "category": "empty",
+   "dtype": "none",
+   "ndim": 2,
+   "max_len": 0,
+   "n_spacers": 0,
+   "fanout": 0,
+   "cpp_typename": "std::vector<int8_t>",
+   "policy": "skip",
+   "samples": [
+    "[]",
+    "[]"
+   ]
+  },
+  "nBOL_NOSYS": {
+   "ak_type": "423 * int32",
+   "category": "scalar",
+   "dtype": "int32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "int32_t",
+   "policy": "direct",
+   "samples": [
+    "22",
+    "20"
+   ]
+  },
+  "nEOL_NOSYS": {
+   "ak_type": "423 * int32",
+   "category": "scalar",
+   "dtype": "int32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "int32_t",
+   "policy": "direct",
+   "samples": [
+    "3",
+    "3"
+   ]
+  },
+  "roi_mask_NOSYS": {
+   "ak_type": "423 * var * uint8",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 33,
+   "n_spacers": 8888,
+   "fanout": 33,
+   "len_min": 3,
+   "len_med": 12.0,
+   "len_p95": 22.0,
+   "len_max": 33,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<uint8_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[0, 1, 1, 1, 0]",
+    "[1, 1, 1, 1, 1]"
+   ]
+  },
+  "runNumber": {
+   "ak_type": "423 * uint32",
+   "category": "scalar",
+   "dtype": "uint32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "uint32_t",
+   "policy": "direct",
+   "samples": [
+    "470000",
+    "470000"
+   ]
+  },
+  "score_NN1_NOSYS": {
+   "ak_type": "423 * var * float64",
+   "category": "vec1",
+   "dtype": "float64",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<double>",
+   "policy": "collapse",
+   "samples": [
+    "[0.6008479381760932]",
+    "[0.26351863954614796]"
+   ]
+  },
+  "score_NN2_NOSYS": {
+   "ak_type": "423 * var * float64",
+   "category": "vec1",
+   "dtype": "float64",
+   "ndim": 2,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "len_min": 1,
+   "len_med": 1.0,
+   "len_p95": 1.0,
+   "len_max": 1,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<double>",
+   "policy": "collapse",
+   "samples": [
+    "[0.8645812529718702]",
+    "[0.9052126681001168]"
+   ]
+  },
+  "sumWeights_NOSYS": {
+   "ak_type": "423 * float64",
+   "category": "scalar",
+   "dtype": "float64",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "double",
+   "policy": "direct",
+   "samples": [
+    "22.67342472076416",
+    "22.67342472076416"
+   ]
+  },
+  "trackID_charge": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 487,
+   "n_spacers": 159981,
+   "fanout": 487,
+   "len_min": 9,
+   "len_med": 90.0,
+   "len_p95": 275.4999999999999,
+   "len_max": 487,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0, -1.0,...",
+    "[1.0, 1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1..."
+   ]
+  },
+  "trackID_chi2": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 487,
+   "n_spacers": 159981,
+   "fanout": 487,
+   "len_min": 9,
+   "len_med": 90.0,
+   "len_p95": 275.4999999999999,
+   "len_max": 487,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[43.43539810180664, 12.748473167419434, 22.332439422607422, ...",
+    "[13.383520126342773, 18.92995262145996, 10.76402473449707, 2..."
+   ]
+  },
+  "trackID_d0": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 487,
+   "n_spacers": 159981,
+   "fanout": 487,
+   "len_min": 9,
+   "len_med": 90.0,
+   "len_p95": 275.4999999999999,
+   "len_max": 487,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-0.026407359167933464, 0.028380656614899635, 0.029279818758...",
+    "[0.32858914136886597, -0.058548927307128906, 0.0906059816479..."
+   ]
+  },
+  "trackID_e": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 487,
+   "n_spacers": 159981,
+   "fanout": 487,
+   "len_min": 9,
+   "len_med": 90.0,
+   "len_p95": 275.4999999999999,
+   "len_max": 487,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[1344.7608642578125, 18356.607421875, 3894.731689453125, 497...",
+    "[2739.17529296875, 14767.0234375, 8222.7275390625, 11103.256..."
+   ]
+  },
+  "trackID_eta": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 487,
+   "n_spacers": 159981,
+   "fanout": 487,
+   "len_min": 9,
+   "len_med": 90.0,
+   "len_p95": 275.4999999999999,
+   "len_max": 487,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[1.2864913940429688, -2.2537622451782227, 1.0889997482299805...",
+    "[-2.2310173511505127, -2.3965272903442383, -2.19636726379394..."
+   ]
+  },
+  "trackID_isFromPV": {
+   "ak_type": "423 * var * int8",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 487,
+   "n_spacers": 159981,
+   "fanout": 487,
+   "len_min": 9,
+   "len_med": 90.0,
+   "len_p95": 275.4999999999999,
+   "len_max": 487,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int8_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...",
+    "[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,..."
+   ]
+  },
+  "trackID_m": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 487,
+   "n_spacers": 159981,
+   "fanout": 487,
+   "len_min": 9,
+   "len_med": 90.0,
+   "len_p95": 275.4999999999999,
+   "len_max": 487,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[139.57017517089844, 139.57017517089844, 139.57017517089844,...",
+    "[139.57017517089844, 139.57017517089844, 139.57017517089844,..."
+   ]
+  },
+  "trackID_phi": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 487,
+   "n_spacers": 159981,
+   "fanout": 487,
+   "len_min": 9,
+   "len_med": 90.0,
+   "len_p95": 275.4999999999999,
+   "len_max": 487,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-0.10654739290475845, -2.451415777206421, 0.464509755373001...",
+    "[-0.8962169289588928, -0.6458543539047241, -0.75049537420272..."
+   ]
+  },
+  "trackID_pt": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 487,
+   "n_spacers": 159981,
+   "fanout": 487,
+   "len_min": 9,
+   "len_med": 90.0,
+   "len_p95": 275.4999999999999,
+   "len_max": 487,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[686.5477294921875, 3812.862548828125, 2353.32666015625, 335...",
+    "[581.0108642578125, 2666.372314453125, 1806.2388916015625, 2..."
+   ]
+  },
+  "trackID_qOverp": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 487,
+   "n_spacers": 159981,
+   "fanout": 487,
+   "len_min": 9,
+   "len_med": 90.0,
+   "len_p95": 275.4999999999999,
+   "len_max": 487,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-0.0007476644241251051, 5.447787407319993e-05, 0.0002569221...",
+    "[0.0003655482141766697, 6.772147753508762e-05, -0.0001216316..."
+   ]
+  },
+  "trackID_z0": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 487,
+   "n_spacers": 159981,
+   "fanout": 487,
+   "len_min": 9,
+   "len_med": 90.0,
+   "len_p95": 275.4999999999999,
+   "len_max": 487,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[9.562297821044922, 43.659950256347656, -110.8701171875, -23...",
+    "[17.70676612854004, -9.057945251464844, 37.510398864746094, ..."
+   ]
+  },
+  "track_eta_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 90,
+   "n_spacers": 26725,
+   "fanout": 90,
+   "len_min": 0,
+   "len_med": 24.0,
+   "len_p95": 60.0,
+   "len_max": 90,
+   "fill_frac": 0.9976359338061466,
+   "cpp_typename": "RVec<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.9448311924934387, 1.0658607482910156, 1.0371217727661133,...",
+    "[-2.2310173511505127, -2.1963672637939453, 2.167417287826538..."
+   ]
+  },
+  "track_isJetTrack_NOSYS": {
+   "ak_type": "423 * var * uint8",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 487,
+   "n_spacers": 159981,
+   "fanout": 487,
+   "len_min": 9,
+   "len_med": 90.0,
+   "len_p95": 275.4999999999999,
+   "len_max": 487,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<uint8_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,...",
+    "[1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0,..."
+   ]
+  },
+  "track_phi_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 90,
+   "n_spacers": 26725,
+   "fanout": 90,
+   "len_min": 0,
+   "len_med": 24.0,
+   "len_p95": 60.0,
+   "len_max": 90,
+   "fill_frac": 0.9976359338061466,
+   "cpp_typename": "RVec<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.10963809490203857, 0.21188268065452576, 0.075897790491580...",
+    "[-0.8962169289588928, -0.7504953742027283, -1.91496384143829..."
+   ]
+  },
+  "track_pt_NOSYS": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 90,
+   "n_spacers": 26725,
+   "fanout": 90,
+   "len_min": 0,
+   "len_med": 24.0,
+   "len_p95": 60.0,
+   "len_max": 90,
+   "fill_frac": 0.9976359338061466,
+   "cpp_typename": "RVec<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[3357.23095703125, 1750.63525390625, 33156.6796875, 12529.19...",
+    "[581.0108642578125, 1806.2388916015625, 638.4918823242188, 1..."
+   ]
+  },
+  "track_selectForIso_NOSYS": {
+   "ak_type": "423 * var * uint8",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 487,
+   "n_spacers": 159981,
+   "fanout": 487,
+   "len_min": 9,
+   "len_med": 90.0,
+   "len_p95": 275.4999999999999,
+   "len_max": 487,
+   "fill_frac": 1.0,
+   "cpp_typename": "RVec<uint8_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,...",
+    "[1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0,..."
+   ]
+  },
+  "trigPassed_HLT_2e17_lhvloose_L12eEM18M": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "False",
+    "False"
+   ]
+  },
+  "trigPassed_HLT_2e24_lhvloose_L12eEM24L": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "False",
+    "False"
+   ]
+  },
+  "trigPassed_HLT_2mu14_L12MU8F": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "False",
+    "False"
+   ]
+  },
+  "trigPassed_HLT_e140_lhloose_L1eEM26M": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "False",
+    "False"
+   ]
+  },
+  "trigPassed_HLT_e26_lhtight_ivarloose_L1eEM26M": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "False",
+    "False"
+   ]
+  },
+  "trigPassed_HLT_e300_etcut_L1eEM26M": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "False",
+    "False"
+   ]
+  },
+  "trigPassed_HLT_e60_lhmedium_L1eEM26M": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "False",
+    "False"
+   ]
+  },
+  "trigPassed_HLT_j460_wildcard": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "False",
+    "False"
+   ]
+  },
+  "trigPassed_HLT_mu24_ivarmedium_L1MU14FCH": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "False",
+    "False"
+   ]
+  },
+  "trigPassed_HLT_mu3vtx_L12MU8F": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "True",
+    "True"
+   ]
+  },
+  "trigPassed_HLT_mu3vtx_j30_L12MU8F": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "True",
+    "True"
+   ]
+  },
+  "trigPassed_HLT_mu50_L1MU14FCH": {
+   "ak_type": "423 * bool",
+   "category": "scalar",
+   "dtype": "bool",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "bool",
+   "policy": "direct",
+   "samples": [
+    "False",
+    "False"
+   ]
+  },
+  "trklet_e": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 26,
+   "n_spacers": 6444,
+   "fanout": 26,
+   "len_min": 3,
+   "len_med": 10.0,
+   "len_p95": 18.0,
+   "len_max": 26,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[1875.12109375, 881.9238891601562, 1375.8875732421875, 996.7...",
+    "[2274.439697265625, 1095.504150390625, 2115.615478515625, 20..."
+   ]
+  },
+  "trklet_m": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 26,
+   "n_spacers": 6444,
+   "fanout": 26,
+   "len_min": 3,
+   "len_med": 10.0,
+   "len_p95": 18.0,
+   "len_max": 26,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[139.57017517089844, 139.57017517089844, 139.57017517089844,...",
+    "[139.57017517089844, 139.57017517089844, 139.57017517089844,..."
+   ]
+  },
+  "trklet_msvtxLink": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 26,
+   "n_spacers": 6444,
+   "fanout": 26,
+   "len_min": 3,
+   "len_med": 10.0,
+   "len_p95": 18.0,
+   "len_max": 26,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[0, 0, 0, 0, 0, 0, 0, -1]",
+    "[0, 0, 0, 0, 0, 0, -1, -1]"
+   ]
+  },
+  "trklet_nMDTHits": {
+   "ak_type": "423 * var * int32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 26,
+   "n_spacers": 6444,
+   "fanout": 26,
+   "len_min": 3,
+   "len_med": 10.0,
+   "len_p95": 18.0,
+   "len_max": 26,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<int32_t>",
+   "policy": "pad_max",
+   "samples": [
+    "[7, 6, 7, 6, 6, 6, 6, 6]",
+    "[8, 6, 6, 6, 8, 6, 6, 6]"
+   ]
+  },
+  "trklet_px": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 26,
+   "n_spacers": 6444,
+   "fanout": 26,
+   "len_min": 3,
+   "len_med": 10.0,
+   "len_p95": 18.0,
+   "len_max": 26,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-1636.3115234375, -831.8291015625, -1105.0128173828125, -91...",
+    "[-977.25390625, -650.0090942382812, -1226.4432373046875, -11..."
+   ]
+  },
+  "trklet_py": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 26,
+   "n_spacers": 6444,
+   "fanout": 26,
+   "len_min": 3,
+   "len_med": 10.0,
+   "len_p95": 18.0,
+   "len_max": 26,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-0.00014305090007837862, -7.272080983966589e-05, -9.6603289...",
+    "[-977.25390625, -650.0090942382812, -1226.4432373046875, -11..."
+   ]
+  },
+  "trklet_pz": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 26,
+   "n_spacers": 6444,
+   "fanout": 26,
+   "len_min": 3,
+   "len_med": 10.0,
+   "len_p95": 18.0,
+   "len_max": 26,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-905.0325927734375, -257.6242370605469, -807.7954711914062,...",
+    "[-1800.9844970703125, -579.3323364257812, -1203.338134765625..."
+   ]
+  },
+  "trklet_q": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 26,
+   "n_spacers": 6444,
+   "fanout": 26,
+   "len_min": 3,
+   "len_med": 10.0,
+   "len_p95": 18.0,
+   "len_max": 26,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0]",
+    "[-1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0]"
+   ]
+  },
+  "trklet_x": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 26,
+   "n_spacers": 6444,
+   "fanout": 26,
+   "len_min": 3,
+   "len_med": 10.0,
+   "len_p95": 18.0,
+   "len_max": 26,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[0.00046598154585808516, 0.00046796214883215725, 0.000606878...",
+    "[4908.17822265625, 4905.92041015625, 4912.46630859375, 4907...."
+   ]
+  },
+  "trklet_y": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 26,
+   "n_spacers": 6444,
+   "fanout": 26,
+   "len_min": 3,
+   "len_med": 10.0,
+   "len_p95": 18.0,
+   "len_max": 26,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-5330.20751953125, -5352.86279296875, -6941.8798828125, -69...",
+    "[-4908.17822265625, -4905.9208984375, -4912.46630859375, -49..."
+   ]
+  },
+  "trklet_z": {
+   "ak_type": "423 * var * float32",
+   "category": "jagged",
+   "dtype": "object",
+   "ndim": 2,
+   "max_len": 26,
+   "n_spacers": 6444,
+   "fanout": 26,
+   "len_min": 3,
+   "len_med": 10.0,
+   "len_p95": 18.0,
+   "len_max": 26,
+   "fill_frac": 1.0,
+   "cpp_typename": "std::vector<float>",
+   "policy": "pad_max",
+   "samples": [
+    "[-1182.528564453125, -1039.037353515625, -2213.673583984375,...",
+    "[-5310.68408203125, -4806.20849609375, -4880.51513671875, -4..."
+   ]
+  },
+  "weight_fjvt_effSF_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "1.0",
+    "1.0"
+   ]
+  },
+  "weight_jvt_effSF_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "1.0",
+    "0.994890034198761"
+   ]
+  },
+  "weight_mc_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "0.0001511748123448342",
+    "0.00015121593605726957"
+   ]
+  },
+  "weight_pileup_NOSYS": {
+   "ak_type": "423 * float32",
+   "category": "scalar",
+   "dtype": "float32",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "float",
+   "policy": "direct",
+   "samples": [
+    "1.3022704124450684",
+    "2.156696081161499"
+   ]
+  },
+  "weight_total_NOSYS": {
+   "ak_type": "423 * float64",
+   "category": "scalar",
+   "dtype": "float64",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "double",
+   "policy": "direct",
+   "samples": [
+    "1.0",
+    "1.0"
+   ]
+  },
+  "weight_total_squared_NOSYS": {
+   "ak_type": "423 * float64",
+   "category": "scalar",
+   "dtype": "float64",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "double",
+   "policy": "direct",
+   "samples": [
+    "1.0",
+    "1.0"
+   ]
+  },
+  "xSection": {
+   "ak_type": "423 * float64",
+   "category": "scalar",
+   "dtype": "float64",
+   "ndim": 1,
+   "max_len": 1,
+   "n_spacers": 0,
+   "fanout": 1,
+   "cpp_typename": "double",
+   "policy": "direct",
+   "samples": [
+    "0.00015114",
+    "0.00015114"
+   ]
+  }
+ },
+ "unreadable": []
+}

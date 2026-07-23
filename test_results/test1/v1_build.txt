@@ -1,0 +1,16 @@
+==============================================================================
+  root2csv Build Report  (v0.1.0, from-scan)
+  Sample:    v1
+  Scan dir:  ./v1_scan
+  Generated: 2026-07-22 20:36:23
+==============================================================================
+
+  CSV:        ./v1_scan/v1_flat.csv
+  Shape:      24925 cols x 423 rows
+  Size:       85.6 MB
+  Fill:       '-999.0'
+  Tags:       []
+  Build time: 13.9 s
+
+  Policy-dropped jagged branches (0):
+    (none)

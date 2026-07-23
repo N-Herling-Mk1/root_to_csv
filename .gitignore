@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 tests/work/
 .DS_Store
+
+# never commit event data by accident
+*_flat.csv
+*_canonical.parquet

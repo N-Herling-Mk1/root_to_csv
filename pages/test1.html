@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>root2csv — TEST 1</title>
 <link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
-<link rel="stylesheet" href="../assets/css/tron_light.css?v=30">
+<link rel="stylesheet" href="../assets/css/tron_light.css?v=31">
 </head>
 <body>
 
@@ -125,6 +125,26 @@ sample. 2026-07-22. Findings feed straight back into the pages.</p></div>
 </section>
 
 <section>
+  <h2>ARTIFACTS — IN THE REPO</h2>
+  <table>
+    <tr><th>FILE</th><th>SIZE</th><th>WHAT</th></tr>
+    <tr><td><a href="../test_results/test1/v1_manifest.json">v1_manifest.json</a></td>
+        <td>93 KB</td><td>the scan's full census — every branch, its bin, its
+        stats, its policy</td></tr>
+    <tr><td><a href="../test_results/test1/v1_manifest.txt">v1_manifest.txt</a></td>
+        <td>34 KB</td><td>the human audit — six-bin tallies + per-branch lines
+        + full roster</td></tr>
+    <tr><td><a href="../test_results/test1/v1_build.txt">v1_build.txt</a></td>
+        <td>481 B</td><td>the build receipt — shape, size, fill, dropped</td></tr>
+  </table>
+  <div class="tip"><b>Deliberately not committed:</b> <code>v1_flat.csv</code>
+  (85.6 MB) and <code>v1_canonical.parquet</code> (8.9 MB) — real ATLAS MC
+  event content stays off the public repo, and 91 MB doesn't belong in clone
+  history. They live server-side at <code>~/r2c_vet/v1_scan</code>; the
+  command below fetches them.</div>
+</section>
+
+<section>
   <h2>COPY THE RESULTS DOWN</h2>
   <div class="cmd"><button data-copy>COPY</button>scp -r naherlin@atlng02.physics.arizona.edu:~/r2c_vet/v1_scan .</div>
   <p class="sect-sub" style="margin-top:10px">Run from the local machine.
@@ -134,6 +154,6 @@ sample. 2026-07-22. Findings feed straight back into the pages.</p></div>
 
 </main>
 
-<script src="../assets/js/site.js?v=30"></script>
+<script src="../assets/js/site.js?v=31"></script>
 </body>
 </html>
