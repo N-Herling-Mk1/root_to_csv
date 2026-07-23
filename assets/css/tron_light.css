@@ -25,6 +25,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scrollbar-gutter:stable}
 body{
+  position:relative;
   font-family:var(--mono);color:var(--ink);font-size:12px;line-height:1.55;
   padding-left:250px;
   background:
@@ -43,7 +44,7 @@ section{padding-top:34px}
 .home section{padding-top:46px}
 
 /* --------------------------- left rail ------------------------------ */
-.rail{position:fixed;top:0;left:0;bottom:0;width:250px;z-index:40;
+.rail{position:absolute;top:0;left:0;bottom:0;width:250px;z-index:40;
   background:linear-gradient(180deg,var(--dark) 0%,var(--dark-2) 100%);
   border-right:1px solid var(--dark-edge);
   padding:22px 0 18px;display:flex;flex-direction:column;gap:4px}
@@ -53,13 +54,13 @@ section{padding-top:34px}
 .rail .brand img{width:198px;height:198px;display:block;border-radius:18px;
   filter:drop-shadow(0 0 10px rgba(0,169,201,.45))}
 .rail .brand > div{width:100%;text-align:center}
-.rail .brand .t{font-family:var(--display);font-weight:700;font-size:24px;
+.rail .brand .t{font-family:var(--display);font-weight:700;font-size:21.5px;
   letter-spacing:.13em;color:var(--dark-bright)}
 .rail .brand .t b{color:var(--cyan);font-weight:700}
-.rail .brand .v{font-size:10px;color:#6d8898;letter-spacing:.18em;margin-top:2px;
+.rail .brand .v{font-size:9px;color:#6d8898;letter-spacing:.18em;margin-top:2px;
   text-align:center}
 .rail nav{display:flex;flex-direction:column}
-.rail nav a{border:none;padding:13px 18px;color:#8aa4b3;font-size:24px;
+.rail nav a{border:none;padding:12px 17px;color:#8aa4b3;font-size:21.5px;
   letter-spacing:.1em;border-left:3px solid transparent;
   transition:background .15s ease,color .15s ease,padding-left .15s ease}
 .rail nav a:hover{color:var(--dark-bright);background:rgba(0,169,201,.12);
@@ -67,7 +68,7 @@ section{padding-top:34px}
 .rail nav a.on{color:var(--cyan);border-left-color:var(--cyan);
   background:rgba(0,169,201,.12)}
 .rail .foot{margin-top:auto;padding:12px 18px 0;border-top:1px solid var(--dark-edge);
-  font-size:10.5px;color:#617c8c;letter-spacing:.06em}
+  font-size:9.5px;color:#617c8c;letter-spacing:.06em}
 
 /* ------------------------- top row (home) --------------------------- */
 .toprow{display:flex;align-items:stretch;margin-top:34px;
@@ -533,3 +534,19 @@ td.fn{color:var(--dim);font-weight:700;text-align:center}
 .s1notes .yy{color:#fff;background:var(--amber)}
 .s1notes .ff{color:var(--dim);border:1px solid var(--edge-strong)}
 @media(max-width:1000px){.s1grid{grid-template-columns:1fr}}
+
+/* ============ v24: external source link in the rail ============ */
+.rail nav a.ext{margin-top:10px;border-top:1px solid var(--dark-edge);
+  color:#7b98a8;font-size:14.5px;letter-spacing:.12em}
+.rail nav a.ext:hover{color:var(--dark-bright)}
+
+/* ============ v26: home repo-link strip ============ */
+.repolink{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  margin-top:14px;background:var(--panel);border:1px solid var(--edge-strong);
+  border-left:4px solid var(--cyan);border-radius:6px;padding:10px 16px;
+  transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
+.repolink:hover{transform:translateX(4px);border-color:var(--cyan);
+  box-shadow:0 1px 10px rgba(0,169,201,.18)}
+.repolink .rl-t{font-family:var(--display);font-size:13px;
+  letter-spacing:.14em;color:var(--cyan-ink);white-space:nowrap}
+.repolink .rl-x{font-size:12px;color:var(--dim)}

@@ -9,6 +9,13 @@ headless-friendly.
 Lineage: `flatten_events.py` (2026-04-21), the events.root two-pass
 flattener. Design lock-in: `SPEC.txt`.
 
+## The documentation site
+
+[![Open the root2csv documentation site](assets/images/site_banner.png)](https://n-herling-mk1.github.io/root_to_csv/)
+
+**Live:** <https://n-herling-mk1.github.io/root_to_csv/> — the full guide:
+tiers, the manifest how-to, the six bins, glossary. Click the banner.
+
 ## Install (headless server, via clone)
 
 ```bash
