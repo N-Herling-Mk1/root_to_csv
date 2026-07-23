@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>root2csv — TEST 1</title>
+<link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
+<link rel="stylesheet" href="../assets/css/tron_light.css?v=30">
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">
+    <img src="../assets/images/mark.png" alt="root2csv mark"
+         onerror="this.style.display='none'">
+    <div><div class="t">root<b>2</b>csv</div>
+    <div class="v">v0.1.0 · style: TRON LIGHT</div></div>
+  </div>
+  <nav>
+    <a href="../index.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="tier1.html">TIER 1</a>
+    <a href="tier2.html">TIER 2 <span class="ucflag">WIP</span></a>
+    <a href="tier3.html">TIER 3 <span class="ucflag">WIP</span></a>
+    <a href="manifest.html">MANIFEST <span class="ucflag">WIP</span></a>
+    <a href="test1.html" class="on">TEST 1 <span class="okflag">LIVE</span></a>
+    <a href="bins.html">SIX BINS</a>
+    <a href="glossary.html">GLOSSARY</a>
+    <a href="https://github.com/N-Herling-Mk1/root_to_csv" target="_blank" rel="noopener" class="ext">GITHUB &#8599;</a>
+  </nav>
+  <div class="foot">UA ATLAS · Run-3<br>lineage: flatten_events.py</div>
+</aside>
+
+<main>
+
+<div class="ph"><h1>TEST 1 — <b>first live vet · atlng02</b></h1>
+<p>Tier 1 followed exactly as written against a real Run-3 HSS fastframe
+sample. 2026-07-22. Findings feed straight back into the pages.</p></div>
+
+<section>
+  <h2>AT A GLANCE</h2>
+  <table>
+    <tr><th>PHASE</th><th>STATUS</th><th>GATE</th></tr>
+    <tr><td>1 · install (clone · pip · import)</td><td class="fy">PASS</td>
+        <td>no sudo; uproot + awkward import clean</td></tr>
+    <tr><td>2 · pre-scan</td><td class="fy">PASS</td>
+        <td>synopsis printed; every branch accounted for</td></tr>
+    <tr><td>3 · decide (policy edits)</td><td>SKIPPED</td>
+        <td>by design — unedited manifest sharpens the phase-4 invariant</td></tr>
+    <tr><td>4 · convert --from-scan</td><td class="fy">PASS</td>
+        <td>rows &times; cols matched the scan projection exactly</td></tr>
+    <tr><td>5 · quick path equivalence</td><td>PENDING</td>
+        <td>quick CSV must land on the same 24,925 cols</td></tr>
+    <tr><td>6 · value spot-check</td><td>PENDING</td>
+        <td>CSV values vs uproot direct read</td></tr>
+    <tr><td>7 · scale (75 MB mH1000)</td><td>PENDING</td>
+        <td>wall time + peak memory</td></tr>
+    <tr><td>8 · copy to local</td><td>PENDING</td>
+        <td>scp; CSV opens clean in pandas</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>ENVIRONMENT</h2>
+  <table>
+    <tr><th>ITEM</th><th>VALUE</th></tr>
+    <tr><td>host</td><td><code>atlng02.physics.arizona.edu</code> — RHEL 9</td></tr>
+    <tr><td>python</td><td>3.9 (system) — bare <code>pip</code> absent;
+        bootstrapped via <code>python3 -m ensurepip --user</code></td></tr>
+    <tr><td>stack</td><td>uproot 5.6.5 · awkward 2.8.8 · pip 21.3.1&rarr;current</td></tr>
+    <tr><td>toolkit</td><td>root2csv v0.1.0, cloned from GitHub</td></tr>
+    <tr><td>target</td><td><code>HSS_mH125_mS55_ct5320_537840_mc23e_fullsim.root</code>
+        — 6.2 MB, tree <code>analysis</code> (auto-detected), 423 events</td></tr>
+    <tr><td>sample set</td><td>six HSS fastframe files, 6.2&ndash;75 MB,
+        mH 125&rarr;1000 GeV — the 75 MB mH1000 file is the phase-7 stress case</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>RESULTS — THE NUMBERS</h2>
+  <table>
+    <tr><th>STEP</th><th>MEASURED</th></tr>
+    <tr><td>scan · pass 1</td><td>1.0 s — 227 branches, <b>all readable, zero
+        unreadable, zero jagged-deep</b></td></tr>
+    <tr><td>scan · bins</td><td>scalar 47 · vec1 38 · jagged 117 · empty 25
+        &nbsp;(47+38+117+25 = 227 ✓)</td></tr>
+    <tr><td>scan · parquet</td><td>9.2 MB canonical (202 fields = 227 &minus; 25 empty)</td></tr>
+    <tr><td>scan · projection</td><td><b>24,925</b> CSV columns as-is (base policy)</td></tr>
+    <tr><td>convert · from-scan</td><td>parquet load 0.3 s · build 13.9 s ·
+        ROOT never re-read</td></tr>
+    <tr><td>convert · CSV</td><td><b>423 rows &times; 24,925 cols</b> — matched the
+        projection to the digit · 85.6 MB · fill -999 · dropped 0</td></tr>
+  </table>
+  <div class="tip"><b>The invariant that matters:</b> unedited manifest &rarr;
+  from-scan output ≡ the scan's as-is projection. It held exactly.</div>
+</section>
+
+<section>
+  <h2>FINDINGS — WHAT THE VET CAUGHT</h2>
+  <table>
+    <tr><th>#</th><th>FINDING</th><th>ACTION</th></tr>
+    <tr><td>1</td><td>bare <code>pip</code> doesn't exist on RHEL 9;
+        PackageKit offered a system install (blocked — correctly, no sudo)</td>
+        <td>docs now say <code>python3 -m pip</code>; bootstrap rung:
+        <code>ensurepip --user</code></td></tr>
+    <tr><td>2</td><td>real manifest schema differed from the MANIFEST page
+        example (flat <code>len_*</code> stats, <code>fill_frac</code>,
+        <code>cpp_typename</code>, <code>meta</code> block, vec1 carries
+        machine-set <code>"collapse"</code>)</td>
+        <td>MANIFEST page rewritten from the real file</td></tr>
+    <tr><td>3</td><td>convert banner printed the fill quoted
+        (<code>'-999.0'</code>)</td>
+        <td>fixed — banner and build.txt now show <code>-999</code></td></tr>
+  </table>
+  <h3>OBSERVATIONS</h3>
+  <table>
+    <tr><td>fan-out is a family affair: ~20 <code>trackID_* / track_*</code>
+        siblings at max 487 mint most of the 24,925 columns — one
+        <code>first:N</code> decision covers the family</td></tr>
+    <tr><td>minimum fill on this sample is 0.96 — <code>drop</code> will
+        rarely earn its keep on fastframe files</td></tr>
+    <tr><td>25 empty branches in a 423-event sample — selection artifacts,
+        cost nothing, listed in the manifest</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>COPY THE RESULTS DOWN</h2>
+  <div class="cmd"><button data-copy>COPY</button>scp -r naherlin@atlng02.physics.arizona.edu:~/r2c_vet/v1_scan .</div>
+  <p class="sect-sub" style="margin-top:10px">Run from the local machine.
+  Lands the full artifact set: flat.csv &middot; canonical.parquet &middot;
+  both manifests &middot; build.txt.</p>
+</section>
+
+</main>
+
+<script src="../assets/js/site.js?v=30"></script>
+</body>
+</html>

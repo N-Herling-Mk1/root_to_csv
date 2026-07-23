@@ -550,3 +550,8 @@ td.fn{color:var(--dim);font-weight:700;text-align:center}
 .repolink .rl-t{font-family:var(--display);font-size:13px;
   letter-spacing:.14em;color:var(--cyan-ink);white-space:nowrap}
 .repolink .rl-x{font-size:12px;color:var(--dim)}
+
+/* ============ v30: test-record flag ============ */
+.okflag{display:inline-block;font-family:var(--display);font-size:10px;
+  letter-spacing:.14em;color:var(--ua-green);border:1px solid var(--ua-green);
+  border-radius:3px;padding:1px 7px;margin-left:8px;vertical-align:3px}

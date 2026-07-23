@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>root2csv — TIER 1</title>
 <link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
-<link rel="stylesheet" href="../assets/css/tron_light.css?v=26">
+<link rel="stylesheet" href="../assets/css/tron_light.css?v=30">
 </head>
 <body>
 
@@ -23,6 +23,7 @@
     <a href="tier2.html">TIER 2 <span class="ucflag">WIP</span></a>
     <a href="tier3.html">TIER 3 <span class="ucflag">WIP</span></a>
     <a href="manifest.html">MANIFEST <span class="ucflag">WIP</span></a>
+    <a href="test1.html">TEST 1 <span class="okflag">LIVE</span></a>
     <a href="bins.html">SIX BINS</a>
     <a href="glossary.html">GLOSSARY</a>
     <a href="https://github.com/N-Herling-Mk1/root_to_csv" target="_blank" rel="noopener" class="ext">GITHUB &#8599;</a>
@@ -47,7 +48,7 @@ python — no ATLAS environment, no ROOT build, no display, no open ports.</p></
     <div class="cmd"><button data-copy>COPY</button><span class="cm"># 1 · install (once)</span>
 git clone https://github.com/N-Herling-Mk1/root_to_csv.git
 cd root_to_csv
-pip install --user -r requirements.txt
+python3 -m pip install --user -r requirements.txt
 <span class="cm"># 2 · pre-scan  →  writes ./s1_scan/  (parquet + manifest.json + manifest.txt)</span>
 python3 scan.py &lt;file&gt;.root --name s1 --out ./s1_scan
 <span class="cm"># 3 · decide  →  set "policy" per jagged branch:  pad_max | first:N | drop</span>
@@ -126,7 +127,7 @@ python3 convert.py &lt;file&gt;.root</div>
       <text x="78" y="45" font-size="13" fill="var(--ink)" font-weight="700">INSTALL</text>
       <rect x="144" y="33" width="3" height="15" fill="var(--ua-blue)"/>
       <text x="154" y="45" font-size="11" fill="var(--ink)" font-weight="700">repo/server</text>
-      <text x="78" y="63" font-size="10.5" fill="var(--dim)">clone · pip install --user</text>
+      <text x="78" y="63" font-size="10.5" fill="var(--dim)">clone · python3 -m pip install</text>
 
       <rect x="30" y="124" width="260" height="52" rx="6" fill="var(--panel)" stroke="var(--ua-green)" stroke-width="2.5"/>
       <rect x="40" y="134" width="26" height="26" rx="6" fill="var(--ua-green)"/>
@@ -352,6 +353,6 @@ python3 convert.py &lt;file&gt;.root</div>
 </main>
 
 
-<script src="../assets/js/site.js?v=26"></script>
+<script src="../assets/js/site.js?v=30"></script>
 </body>
 </html>

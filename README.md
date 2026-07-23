@@ -21,7 +21,7 @@ tiers, the manifest how-to, the six bins, glossary. Click the banner.
 ```bash
 git clone <REPO_URL>
 cd root2csv
-pip install --user -r requirements.txt     # or into a venv
+python3 -m pip install --user -r requirements.txt     # or into a venv
 ```
 
 No ATLAS environment, no ROOT build, no display needed.

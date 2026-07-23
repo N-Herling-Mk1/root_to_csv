@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>root2csv — MANIFEST</title>
 <link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
-<link rel="stylesheet" href="../assets/css/tron_light.css?v=26">
+<link rel="stylesheet" href="../assets/css/tron_light.css?v=30">
 </head>
 <body>
 
@@ -23,6 +23,7 @@
     <a href="tier2.html">TIER 2 <span class="ucflag">WIP</span></a>
     <a href="tier3.html">TIER 3 <span class="ucflag">WIP</span></a>
     <a href="manifest.html" class="on">MANIFEST <span class="ucflag">WIP</span></a>
+    <a href="test1.html">TEST 1 <span class="okflag">LIVE</span></a>
     <a href="bins.html">SIX BINS</a>
     <a href="glossary.html">GLOSSARY</a>
     <a href="https://github.com/N-Herling-Mk1/root_to_csv" target="_blank" rel="noopener" class="ext">GITHUB &#8599;</a>
@@ -46,40 +47,44 @@
 
 <section>
   <h2>THE SHAPE — WHAT YOU'RE LOOKING AT</h2>
-  <div class="cmd sample"><span class="cm">// header — identity of the scan (read-only)</span>
+  <div class="cmd sample"><span class="cm">// "meta" — identity of the scan (read-only)</span>
 {
-  "name": "s1",
-  "source": "PT_ovchan.root",
-  "tree": "reco",
-  "n_events": 3233,
-  "tags": {"mH": 125, "mS": 35},
-<span class="cm">// one entry per readable branch — all evidence, except "policy"</span>
+  "meta": {
+    "name": "v1",
+    "source": ".../HSS_mH125_mS55_ct5320_537840_mc23e_fullsim.root",
+    "tree": "analysis",          <span class="cm">// auto-detected</span>
+    "n_events": 423,
+    "tool_version": "0.1.0"
+  },
+  "tags": {},
+<span class="cm">// one entry per readable branch — evidence, plus the one dial</span>
   "branches": {
-    "met": {
-      "category": "scalar",          <span class="cm">// its bin — read-only</span>
-      "cpp_type": "float",
-      "len": null,
-      "fill": 1.0,
-      "policy": null                 <span class="cm">// scalars have no policy</span>
-    },
-    "jet_pt": {
-      "category": "jagged",
-      "cpp_type": "vector&lt;float&gt;",
-      "len": {"min": 0, "med": 4, "p95": 9, "max": 412},
-      "fill": 0.87,
-      "samples": [45.2, 12.1],
-      "fanout": 412,                 <span class="cm">// columns this makes as-is</span>
+    "L1MuRoI_eta": {
+      "ak_type": "423 * var * float32",
+      "category": "jagged",          <span class="cm">// its bin — read-only</span>
+      "dtype": "float32",
+      "cpp_typename": "std::vector&lt;float&gt;",
+      "len_min": 0,
+      "len_med": 2.0,
+      "len_p95": 6.0,                <span class="cm">// the decision numbers</span>
+      "len_max": 41,
+      "fill_frac": 0.62,
+      "fanout": 41,                  <span class="cm">// columns this makes as-is</span>
+      "samples": ["[0.83, -1.2, ...]"],
       "policy": "pad_max"            <span class="cm">// &lt;&lt;&lt; THE FIELD YOU EDIT</span>
+    },
+    "HLTmuRoIClus_eta": {
+      "category": "vec1",
+      "policy": "collapse"           <span class="cm">// machine-set — leave it</span>
     }
   },
-<span class="cm">// couldn't be read — recorded, never silent (read-only)</span>
-  "unreadable": [
-    {"name": "InputMapNN1b", "cpp_type": "map&lt;string,float&gt;", "reason": "unsupported container"}
-  ]
+<span class="cm">// couldn't be read — empty on clean files, never silent</span>
+  "unreadable": []
 }</div>
   <div class="tip"><b>The one rule:</b> you only ever edit <code>"policy"</code>
-  values, and only on <code>jagged</code> branches. The rebuild reads nothing
-  else back — editing the stats changes nothing.</div>
+  values, and only on <code>jagged</code> branches. Other bins carry
+  machine-set policies (<code>collapse</code> on vec1, etc.) — leave those.
+  The rebuild reads nothing else back; editing the stats changes nothing.</div>
 </section>
 
 <section>
@@ -87,17 +92,17 @@
   <div class="paths3">
     <div class="path">
       <div class="tt">CAP AN OUTLIER <em>· first:N</em></div>
-      <p class="lx">The stats say <code>med 4 · p95 9 · max 412</code> — one
+      <p class="lx">The stats say <code>len_med 2 · len_p95 6 · len_max 41</code> — one
       fat event is minting 412 columns.</p>
       <div class="cmd"><span class="jold">"policy": "pad_max"</span>
-<span class="jnew">"policy": "first:9"</span></div>
-      <p class="lx">Columns go <code>jet_pt_0&hellip;_411</code> &rarr;
-      <code>jet_pt_0&hellip;_8</code>. Events longer than 9 are truncated;
+<span class="jnew">"policy": "first:6"</span></div>
+      <p class="lx">Columns go <code>L1MuRoI_eta_0&hellip;_40</code> &rarr;
+      <code>L1MuRoI_eta_0&hellip;_5</code>. Events longer than 6 are truncated;
       shorter ones pad <code>-999</code>.</p>
     </div>
     <div class="path b">
       <div class="tt">DROP A GHOST <em>· drop</em></div>
-      <p class="lx"><code>"fill": 0.03</code> — the block would be 97%
+      <p class="lx"><code>"fill_frac": 0.03</code> — the block would be 97%
       pads.</p>
       <div class="cmd"><span class="jold">"policy": "pad_max"</span>
 <span class="jnew">"policy": "drop"</span></div>
@@ -107,7 +112,7 @@
     <div class="path">
       <div class="tt">STAND DOWN <em>· pad_max</em></div>
       <p class="lx">Changed your mind? Set it back — or never touch it.</p>
-      <div class="cmd"><span class="jold">"policy": "first:9"</span>
+      <div class="cmd"><span class="jold">"policy": "first:6"</span>
 <span class="jnew">"policy": "pad_max"</span></div>
       <p class="lx">The base policy: explode to the longest event, pad
       <code>-999</code>. Untouched manifest = quick-path output.</p>
@@ -144,6 +149,6 @@
 
 </main>
 
-<script src="../assets/js/site.js?v=26"></script>
+<script src="../assets/js/site.js?v=30"></script>
 </body>
 </html>

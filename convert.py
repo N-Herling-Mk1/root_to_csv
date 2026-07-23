@@ -40,7 +40,7 @@ import pandas as pd
 
 from common import (TOOL_VERSION, progress, progress_end, info, parse_tags,
                     resolve_fill, safe_scalar_column, read_manifest_json,
-                    synopsis_convert)
+                    synopsis_convert, fill_repr)
 
 
 # ======================================================================
@@ -125,7 +125,7 @@ def write_build_report(path, name, scan_dir, csv_path, df, dropped,
         f.write(f"  CSV:        {csv_path}\n")
         f.write(f"  Shape:      {len(df.columns)} cols x {len(df)} rows\n")
         f.write(f"  Size:       {os.path.getsize(csv_path)/1e6:.1f} MB\n")
-        f.write(f"  Fill:       '{fill}'\n")
+        f.write(f"  Fill:       {fill_repr(fill)}\n")
         f.write(f"  Tags:       {list(tags.keys())}\n")
         f.write(f"  Build time: {seconds:.1f} s\n\n")
         f.write(f"  Policy-dropped jagged branches ({len(dropped)}):\n")
@@ -208,7 +208,7 @@ def mode_from_scan(args):
     info(f"  Scan dir: {scan_dir}")
     info(f"  Parquet:  {pq_path}")
     info(f"  Events:   {n}")
-    info(f"  Fill:     '{fill}'\n")
+    info(f"  Fill:     {fill_repr(fill)}\n")
 
     info("Loading canonical parquet ...")
     t0 = time.time()
