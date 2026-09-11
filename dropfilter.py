@@ -65,6 +65,7 @@ EXIT CODES
     2  one or more drop-list entries matched no branch in the manifest
        (override with --allow-unmatched)
     3  bad inputs / missing files
+    4  the written CSV failed post-write verification
 """
 
 from __future__ import annotations
@@ -435,6 +436,114 @@ def write_filtered_from_csv(src, dst, keep_idx, quiet):
     return rows
 
 
+
+# ---------------------------------------------------------------------------
+# verification — prove the output, don't assume it
+# ---------------------------------------------------------------------------
+
+def _fingerprint(path, use_hash=False):
+    """(size, mtime_ns[, md5]) for an input we promise not to touch."""
+    if not path or not os.path.isfile(path):
+        return None
+    st = os.stat(path)
+    fp = {"size": st.st_size, "mtime": st.st_mtime_ns}
+    if use_hash:
+        import hashlib
+        h = hashlib.md5()
+        with open(path, "rb") as fh:
+            for chunk in iter(lambda: fh.read(1 << 20), b""):
+                h.update(chunk)
+        fp["md5"] = h.hexdigest()
+    return fp
+
+
+def _fp_same(a, b):
+    if a is None or b is None:
+        return a is b
+    keys = set(a) & set(b)
+    return all(a[k] == b[k] for k in keys)
+
+
+def _human(nbytes):
+    if nbytes is None:
+        return "-"
+    mb = nbytes / (1024 * 1024)
+    return f"{mb:.1f} MB" if mb >= 1 else f"{nbytes / 1024:.1f} KB"
+
+
+def verify_written(out_path, expect_cols, expect_rows, drop_cols,
+                   before, after, quiet=False):
+    """
+    Re-open what we just wrote and check it against what we promised.
+    Returns (ok, [lines]) — the lines go to both stdout and the report.
+
+    This replaces the by-hand `head -1 | tr , '\n' | wc -l` / `wc -l` /
+    `md5sum` dance: the tool states its own result and is checked on it.
+    """
+    import csv as _csv
+    L, ok = [], True
+
+    n_rows, widths, ragged_at = 0, set(), None
+    header = []
+    # progress by row, not by byte: csv.reader consumes the handle via next(),
+    # which disables tell().
+    bar = Progress(expect_rows + 1, "verifying output", enabled=not quiet)
+    with open(out_path, "r", newline="", encoding="utf-8") as fh:
+        for i, row in enumerate(_csv.reader(fh)):
+            if i == 0:
+                header = row
+            else:
+                n_rows += 1
+            widths.add(len(row))
+            if len(widths) > 1 and ragged_at is None:
+                ragged_at = i
+            if i % 500 == 0:
+                bar.step(500)
+    bar.done()
+
+    n_cols = len(header)
+    rect = (len(widths) == 1)
+
+    def mark(good):
+        nonlocal ok
+        if not good:
+            ok = False
+        return "OK  " if good else "FAIL"
+
+    L.append(f"  {mark(n_cols == expect_cols)}  columns written    "
+             f"{n_cols:,}  (expected {expect_cols:,})")
+    L.append(f"  {mark(n_rows == expect_rows)}  rows written       "
+             f"{n_rows:,}  (source had {expect_rows:,} — filtering must not "
+             f"change row count)")
+    L.append(f"  {mark(rect)}  rectangular        "
+             + ("every row the same width"
+                if rect else f"RAGGED at line {ragged_at} — widths {sorted(widths)}"))
+
+    leaked = [h for h in header if h in drop_cols]
+    L.append(f"  {mark(not leaked)}  dropped columns    "
+             + ("none present in the output"
+                if not leaked else f"{len(leaked)} LEAKED e.g. {leaked[:4]}"))
+
+    for label, path in (("source flat.csv  ", "csv"),
+                        ("canonical.parquet", "parquet"),
+                        ("manifest.json    ", "manifest")):
+        b, a = before.get(path), after.get(path)
+        if b is None and a is None:
+            L.append(f"  --    {label}  (not present)")
+            continue
+        same = _fp_same(b, a)
+        how = "size+mtime+md5" if (b and "md5" in b) else "size+mtime"
+        L.append(f"  {mark(same)}  {label}  "
+                 + (f"UNCHANGED ({how})" if same else "MODIFIED — this tool "
+                    "must never write to it"))
+
+    src_sz = (before.get("csv") or {}).get("size")
+    out_sz = os.path.getsize(out_path)
+    if src_sz:
+        L.append(f"  --    size               {_human(src_sz)} -> "
+                 f"{_human(out_sz)}  ({100 * (1 - out_sz / src_sz):.1f}% smaller)")
+    return ok, L
+
 # ---------------------------------------------------------------------------
 # report
 # ---------------------------------------------------------------------------
@@ -472,6 +581,14 @@ def write_report(path, ctx):
     if ctx.get("rows") is not None:
         w(f"  rows written              : {ctx['rows']:,}")
     w("")
+
+    if ctx.get("verify_lines"):
+        w("-" * 74)
+        w("VERIFICATION" + ("" if ctx.get("verify_ok") else "   << FAILED >>"))
+        w("-" * 74)
+        for ln in ctx["verify_lines"]:
+            w(ln)
+        w("")
 
     w("-" * 74)
     w("MATCHED  (branch / columns removed / manifest width / status)")
@@ -561,6 +678,11 @@ def main(argv=None):
                     help="downgrade unmatched drop-list entries to a warning")
     ap.add_argument("--suggest-width", type=int, default=None, metavar="N",
                     help="list kept branches wider than N columns (advisory only)")
+    ap.add_argument("--verify-hash", action="store_true",
+                    help="md5 the untouched inputs too (slower on large files; "
+                         "size+mtime is the default check)")
+    ap.add_argument("--no-verify", action="store_true",
+                    help="skip the post-write verification pass")
     ap.add_argument("--quiet", action="store_true", help="suppress progress bars")
     ap.add_argument("--version", action="version", version=VERSION)
     args = ap.parse_args(argv)
@@ -644,12 +766,26 @@ def main(argv=None):
 
     rows = None
     out_path = None
+    verify_lines, verify_ok = [], None
     if not args.preview:
         stem = found["name"] or "out"
         out_path = args.out or os.path.join(args.scan_dir, f"{stem}_filtered.csv")
+
+        # fingerprint every input we promise not to touch, BEFORE writing
+        watch = {"csv": found["csv"], "parquet": found["parquet"],
+                 "manifest": found["manifest"]}
+        before = {k: _fingerprint(v, args.verify_hash) for k, v in watch.items()}
+        src_rows = sum(1 for _ in open(src, encoding="utf-8")) - 1
+
         say("")
         idx = [i for i, h in enumerate(headers) if h not in drop_cols]
         rows = write_filtered_from_csv(src, out_path, idx, args.quiet)
+
+        if not args.no_verify:
+            after = {k: _fingerprint(v, args.verify_hash) for k, v in watch.items()}
+            verify_ok, verify_lines = verify_written(
+                out_path, len(keep_cols), src_rows, drop_cols,
+                before, after, args.quiet)
 
     ctx = {
         "manifest_path": found["manifest"], "drop_path": drop_path,
@@ -660,6 +796,7 @@ def main(argv=None):
         "cols_after": len(keep_cols), "rows": rows,
         "plan": plan, "unmatched": unmatched, "duplicates": duplicates,
         "candidates": candidates, "cand_threshold": args.suggest_width,
+        "verify_lines": verify_lines, "verify_ok": verify_ok,
     }
     stem = found["name"] or "out"
     report_path = args.report or os.path.join(args.scan_dir, f"{stem}_drop_report.txt")
@@ -687,6 +824,15 @@ def main(argv=None):
     if report_path:
         say(f"  report     {report_path}")
 
+    if verify_lines:
+        say("")
+        rule("=")
+        say("VERIFICATION" + ("" if verify_ok else "   << FAILED >>"))
+        rule("=")
+        for ln in verify_lines:
+            say(ln)
+        rule("=")
+
     bad = [r for r in plan if r[3] in ("WIDTH MISMATCH", "ABSENT")]
     if bad:
         say("")
@@ -698,6 +844,13 @@ def main(argv=None):
             f" columns - advisory, see report")
     say(f"  elapsed    {time.time() - t0:.1f}s")
     rule("=")
+
+    if verify_ok is False:
+        say("")
+        say("VERIFICATION FAILED - the output does not match what was promised.")
+        say("Treat v*_filtered.csv as suspect and report the FAIL lines above.")
+        say("")
+        return 4
 
     if unmatched:
         say("")

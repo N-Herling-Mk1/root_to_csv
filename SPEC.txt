@@ -87,6 +87,13 @@ LOCKED DECISIONS
      convert -> common -> uproot, and layer 3 must stay uproot-free) plus a
      drift guard that cross-checks the two whenever convert.py IS
      importable.
+ 15. LAYER 3 VERIFIES ITS OWN OUTPUT. After every write it re-reads the file
+     produced and asserts: column count == promised, row count == source
+     (filtering never changes rows), all rows equal width, no dropped column
+     present, and every input unchanged (size+mtime, or md5 with
+     --verify-hash). A failure exits 4 and says the output is suspect. The
+     operator must not have to run head/wc/md5sum by hand to learn whether
+     the tool did what it said.
      Port/tunnel hygiene checklist lives in README ("before you log out").
 
 ------------------------------------------------------------------------------

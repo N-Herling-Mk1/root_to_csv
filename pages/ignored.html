@@ -162,10 +162,18 @@ python3 dropfilter.py ./s1_scan</div>
         untouched. Still the full census of all branches.</td></tr>
       <tr><td><code>s1_filtered.csv</code></td><td>new &mdash; the trimmed table.</td></tr>
       <tr><td><code>s1_drop_report.txt</code></td><td>new &mdash; every match, every
-        no-op, and any name that matched nothing.</td></tr>
+        no-op, any name that matched nothing, and the verification block.</td></tr>
     </tbody>
   </table>
-  <div class="tip">Changed your mind? Edit the list and re-run
+  <div class="tip"><b>The run checks itself.</b> After writing, the tool re-opens
+  the file it just made and verifies the column count, the row count against the
+  source, that every row is the same width, that no dropped column leaked
+  through, and that <code>flat.csv</code>, the parquet and the manifests are all
+  untouched. Any failure exits non-zero and says the output is suspect &mdash;
+  you should not have to run <code>head</code>, <code>wc</code> and
+  <code>md5sum</code> yourself to find out.</div>
+
+<div class="tip">Changed your mind? Edit the list and re-run
   <code>dropfilter.py</code>. It reads <code>flat.csv</code> and writes a new
   file, so there is no re-scan, no re-convert, and neither the ROOT file nor
   uproot is needed &mdash; you can do it on your laptop from a copied-down
