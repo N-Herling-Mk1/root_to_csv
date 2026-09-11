@@ -50,13 +50,37 @@ Layer 3, if you run it, adds two more:
 
 | file | what it is |
 |---|---|
-| `<name>_filtered.csv` | the CSV with every branch named in `drop_list.txt` removed |
-| `<name>_drop_report.txt` | the audit — every branch matched and how many columns it removed, every listed branch that was empty-bin, and every name that matched nothing |
+| `<stamp>_filtered.csv` | the CSV with every branch named in `drop_list.txt` removed. Auto-named `MM_DD_YY_HHMMSS` from the clock, so a re-run never overwrites an earlier result; `--out PATH` to choose the name yourself |
+| `<stamp>_drop_report.txt` | the audit — every branch matched and how many columns it removed, every listed branch that was empty-bin, every name that matched nothing, and the verification block. Shares the CSV's base name |
 
-Useful options: `--tree reco` (default: auto-picks the tree with most
-entries) · `--name mySample` · `--out DIR` · `--tag is_signal=1`
-(stamp an integer column on every row, repeatable) ·
-`--fill x` (legacy events.root sentinel) · `--fill nan` (NaN pads).
+### Every option
+
+All three programs, complete. `--help` on any of them prints the same set.
+
+| flag | scan | conv | filt | what it does |
+|---|:-:|:-:|:-:|---|
+| `--name NAME` | Y | Y | | sample name; every step-1/2 output inherits it. Default: the ROOT file's stem |
+| `--out DIR` / `--out PATH` | Y | Y | Y | scan/convert: output *directory*. filter: output *CSV path* |
+| `--tree NAME` | Y | Y | | which TTree/RNTuple to read. Default: auto-picks the one with most entries |
+| `--tag KEY=VALUE` | Y | Y | | stamp an integer column on every row; repeatable |
+| `--note TEXT` | Y | Y | | freeform provenance text recorded in the manifest |
+| `--no-parquet` | Y | Y | | skip the canonical parquet — then `--from-scan` has nothing to rebuild from |
+| `--no-samples` | Y | | | omit the two example values per branch from the manifest |
+| `--from-scan DIR` | | Y | | mode 2b: build from an existing scan dir, honouring edited policies |
+| `--fill x` / `nan` / `NUM` | | Y | | pad value for short jagged rows. Default `-999` |
+| `--drop-file PATH` | | | Y | use a different list. Default search: scan dir, cwd, then beside `dropfilter.py` |
+| `--preview` | | | Y | resolve and count only; writes nothing |
+| `--report PATH` | | | Y | write the drop report somewhere other than beside the CSV |
+| `--allow-unmatched` | | | Y | downgrade an unmatched name from hard error to warning |
+| `--suggest-width N` | | | Y | list kept branches wider than N columns. Advisory — drops nothing |
+| `--verify-hash` | | | Y | md5 the untouched inputs as well as stat them |
+| `--no-verify` | | | Y | skip the post-write verification pass |
+| `--quiet` | | | Y | suppress progress bars; the synopsis still prints |
+| `--version` | | | Y | print the tool version and exit |
+
+**Exit codes** (`dropfilter.py`): `0` clean · `2` a drop-list name matched no
+branch, nothing written · `3` bad inputs / missing files · `4` the written CSV
+failed post-write verification. Worth checking in any script that chains steps.
 
 ## The layers
 

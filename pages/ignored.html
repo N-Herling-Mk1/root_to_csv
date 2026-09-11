@@ -115,7 +115,7 @@ Nothing here is permanent &mdash; the list is a plain text file you edit.</p></d
 nano drop_list.txt
 <span class="cm"># see what it would do — counts only, writes nothing</span>
 python3 dropfilter.py ./s1_scan --preview
-<span class="cm"># apply it — writes s1_filtered.csv + s1_drop_report.txt</span>
+<span class="cm"># apply it — writes MM_DD_YY_HHMMSS_filtered.csv + its drop report</span>
 python3 dropfilter.py ./s1_scan
 <span class="cm"># or choose the output name yourself</span>
 python3 dropfilter.py ./s1_scan --out ./s1_scan/barrel_only.csv</div>

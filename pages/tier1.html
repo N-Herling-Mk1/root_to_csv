@@ -107,9 +107,6 @@ python3 dropfilter.py ./s1_scan</div>
     </div><!-- /s1main -->
     <aside class="s1notes">
       <div class="nt">NOTES — WHICH NAMES ARE YOURS</div>
-      <div class="nr"><span class="yy">YOURS</span> <code>drop_list.txt</code> —
-        the one file you author from scratch. Bare name, no <code>s1_</code>
-        prefix: it is meant to be reused across files.</div>
       <div class="nr"><span class="yy">YOURS</span> <code>&lt;file&gt;.root</code> —
         your input ROOT file, wherever it lives.</div>
       <div class="nr"><span class="yy">YOURS</span> <code>s1</code> — the sample
@@ -125,7 +122,18 @@ python3 dropfilter.py ./s1_scan</div>
         <code>_manifest.json</code>/<code>.txt</code> &middot;
         <code>_build.txt</code> — the toolkit's, always.</div>
       <div class="nr"><span class="ff">FIXED</span> <code>scan.py</code> &middot;
-        <code>convert.py</code> — the programs themselves.</div>
+        <code>convert.py</code> &middot; <code>dropfilter.py</code> — the
+        programs themselves.</div>
+      <div class="nr"><span class="ff">FIXED</span> <code>drop_list.txt</code> —
+        the toolkit's name, and it <b>ships in the repo</b>: you do not create
+        it. The <i>contents</i> are yours to edit. Bare name, no
+        <code>s1_</code> prefix — one list, reused across files.
+        <code>--drop-file</code> points at a different one.</div>
+      <div class="nr"><span class="ff">FIXED</span> the step-5 outputs —
+        <code>&lt;stamp&gt;_filtered.csv</code> &middot;
+        <code>&lt;stamp&gt;_drop_report.txt</code>, auto-named
+        <code>MM_DD_YY_HHMMSS</code> so a re-run never overwrites.
+        <code>--out</code> makes the name yours.</div>
     </aside>
     </div><!-- /s1grid -->
   </div>
@@ -303,6 +311,64 @@ python3 dropfilter.py ./s1_scan</div>
 
 <div class="lowerwrap">
 <div class="lowerleft">
+<section>
+  <h2>EVERY OPTION — THE COMPLETE FLAG REFERENCE</h2>
+  <p style="font-size:12px">All three programs, every flag. Anything not listed
+  here does not exist &mdash; <code>--help</code> on any of them prints the same
+  set.</p>
+
+  <table>
+    <thead><tr><th>flag</th><th>scan</th><th>conv</th><th>filt</th><th>what it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>--name NAME</code></td><td>&#10003;</td><td>&#10003;</td><td></td>
+        <td>sample name; every step-1/2 output inherits it. Default: the ROOT file's stem.</td></tr>
+      <tr><td><code>--out DIR|PATH</code></td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td>
+        <td>scan/convert: the output <i>directory</i>. filter: the output <i>CSV path</i>.</td></tr>
+      <tr><td><code>--tree NAME</code></td><td>&#10003;</td><td>&#10003;</td><td></td>
+        <td>which TTree/RNTuple to read. Default: auto-picks the one with most entries.</td></tr>
+      <tr><td><code>--tag KEY=VALUE</code></td><td>&#10003;</td><td>&#10003;</td><td></td>
+        <td>stamp an integer column on every row. Repeatable (e.g. <code>--tag is_signal=1</code>).</td></tr>
+      <tr><td><code>--note TEXT</code></td><td>&#10003;</td><td>&#10003;</td><td></td>
+        <td>freeform provenance text recorded in the manifest.</td></tr>
+      <tr><td><code>--no-parquet</code></td><td>&#10003;</td><td>&#10003;</td><td></td>
+        <td>skip the canonical parquet. <span class="tx-bad">&#10007;</span> Do this and
+          <code>convert.py --from-scan</code> has nothing to rebuild from.</td></tr>
+      <tr><td><code>--no-samples</code></td><td>&#10003;</td><td></td><td></td>
+        <td>omit the two example values per branch from the manifest.</td></tr>
+      <tr><td><code>--from-scan DIR</code></td><td></td><td>&#10003;</td><td></td>
+        <td>mode 2b: build the CSV from an existing scan dir, honouring edited policies.</td></tr>
+      <tr><td><code>--fill x|nan|NUM</code></td><td></td><td>&#10003;</td><td></td>
+        <td>pad value for short jagged rows. Default <code>-999</code>;
+          <code>x</code> restores the legacy events.root sentinel.</td></tr>
+      <tr><td><code>--drop-file PATH</code></td><td></td><td></td><td>&#10003;</td>
+        <td>use a different list. Default search: scan dir, then cwd, then beside
+          <code>dropfilter.py</code>.</td></tr>
+      <tr><td><code>--preview</code></td><td></td><td></td><td>&#10003;</td>
+        <td>resolve and count only. Writes nothing.</td></tr>
+      <tr><td><code>--report PATH</code></td><td></td><td></td><td>&#10003;</td>
+        <td>write the drop report somewhere other than beside the CSV.</td></tr>
+      <tr><td><code>--allow-unmatched</code></td><td></td><td></td><td>&#10003;</td>
+        <td>downgrade a name matching no branch from a hard error to a warning.</td></tr>
+      <tr><td><code>--suggest-width N</code></td><td></td><td></td><td>&#10003;</td>
+        <td>list kept branches wider than N columns. Advisory &mdash; drops nothing.</td></tr>
+      <tr><td><code>--verify-hash</code></td><td></td><td></td><td>&#10003;</td>
+        <td>md5 the untouched inputs as well as stat them. Slower on big files.</td></tr>
+      <tr><td><code>--no-verify</code></td><td></td><td></td><td>&#10003;</td>
+        <td>skip the post-write verification pass.</td></tr>
+      <tr><td><code>--quiet</code></td><td></td><td></td><td>&#10003;</td>
+        <td>suppress progress bars. The synopsis still prints.</td></tr>
+      <tr><td><code>--version</code></td><td></td><td></td><td>&#10003;</td>
+        <td>print the tool version and exit.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="tip"><b>Exit codes, <code>dropfilter.py</code> only:</b>
+  <code>0</code> clean &middot; <code>2</code> a drop-list name matched no branch
+  (nothing written) &middot; <code>3</code> bad inputs or missing files &middot;
+  <code>4</code> the written CSV failed post-write verification. Worth checking
+  in any script that chains the steps.</div>
+</section>
+
 <section>
   <h2>WHAT CONVERT.PY DOES WITH EACH BIN — [FATE TABLE]</h2>
   <table>
