@@ -4,7 +4,7 @@ ROOT→CSV tooling for ATLAS ntuples. **Layer 1** scans a file and classifies
 every branch (scalar / vec / jagged / jagged-deep / unreadable) into a
 manifest; **Layer 2** flattens to CSV — quick single-pass, or manifest-driven
 full unfold. **Layer 3** is optional and trims columns by branch name, working
-from the parquet rather than the ROOT file. Pure uproot/awkward, no ROOT build
+from layer 2's CSV. Pure uproot/awkward, no ROOT build
 needed, headless-friendly.
 
 Layers 1 and 2 are the pipeline. Layer 3 is a post-processing step you can
@@ -90,10 +90,17 @@ python3 dropfilter.py ./s1_scan --preview   # resolve + count, write nothing
 python3 dropfilter.py ./s1_scan             # write s1_filtered.csv
 ```
 
-Removes whole branches named in `drop_list.txt`. Reads the canonical parquet
-and **never modifies it** — the parquet stays the complete master copy, so
-changing your mind costs one re-run with an edited list. No ROOT file needed,
-no re-scan, no re-convert.
+Removes whole branches named in `drop_list.txt`. Reads `flat.csv` and writes a
+**new** file — `flat.csv`, the manifests and the parquet are all left intact,
+so changing your mind costs one re-run with an edited list. No ROOT file
+needed, no re-scan, no re-convert, and no uproot: layer 3 is pure stdlib and
+runs on a copied-down scan directory.
+
+> **Why not the parquet?** `canonical.parquet` keeps lists as lists, so a
+> jagged branch is *one* list-valued column there — not its `N` exploded CSV
+> columns. Filtering it would remove one column per branch and leave list
+> cells behind. It stays the complete master copy; it just isn't a flat table
+> to filter.
 
 ### The drop list
 
@@ -217,7 +224,7 @@ ps aux | grep '[s]sh -L'   # then kill <PID>
 common.py     shared core: six-bin classifier, profiling, progress UI, IO
 scan.py       Layer 1 — census → parquet + manifest.json + manifest.txt
 convert.py    Layer 2 — quick (2a) and from-scan (2b) → flat CSV
-dropfilter.py Layer 3 — optional; parquet + drop_list.txt → filtered CSV
+dropfilter.py Layer 3 — optional; flat.csv + drop_list.txt → filtered CSV
 drop_list.txt the branch names layer 3 removes — edit this, not the code
 SPEC.txt      stage-A design lock-in (read before changing anything)
 index.html    front-end home (TRON light) — the only page at root

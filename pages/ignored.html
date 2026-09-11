@@ -66,7 +66,8 @@
 <main>
 
 <div class="ph"><h1>IGNORED BRANCHES — <b>the default drop list</b></h1>
-<p>Step 5 removes these branches from the CSV. They stay in the parquet.
+<p>Step 5 removes these branches from a copy of the CSV. They stay in
+<code>flat.csv</code> and in the parquet.
 Nothing here is permanent &mdash; the list is a plain text file you edit.</p></div>
 
 <section>
@@ -165,9 +166,10 @@ python3 dropfilter.py ./s1_scan</div>
     </tbody>
   </table>
   <div class="tip">Changed your mind? Edit the list and re-run
-  <code>dropfilter.py</code>. It reads the parquet, so there is no re-scan, no
-  re-convert, and the ROOT file is not needed &mdash; you can do it on your
-  laptop from a copied-down scan directory.</div>
+  <code>dropfilter.py</code>. It reads <code>flat.csv</code> and writes a new
+  file, so there is no re-scan, no re-convert, and neither the ROOT file nor
+  uproot is needed &mdash; you can do it on your laptop from a copied-down
+  scan directory.</div>
 </section>
 
 </main>

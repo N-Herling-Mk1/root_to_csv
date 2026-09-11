@@ -34,9 +34,11 @@ LOCKED DECISIONS
                                 parquet, never re-reads ROOT
        Layer 3  dropfilter.py  OPTIONAL. Removes whole branches named in
                             drop_list.txt -> filtered CSV + drop report.
-                            Reads canonical parquet + manifest.json ONLY;
-                            never opens ROOT, never writes the parquet,
-                            never edits flat.csv or the manifests.
+                            Reads flat.csv + manifest.json ONLY; never
+                            opens ROOT, never reads or writes the parquet,
+                            never edits flat.csv or the manifests. Pure
+                            stdlib -- no uproot, so it runs on a
+                            copied-down scan dir.
   4. Jagged policies (per branch, "policy" field in manifest.json):
        pad_max (default) | first:N | drop
   5. BASE-POLICY pad flag: -999 (numeric; jagged-derived columns stay
@@ -71,6 +73,20 @@ LOCKED DECISIONS
  12. MASTER COPY: canonical.parquet keeps EVERY branch, including every one
      layer 3 removes. Only the CSV is filtered. Re-filtering with an edited
      list must never require a re-scan, a re-convert, or the ROOT file.
+ 13. LAYER 3 FILTERS flat.csv, NOT the parquet. Per decision 2 the parquet
+     keeps lists as lists: a jagged branch is ONE list-valued column there,
+     not its `fanout` exploded CSV columns. Filtering the parquet would
+     remove 1 column per branch and leave list cells behind. Re-exploding it
+     inside layer 3 would duplicate layer 2's padding/fill/policy logic --
+     rejected. (Found in vetting, 2026-09-11: the parquet path reported
+     202 -> 85 columns and 117 width mismatches.)
+ 14. COLUMN WIDTH comes from the branch's POLICY, never from `fanout`.
+     `fanout` is the base-policy width frozen at scan time; an edited
+     "first:N" policy makes the real CSV narrower. dropfilter.py carries a
+     local copy of convert.py::resolve_policy (it cannot import it --
+     convert -> common -> uproot, and layer 3 must stay uproot-free) plus a
+     drift guard that cross-checks the two whenever convert.py IS
+     importable.
      Port/tunnel hygiene checklist lives in README ("before you log out").
 
 ------------------------------------------------------------------------------

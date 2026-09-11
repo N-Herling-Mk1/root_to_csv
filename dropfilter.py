@@ -3,15 +3,24 @@
 dropfilter.py - root2csv OPTIONAL FEATURE-FILTER LAYER
 
 WHAT THIS IS
-    A post-processing pass that produces a FILTERED CSV from the canonical
-    parquet, removing whole branches named in a drop list.
+    A post-processing pass that produces a FILTERED CSV from flat.csv,
+    removing whole branches named in a drop list.
 
-    canonical.parquet  (master, never modified)
+    flat.csv   (layer 2's output — already exploded, never modified)
             |
             |  drop_list.txt   <- the physics decision, human-edited
             |  manifest.json   <- the lookup table, machine-written
             v
       filtered.csv  +  drop_report.txt
+
+    WHY NOT THE PARQUET. canonical.parquet keeps lists as lists (SPEC
+    decision 2): a jagged branch is ONE list-valued parquet column, not its
+    N exploded CSV columns. Filtering there would drop 1 column per branch
+    instead of `fanout`, and the surviving file would hold list cells rather
+    than a flat table. Exploding it here would mean reimplementing layer 2's
+    padding, fill and policy handling inside layer 3 — the duplication this
+    split exists to avoid. So layer 3 reads the already-flat CSV.
+    The parquet remains the untouched master; it is simply not the input.
 
 WHY IT IS A SEPARATE FILE
     The drop set is expected to change. Re-running convert.py against the ROOT
@@ -47,9 +56,6 @@ USAGE
 
     # the repo's drop_list.txt is found automatically from any working
     # directory. --drop-file overrides it with a list of your own.
-
-    # filter the CSV instead of the parquet (fallback if parquet is absent)
-    python3 dropfilter.py ./s1_scan --drop-file drop_list.txt --from-csv
 
     # show wide branches as drop candidates - prints only, drops nothing
     python3 dropfilter.py ./s1_scan --drop-file drop_list.txt --suggest-width 64
@@ -205,14 +211,69 @@ def load_manifest(path):
     return out
 
 
+def _resolve_policy_width(rec):
+    """
+    Width of a jagged branch's CSV expansion.
+
+    MUST match convert.py::resolve_policy exactly -- it is the function that
+    actually names the columns. Implemented locally rather than imported:
+    convert.py -> common.py -> uproot, and layer 3 must stay runnable on a
+    copied-down scan directory with no uproot installed. _assert_no_drift()
+    below cross-checks the two whenever convert.py IS importable, so the
+    duplication cannot rot silently.
+    """
+    pol = rec.get("policy", "pad_max")
+    max_len = rec.get("max_len")
+    if not isinstance(max_len, int):
+        return None
+    if pol == "pad_max":
+        return max_len
+    if pol == "drop":
+        return 0
+    if isinstance(pol, str) and pol.startswith("first:"):
+        try:
+            return max(0, min(int(pol.split(":", 1)[1]), max_len))
+        except ValueError:
+            pass
+    return max_len          # convert.py warns and falls back to pad_max
+
+
+def _assert_no_drift(records):
+    """
+    If convert.py can be imported, verify our copy of the policy rule still
+    agrees with its original on every branch in this manifest. A disagreement
+    means layer 2 changed how it sizes columns and layer 3 did not follow.
+    Silent when convert.py is unavailable -- that is the supported laptop case.
+    """
+    try:
+        from convert import resolve_policy
+    except Exception:
+        return None
+    bad = []
+    for name, rec in records.items():
+        if rec.get("category") != "jagged" or "max_len" not in rec:
+            continue
+        action, n = resolve_policy(rec, name)
+        theirs = 0 if action == "drop" else int(n)
+        if theirs != _resolve_policy_width(rec):
+            bad.append(name)
+    return bad
+
+
 def _expected_width(bin_, policy, info):
     """
     Expansion width. None means 'do not cross-check'.
 
-    The real manifest carries "fanout" - the width scan.py itself computed.
-    That is authoritative; use it and stop. Everything below it is fallback
-    for a manifest that predates the field.
+    AUTHORITY ORDER MATTERS. The real CSV width comes from the branch's
+    POLICY, not from `fanout`. `fanout` is only the base-policy width frozen
+    at scan time: after a --from-scan run with an edited "first:N" policy the
+    CSV is narrower than fanout, and trusting fanout would fire a spurious
+    mismatch on every edited branch.
     """
+    if str(bin_).lower() == "jagged":
+        w = _resolve_policy_width(info)
+        if w is not None:
+            return w
     fo = info.get("fanout")
     if isinstance(fo, (int, float)) and not isinstance(fo, bool):
         return int(fo)
@@ -343,16 +404,6 @@ def width_candidates(manifest, headers, threshold, already):
 # data access
 # ---------------------------------------------------------------------------
 
-def parquet_headers(path):
-    try:
-        import pyarrow.parquet as pq
-    except ImportError:
-        die("pyarrow is required to read the parquet master.\n"
-            "       python3 -m pip install --user pyarrow\n"
-            "       (or re-run with --from-csv to filter the CSV instead)")
-    return list(pq.ParquetFile(path).schema_arrow.names), path
-
-
 def csv_headers(path):
     import csv as _csv
     with open(path, "r", newline="", encoding="utf-8") as fh:
@@ -360,50 +411,6 @@ def csv_headers(path):
     if row is None:
         die(f"{path} is empty")
     return list(row), path
-
-
-def write_filtered_from_parquet(src, dst, keep_cols, quiet):
-    import pyarrow.parquet as pq
-    import pyarrow.csv as pv
-
-    import io
-    import csv as _csv
-    import pyarrow as pa
-
-    # pyarrow's CSVWriter blanket-quotes the header row whatever the quoting
-    # style. convert.py's flat.csv has a bare header, and a filtered CSV that
-    # quotes differently is a needless diff for everything downstream. So the
-    # header is written here and the body is streamed with include_header=False.
-    try:
-        wopts = pv.WriteOptions(include_header=False, quoting_style="needed")
-    except TypeError:
-        wopts = pv.WriteOptions(include_header=False)
-
-    pf = pq.ParquetFile(src)
-    total_rows = pf.metadata.num_rows
-    bar = Progress(total_rows, "writing filtered csv", enabled=not quiet)
-    rows = 0
-    writer = None
-    fh = open(dst, "wb")
-    try:
-        buf = io.StringIO()
-        _csv.writer(buf, lineterminator="\n").writerow(keep_cols)
-        fh.write(buf.getvalue().encode("utf-8"))
-        fh.flush()
-        for batch in pf.iter_batches(batch_size=ROWGROUP_ROWS, columns=keep_cols):
-            tbl = pa.Table.from_arrays(batch.to_struct_array().flatten(),
-                                       names=keep_cols)
-            if writer is None:
-                writer = pv.CSVWriter(fh, tbl.schema, write_options=wopts)
-            writer.write_table(tbl)
-            rows += batch.num_rows
-            bar.step(batch.num_rows)
-    finally:
-        if writer is not None:
-            writer.close()
-        fh.close()
-    bar.done()
-    return rows
 
 
 def write_filtered_from_csv(src, dst, keep_idx, quiet):
@@ -444,7 +451,9 @@ def write_report(path, ctx):
     w(f"source data    : {ctx['source_path']}  ({ctx['source_kind']})")
     w(f"filtered csv   : {ctx['out_path'] or '(preview - nothing written)'}")
     w("")
-    w("MASTER COPY: the canonical parquet is not modified by this tool.")
+    w("SOURCE : flat.csv (layer 2 output). Read-only; a new file is written.")
+    w("MASTER : canonical.parquet is neither read nor modified by this tool.")
+    w("         It keeps lists as lists, so it is not a flat table to filter.")
     w("")
 
     w("-" * 74)
@@ -544,8 +553,8 @@ def main(argv=None):
                          "if neither exists the layer is a clean no-op)")
     ap.add_argument("--preview", action="store_true",
                     help="resolve and count only; write nothing")
-    ap.add_argument("--from-csv", action="store_true",
-                    help="filter the flat CSV instead of the parquet master")
+    ap.add_argument("--from-parquet", action="store_true",
+                    help=argparse.SUPPRESS)   # retired: parquet keeps lists
     ap.add_argument("--out", default=None, help="output CSV path")
     ap.add_argument("--report", default=None, help="drop report path")
     ap.add_argument("--allow-unmatched", action="store_true",
@@ -597,20 +606,28 @@ def main(argv=None):
         die(f"--drop-file given but not found: {drop_path}")
 
     manifest = load_manifest(found["manifest"])
+    drift = _assert_no_drift({k: v["raw"] for k, v in manifest.items()})
+    if drift:
+        die("POLICY DRIFT: convert.py sizes these branches differently than\n"
+            "       this tool expects: " + ", ".join(drift[:6]) +
+            (f" (+{len(drift)-6} more)" if len(drift) > 6 else "") +
+            "\n       convert.py::resolve_policy has changed. Update\n"
+            "       dropfilter.py::_resolve_policy_width to match before filtering.")
     patterns = load_drop_list(drop_path)
     say(f"  manifest   : {found['manifest']}  ({len(manifest)} branches)")
     say(f"  drop list  : {drop_path}  ({len(patterns)} entries)")
 
-    if args.from_csv:
-        if not found["csv"]:
-            die("--from-csv given but no *_flat.csv found in the scan directory")
-        headers, src = csv_headers(found["csv"])
-        kind = "csv"
-    else:
-        if not found["parquet"]:
-            die("no *_canonical.parquet found. Re-run with --from-csv to use the CSV.")
-        headers, src = parquet_headers(found["parquet"])
-        kind = "parquet (master - not modified)"
+    if args.from_parquet:
+        die("--from-parquet is retired. canonical.parquet keeps lists as lists,\n"
+            "       so a jagged branch is ONE column there, not its N exploded\n"
+            "       CSV columns. Filtering it would remove 1 column per branch\n"
+            "       and leave list cells behind. Layer 3 reads flat.csv.")
+    if not found["csv"]:
+        die("no *_flat.csv found in the scan directory.\n"
+            "       Layer 3 filters layer 2's output, so run convert.py first:\n"
+            "           python3 convert.py --from-scan " + args.scan_dir)
+    headers, src = csv_headers(found["csv"])
+    kind = "flat csv (layer 2 output - not modified)"
     say(f"  source     : {src}  ({len(headers):,} columns)")
     say("")
 
@@ -631,11 +648,8 @@ def main(argv=None):
         stem = found["name"] or "out"
         out_path = args.out or os.path.join(args.scan_dir, f"{stem}_filtered.csv")
         say("")
-        if kind.startswith("parquet"):
-            rows = write_filtered_from_parquet(src, out_path, keep_cols, args.quiet)
-        else:
-            idx = [i for i, h in enumerate(headers) if h not in drop_cols]
-            rows = write_filtered_from_csv(src, out_path, idx, args.quiet)
+        idx = [i for i, h in enumerate(headers) if h not in drop_cols]
+        rows = write_filtered_from_csv(src, out_path, idx, args.quiet)
 
     ctx = {
         "manifest_path": found["manifest"], "drop_path": drop_path,
@@ -668,7 +682,8 @@ def main(argv=None):
         say(f"  wrote      {rows:,} x {len(keep_cols):,} -> {out_path}  ({mb:.1f} MB)")
     else:
         say("  wrote      nothing (--preview)")
-    say(f"  master     {found['parquet'] or '(none)'} - UNCHANGED")
+    say(f"  source     {src} - UNCHANGED")
+    say(f"  master     {found['parquet'] or '(none)'} - UNCHANGED (not read)")
     if report_path:
         say(f"  report     {report_path}")
 

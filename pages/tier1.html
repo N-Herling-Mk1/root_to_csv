@@ -64,7 +64,7 @@ nano ./s1_scan/s1_manifest.json
 <span class="cm"># 4 · convert  →  writes s1_flat.csv + s1_build.txt into ./s1_scan/</span>
 python3 convert.py --from-scan ./s1_scan
 <span class="cm"># 5 · filter (OPTIONAL) → drops the branches named in drop_list.txt</span>
-<span class="cm">#     reads the parquet — never re-reads the ROOT file; parquet is left intact</span>
+<span class="cm">#     reads s1_flat.csv — writes a NEW file; nothing from steps 1-4 is touched</span>
 python3 dropfilter.py ./s1_scan --preview      <span class="cm"># counts only, writes nothing</span>
 python3 dropfilter.py ./s1_scan                <span class="cm"># writes s1_filtered.csv</span>
 <span class="cm"># QUICK PATH — skip the pre-scan: install → CSV in one command (scan runs internally)</span>
@@ -200,7 +200,7 @@ python3 dropfilter.py ./s1_scan</div>
       <text x="78" y="469" font-size="13" fill="var(--ink)" font-weight="700">FILTER</text>
       <rect x="136" y="457" width="3" height="15" fill="var(--ua-green)"/>
       <text x="146" y="469" font-size="11" fill="var(--ink)" font-weight="700">run code &#183; optional</text>
-      <text x="78" y="487" font-size="10.5" fill="var(--dim)">dropfilter.py — reads the parquet</text>
+      <text x="78" y="487" font-size="10.5" fill="var(--dim)">dropfilter.py — reads s1_flat.csv</text>
     </g>
     <!-- step connectors -->
     <line x1="160" y1="76"  x2="160" y2="120" stroke="#54687a" stroke-width="1.6" marker-end="url(#pa)"/>
