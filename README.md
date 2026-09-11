@@ -87,7 +87,8 @@ The manifest's `len_med / len_p95 / len_max` per branch shows you where
 
 ```bash
 python3 dropfilter.py ./s1_scan --preview   # resolve + count, write nothing
-python3 dropfilter.py ./s1_scan             # write s1_filtered.csv
+python3 dropfilter.py ./s1_scan             # -> MM_DD_YY_HHMMSS_filtered.csv
+python3 dropfilter.py ./s1_scan --out ./s1_scan/barrel.csv    # or name it
 ```
 
 Removes whole branches named in `drop_list.txt`. Reads `flat.csv` and writes a
@@ -104,7 +105,8 @@ runs on a copied-down scan directory.
 
 ### The drop list
 
-`drop_list.txt` ships with the repo. Plain text, one **branch** name per line;
+`drop_list.txt` **ships with the repo**, at the root beside `scan.py` — there
+is nothing to create. Plain text, one **branch** name per line;
 `#` comments and blank lines are skipped, inline comments too.
 
 ```

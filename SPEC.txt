@@ -94,6 +94,12 @@ LOCKED DECISIONS
      --verify-hash). A failure exits 4 and says the output is suspect. The
      operator must not have to run head/wc/md5sum by hand to learn whether
      the tool did what it said.
+ 16. LAYER-3 OUTPUT IS NEVER OVERWRITTEN. The filtered CSV is auto-named
+     MM_DD_YY_HHMMSS_filtered.csv from local clock time; --out PATH overrides.
+     The drop report takes the same base name so the pair is unambiguous.
+     Rationale: the drop list is expected to churn, so re-runs are the normal
+     case and each one's result must survive for comparison. Cost: the scan
+     dir accumulates runs — pruning is the operator's call, never the tool's.
      Port/tunnel hygiene checklist lives in README ("before you log out").
 
 ------------------------------------------------------------------------------

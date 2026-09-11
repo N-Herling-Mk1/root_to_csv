@@ -66,7 +66,8 @@ python3 convert.py --from-scan ./s1_scan
 <span class="cm"># 5 · filter (OPTIONAL) → drops the branches named in drop_list.txt</span>
 <span class="cm">#     reads s1_flat.csv — writes a NEW file; nothing from steps 1-4 is touched</span>
 python3 dropfilter.py ./s1_scan --preview      <span class="cm"># counts only, writes nothing</span>
-python3 dropfilter.py ./s1_scan                <span class="cm"># writes s1_filtered.csv</span>
+python3 dropfilter.py ./s1_scan                <span class="cm"># -&gt; MM_DD_YY_HHMMSS_filtered.csv</span>
+python3 dropfilter.py ./s1_scan --out ./s1_scan/barrel.csv   <span class="cm"># or name it yourself</span>
 <span class="cm"># QUICK PATH — skip the pre-scan: install → CSV in one command (scan runs internally)</span>
 python3 convert.py &lt;file&gt;.root --name s1
 python3 dropfilter.py ./s1_scan</div>
@@ -89,7 +90,18 @@ python3 dropfilter.py ./s1_scan</div>
     branches   227 -&gt; 110   (117 dropped)
     columns    24,925 -&gt; 85   (24,840 removed, 99.7%)
     master     ./v1_scan/v1_canonical.parquet - UNCHANGED
-  ==============================================================</div>
+  ==============================================================
+  VERIFICATION
+    OK    columns written    85  (expected 85)
+    OK    rows written       423  (source had 423)
+    OK    rectangular        every row the same width
+    OK    dropped columns    none present in the output
+    OK    source flat.csv    UNCHANGED (size+mtime+md5)
+    OK    canonical.parquet  UNCHANGED (size+mtime+md5)
+
+  ###[filtered .csv]#####
+  ---&gt; 09_11_26_150421_filtered.csv
+  #######################</div>
     <h4 class="s1h">COPY RESULTS DOWN &nbsp;(from your local machine, after a run)</h4>
     <div class="cmd"><button data-copy>COPY</button>scp -r user@atlng02.physics.arizona.edu:/path/to/s1_scan .</div>
     </div><!-- /s1main -->
@@ -121,11 +133,13 @@ python3 dropfilter.py ./s1_scan</div>
 
 <section>
   <div class="warn" style="border-color:var(--amber);background:#fffaf2">
-    <b>&#9998; THE ONE FILE YOU AUTHOR — <code>drop_list.txt</code></b>
-    Step 3 <i>edits</i> a file the toolkit wrote for you. Step 5 is different:
-    <code>drop_list.txt</code> does not exist until you make it. Plain text,
-    one branch name per line, <code>#</code> comments allowed. No file present
-    = step 5 is a clean no-op and the pipeline still succeeds.
+    <b>&#9998; THE ONE FILE YOU EDIT — <code>drop_list.txt</code></b>
+    It <b>ships with the repo</b>, at the root beside <code>scan.py</code>, and
+    is found automatically from any working directory &mdash; step 5 needs no
+    path. Plain text, one branch name per line, <code>#</code> comments and
+    blank lines skipped, so you can annotate freely and comment a name out
+    instead of deleting it. Edit it and re-run; delete it and step 5 becomes a
+    clean no-op while the rest of the pipeline still succeeds.
     <br><br>
     Names are matched against branch names in <code>manifest.json</code>, not
     against CSV column headers &mdash; write <code>trackID_pt</code>, never
@@ -227,13 +241,13 @@ python3 dropfilter.py ./s1_scan</div>
       <text x="582" y="402" fill="var(--ink)">s1_build.txt — build receipt</text>
 
       <rect x="570" y="440" width="300" height="30" rx="5" fill="#fffaf2" stroke="var(--amber)" stroke-width="2.5"/>
-      <text x="582" y="460" fill="var(--ink)">drop_list.txt — YOU WRITE THIS</text>
+      <text x="582" y="460" fill="var(--ink)">drop_list.txt — SHIPS · YOU EDIT IT</text>
       <text x="846" y="460" fill="var(--amber-ink)" font-size="13">&#9998;</text>
 
       <rect x="570" y="492" width="300" height="30" rx="5" fill="var(--bg)" stroke="var(--amber-ink)"/>
-      <text x="582" y="512" fill="var(--ink)">s1_filtered.csv — the trimmed table</text>
+      <text x="582" y="512" fill="var(--ink)">&lt;stamp&gt;_filtered.csv — the trimmed table</text>
       <rect x="570" y="528" width="300" height="30" rx="5" fill="var(--bg)" stroke="var(--amber-ink)"/>
-      <text x="582" y="548" fill="var(--ink)">s1_drop_report.txt — the audit</text>
+      <text x="582" y="548" fill="var(--ink)">&lt;stamp&gt;_drop_report.txt — the audit</text>
     </g>
 
     <!-- production arrows -->

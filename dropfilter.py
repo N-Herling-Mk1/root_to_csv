@@ -51,8 +51,11 @@ USAGE
     # what would happen - resolve and count, write nothing
     python3 dropfilter.py ./s1_scan --preview
 
-    # do it
+    # do it -> MM_DD_YY_HHMMSS_filtered.csv (a re-run never overwrites)
     python3 dropfilter.py ./s1_scan
+
+    # name it yourself instead
+    python3 dropfilter.py ./s1_scan --out ./s1_scan/barrel_only.csv
 
     # the repo's drop_list.txt is found automatically from any working
     # directory. --drop-file overrides it with a list of your own.
@@ -136,6 +139,20 @@ class Progress:
             print(f"  {note}")
         sys.stdout.flush()
 
+
+
+def _stamp():
+    """MM_DD_YY_HHMMSS — local time, so every run gets its own filename."""
+    return time.strftime("%m_%d_%y_%H%M%S")
+
+
+def _banner(label, value):
+    """The name of what was written, called out so it can't be missed."""
+    inner = f"###[{label}]" + "#" * 5
+    say("")
+    say(inner)
+    say(f"---> {value}")
+    say("#" * len(inner))
 
 def say(msg=""):
     print(msg, flush=True)
@@ -672,7 +689,10 @@ def main(argv=None):
                     help="resolve and count only; write nothing")
     ap.add_argument("--from-parquet", action="store_true",
                     help=argparse.SUPPRESS)   # retired: parquet keeps lists
-    ap.add_argument("--out", default=None, help="output CSV path")
+    ap.add_argument("--out", default=None, metavar="PATH",
+                    help="name the output CSV yourself. Omit it and the file is "
+                         "auto-named MM_DD_YY_HHMMSS_filtered.csv, so a re-run "
+                         "never overwrites an earlier one.")
     ap.add_argument("--report", default=None, help="drop report path")
     ap.add_argument("--allow-unmatched", action="store_true",
                     help="downgrade unmatched drop-list entries to a warning")
@@ -768,8 +788,9 @@ def main(argv=None):
     out_path = None
     verify_lines, verify_ok = [], None
     if not args.preview:
-        stem = found["name"] or "out"
-        out_path = args.out or os.path.join(args.scan_dir, f"{stem}_filtered.csv")
+        stamp = _stamp()
+        out_path = args.out or os.path.join(args.scan_dir,
+                                            f"{stamp}_filtered.csv")
 
         # fingerprint every input we promise not to touch, BEFORE writing
         watch = {"csv": found["csv"], "parquet": found["parquet"],
@@ -798,10 +819,17 @@ def main(argv=None):
         "candidates": candidates, "cand_threshold": args.suggest_width,
         "verify_lines": verify_lines, "verify_ok": verify_ok,
     }
-    stem = found["name"] or "out"
-    report_path = args.report or os.path.join(args.scan_dir, f"{stem}_drop_report.txt")
-    if args.preview and args.report is None:
-        report_path = None
+    # the report shares the CSV's stamp so the pair is unambiguous
+    if args.preview:
+        report_path = args.report
+    elif args.report:
+        report_path = args.report
+    else:
+        base = os.path.basename(out_path)
+        base = base[:-len("_filtered.csv")] if base.endswith("_filtered.csv") \
+            else os.path.splitext(base)[0]
+        report_path = os.path.join(os.path.dirname(out_path) or ".",
+                                   f"{base}_drop_report.txt")
     write_report(report_path, ctx)
 
     # ---- synopsis -------------------------------------------------------
@@ -844,6 +872,11 @@ def main(argv=None):
             f" columns - advisory, see report")
     say(f"  elapsed    {time.time() - t0:.1f}s")
     rule("=")
+
+    if out_path and verify_ok is not False:
+        _banner("filtered .csv", os.path.basename(out_path))
+        if report_path:
+            _banner("drop report", os.path.basename(report_path))
 
     if verify_ok is False:
         say("")

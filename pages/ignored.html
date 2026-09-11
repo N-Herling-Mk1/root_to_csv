@@ -116,7 +116,9 @@ nano drop_list.txt
 <span class="cm"># see what it would do — counts only, writes nothing</span>
 python3 dropfilter.py ./s1_scan --preview
 <span class="cm"># apply it — writes s1_filtered.csv + s1_drop_report.txt</span>
-python3 dropfilter.py ./s1_scan</div>
+python3 dropfilter.py ./s1_scan
+<span class="cm"># or choose the output name yourself</span>
+python3 dropfilter.py ./s1_scan --out ./s1_scan/barrel_only.csv</div>
 </section>
 
 <section>
@@ -160,9 +162,13 @@ python3 dropfilter.py ./s1_scan</div>
         untouched, all columns. Step 5 writes a new file rather than editing this one.</td></tr>
       <tr><td><code>s1_manifest.json</code> / <code>.txt</code></td><td><span class="tx-ok">&#10003;</span>
         untouched. Still the full census of all branches.</td></tr>
-      <tr><td><code>s1_filtered.csv</code></td><td>new &mdash; the trimmed table.</td></tr>
-      <tr><td><code>s1_drop_report.txt</code></td><td>new &mdash; every match, every
-        no-op, any name that matched nothing, and the verification block.</td></tr>
+      <tr><td><code>&lt;stamp&gt;_filtered.csv</code></td><td>new &mdash; the trimmed
+        table. Auto-named from the clock (<code>MM_DD_YY_HHMMSS</code>), so a
+        second run never overwrites the first. <code>--out NAME</code> to name
+        it yourself.</td></tr>
+      <tr><td><code>&lt;stamp&gt;_drop_report.txt</code></td><td>new &mdash; every
+        match, every no-op, any name that matched nothing, and the verification
+        block. Shares the CSV&rsquo;s name so the pair is unambiguous.</td></tr>
     </tbody>
   </table>
   <div class="tip"><b>The run checks itself.</b> After writing, the tool re-opens
