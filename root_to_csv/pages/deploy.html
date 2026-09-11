@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>root2csv — INSTRUCTIONS</title>
+<link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
+<link rel="stylesheet" href="../assets/css/tron_light.css">
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">
+    <img src="../assets/images/mark.png" alt="root2csv mark"
+         onerror="this.style.display='none'">
+    <div><div class="t">root<b>2</b>csv</div>
+    <div class="v">v0.1.0 · TRON LIGHT</div></div>
+  </div>
+  <nav>
+    <a href="../index.html">HOME</a>
+    <a href="deploy.html" class="on">INSTRUCTIONS</a>
+    <a href="run.html">RUN ORDER</a>
+    <a href="bins.html">SIX BINS</a>
+    <a href="outputs.html">OUTPUTS</a>
+    <a href="glossary.html">GLOSSARY</a>
+    <a href="access.html">ACCESS</a>
+    <a href="hygiene.html">CLEAN UP TUNNEL/PROCESSES</a>
+  </nav>
+  <div class="foot">UA ATLAS · Run-3<br>lineage: flatten_events.py</div>
+</aside>
+
+<main>
+
+<div class="ph"><h1>INSTRUCTIONS — <b>fastest &amp; full</b></h1>
+<p>Everything is pip-installable python. No ATLAS environment, no ROOT build,
+no display. Works the same on bigmem3, atlng01/02, a laptop, or WSL.</p></div>
+
+<section>
+  <h3>PREREQUISITES</h3>
+  <p>python 3.9+ and pip. Check with <code>python3 --version</code>.</p>
+
+  <h3>CLONE · INSTALL · SELF-TEST&nbsp; (once, both options)</h3>
+  <div class="cmd"><button data-copy>COPY</button>git clone https://github.com/N-Herling-Mk1/root2csv.git
+cd root2csv
+pip install --user -r requirements.txt
+python3 tests/run_tests.py   <span class="cm"># 36 checks, ~5 s — all green = good to go</span></div>
+
+  <div class="tip">On shared servers, <code>pip install --user</code> keeps
+  packages in your home directory — no root, no system changes. A venv works
+  too if you prefer one.</div>
+</section>
+
+<section>
+  <div class="paths">
+    <div class="path">
+      <div class="tt">OPTION 1 — FASTEST <em>(one command, default policies)</em></div>
+      <ol>
+        <li>Point <code>convert.py</code> at the .root file. Scan + flatten run
+            in one shot — the original <code>events.root</code> behavior.</li>
+        <li>Outputs land in <code>./&lt;name&gt;_scan/</code> — see
+            <a href="outputs.html">OUTPUTS</a>.</li>
+      </ol>
+      <div class="cmd"><button data-copy>COPY</button>python3 convert.py /data2/kjohns/run3_sample_fastframe_files/&lt;file&gt;.root</div>
+      <p>Useful extras: <code>--tree reco</code> &middot;
+      <code>--name mySample</code> &middot; <code>--tag is_signal=1</code>
+      &middot; <code>--fill nan</code>.</p>
+    </div>
+
+    <div class="path b">
+      <div class="tt">OPTION 2 — FULL <em>(worked example, curated policies)</em></div>
+      <ol>
+        <li>Scan &rarr; inspect the census &rarr; edit policies &rarr; build.</li>
+        <li>The CSV is rebuilt from the parquet — ROOT is never re-read.</li>
+      </ol>
+      <div class="cmd"><button data-copy>COPY</button><span class="cm"># 1 · scan (all common options shown)</span>
+python3 scan.py /data2/kjohns/run3_sample_fastframe_files/&lt;file&gt;.root \
+        --tree reco --name ff01 --out ./ff01_scan \
+        --tag is_signal=0 --note "fastframe sample, first pass"
+
+<span class="cm"># 2 · inspect the census (six-bin summary + per-branch stats)</span>
+less ./ff01_scan/ff01_manifest.txt
+
+<span class="cm"># 3 · edit per-branch policies in the JSON census, e.g.:</span>
+<span class="cm">#      "jet_pt":  { ... "policy": "first:6" }   keep 6 columns</span>
+<span class="cm">#      "trk_d0":  { ... "policy": "drop" }      exclude from CSV</span>
+nano ./ff01_scan/ff01_manifest.json
+
+<span class="cm"># 4 · build the CSV from the parquet, NaN pads</span>
+python3 convert.py --from-scan ./ff01_scan --fill nan
+
+<span class="cm"># 5 · results (CSV + build report join the scan artifacts)</span>
+ls -lh ./ff01_scan/</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  root2csv v0.1.0 · UA ATLAS Run-3 · lineage: flatten_events.py (2026-04-21)
+  · design: TRON LIGHT · stage C — design lock-in lives in SPEC.txt
+</footer>
+
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

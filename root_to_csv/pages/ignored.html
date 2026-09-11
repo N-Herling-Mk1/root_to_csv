@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>root2csv — IGNORED BRANCHES</title>
+<link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
+<link rel="stylesheet" href="../assets/css/tron_light.css?v=35">
+<style>
+  .igwrap{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:22px;align-items:start}
+  .igfam{border:1px solid var(--edge);background:var(--panel);margin-bottom:10px}
+  .igfam > h4{margin:0;padding:6px 10px;background:var(--dark);color:var(--dark-bright);
+    font-family:var(--display);font-size:12px;letter-spacing:1.4;font-weight:600;
+    display:flex;justify-content:space-between}
+  .igfam > h4 .cnt{color:var(--cyan);font-family:var(--mono);letter-spacing:0}
+  .ignames{display:flex;flex-wrap:wrap;gap:5px;padding:9px 10px}
+  .ignames code{font-size:12px;background:var(--bg);border:1px solid var(--edge);
+    padding:2px 6px;color:var(--ink)}
+  .igstat{border:1px solid var(--edge-strong);background:var(--panel);padding:12px 14px;
+    margin-bottom:14px}
+  .igstat .n{font-family:var(--mono);font-size:22px;color:var(--ua-red);line-height:1.25}
+  .igstat .l{font-size:12px;color:var(--dim)}
+  .igstat .row{padding:6px 0;border-bottom:1px dashed var(--edge)}
+  .igstat .row:last-child{border-bottom:0}
+  #igerr{display:none;border:1px solid var(--amber);background:#fffaf2;padding:10px 12px;
+    font-size:12px;margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">
+    <img src="../assets/images/mark.png" alt="root2csv mark"
+         onerror="this.style.display='none'">
+    <div><div class="t">root<b>2</b>csv</div>
+    <div class="v">v0.1.0 · style: TRON LIGHT</div></div>
+  </div>
+  <nav>
+    <a href="../index.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="tier1.html">TIER 1</a>
+    <a href="ignored.html" class="on">IGNORED BRANCHES <span class="ucflag">NEW</span></a>
+    <a href="tier2.html">TIER 2 <span class="ucflag">WIP</span></a>
+    <a href="tier3.html">TIER 3 <span class="ucflag">WIP</span></a>
+    <a href="manifest.html">MANIFEST <span class="ucflag">WIP</span></a>
+    <a href="test1.html">TEST 1 <span class="okflag">LIVE</span></a>
+    <a href="bins.html">SIX BINS</a>
+    <a href="glossary.html">GLOSSARY</a>
+    <a href="https://github.com/N-Herling-Mk1/root_to_csv" target="_blank" rel="noopener" class="ext">GITHUB &#8599;</a>
+  </nav>
+  <div class="foot">UA ATLAS · Run-3<br>lineage: flatten_events.py</div>
+</aside>
+
+<main>
+
+<div class="ph"><h1>IGNORED BRANCHES — <b>the default drop list</b></h1>
+<p>Step 5 removes these branches from the CSV. They stay in the parquet.
+Nothing here is permanent &mdash; the list is a plain text file you edit.</p></div>
+
+<section>
+  <div class="warn" style="border-color:var(--amber);background:#fffaf2">
+    <b>&#9998; THE FILE TO EDIT — <code>drop_list.txt</code></b>
+    Repo root, beside <code>scan.py</code> and <code>convert.py</code>. Plain
+    text, one branch name per line. Lines starting with <code>#</code> are
+    comments and are skipped on read, as are blank lines &mdash; so you can
+    annotate freely and comment a name out instead of deleting it.
+    <br><br>
+    Delete this file and step 5 becomes a clean no-op: steps 1&ndash;4 still
+    run and still produce <code>flat.csv</code>. Nothing about the list is
+    load-bearing.
+  </div>
+
+  <div class="cmd"><button data-copy>COPY</button><span class="cm"># edit the list</span>
+nano drop_list.txt
+<span class="cm"># see what it would do — counts only, writes nothing</span>
+python3 dropfilter.py ./s1_scan --preview
+<span class="cm"># apply it — writes s1_filtered.csv + s1_drop_report.txt</span>
+python3 dropfilter.py ./s1_scan</div>
+</section>
+
+<section>
+  <h2>THE RULES — HOW A LINE IS READ</h2>
+  <table>
+    <thead><tr><th>write this</th><th>meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>trackID_pt</code></td><td>a <b>branch</b> name. Matched against
+        <code>manifest.json</code>, which expands it to every column it produced
+        &mdash; <code>trackID_pt_0</code> through <code>trackID_pt_486</code> on the
+        vet file. One line, 487 columns gone.</td></tr>
+      <tr><td><code>trackID_pt_0</code></td><td><span class="tx-bad">&#10007;</span>
+        a <b>column</b> name. Not accepted &mdash; this is an error, not a
+        near-miss.</td></tr>
+      <tr><td><code>caloCluster_*</code></td><td>a glob, resolved against manifest
+        branch names. Convenient, but opaque in review &mdash; prefer explicit
+        names for anything that encodes a decision.</td></tr>
+      <tr><td><code># jets — not used downstream</code></td><td>a comment. Skipped.
+        Inline after a name works too.</td></tr>
+      <tr><td><i>(a name that matches nothing)</i></td><td><span class="tx-bad">&#10007;</span>
+        <b>hard error.</b> Nothing is written, the run exits non-zero, and the
+        offending line numbers are printed. A typo cannot quietly hand you a
+        wider CSV than you asked for.</td></tr>
+    </tbody>
+  </table>
+  <div class="tip">Careful with prefixes: <code>trackID_eta</code> and
+  <code>track_eta_NOSYS</code> are different families. Matching is anchored on
+  the whole branch name, so listing one never touches the other &mdash; but a
+  sloppy glob like <code>track*</code> eats both.</div>
+</section>
+
+<section>
+  <h2>WHAT SHIPS IN THE REPO — [LIVE FROM <code>drop_list.txt</code>]</h2>
+  <p style="font-size:12px">Rendered from the file itself at page load, so this
+  page can never drift from what the toolkit actually reads. Section headings
+  are the <code>#</code> comments in the file.</p>
+
+  <div id="igerr">Couldn't read <code>../drop_list.txt</code> — you're most
+  likely viewing this page from <code>file://</code>, where fetch is blocked.
+  It renders correctly on GitHub Pages, or from any local server
+  (<code>python3 -m http.server</code>). The file itself is the source of
+  truth either way.</div>
+
+  <div class="igwrap">
+    <div id="igfams"></div>
+    <aside>
+      <div class="igstat">
+        <div class="row"><div class="n" id="ig-n">&hellip;</div>
+          <div class="l">branch names in the list</div></div>
+        <div class="row"><div class="n" id="ig-f">&hellip;</div>
+          <div class="l">families they span</div></div>
+      </div>
+      <div class="igstat">
+        <div style="font-family:var(--display);font-size:12px;letter-spacing:1.4;
+          color:var(--cyan-ink);margin-bottom:8px">MEASURED — VET FILE</div>
+        <div class="row"><div class="l">HSS_mH125_mS55, 423 events</div></div>
+        <div class="row"><div class="l">branches &nbsp;227 &rarr; <b>110</b></div></div>
+        <div class="row"><div class="l">columns &nbsp;24,925 &rarr; <b>85</b></div></div>
+        <div class="row"><div class="l">parquet &nbsp;<b>unchanged</b></div></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section>
+  <h2>WHAT IS <i>NOT</i> LOST</h2>
+  <table>
+    <thead><tr><th>file</th><th>after step 5</th></tr></thead>
+    <tbody>
+      <tr><td><code>s1_canonical.parquet</code></td><td><span class="tx-ok">&#10003;</span>
+        <b>complete.</b> Every branch, including every one listed above. This is the
+        master copy and step 5 opens it read-only.</td></tr>
+      <tr><td><code>s1_flat.csv</code></td><td><span class="tx-ok">&#10003;</span>
+        untouched, all columns. Step 5 writes a new file rather than editing this one.</td></tr>
+      <tr><td><code>s1_manifest.json</code> / <code>.txt</code></td><td><span class="tx-ok">&#10003;</span>
+        untouched. Still the full census of all branches.</td></tr>
+      <tr><td><code>s1_filtered.csv</code></td><td>new &mdash; the trimmed table.</td></tr>
+      <tr><td><code>s1_drop_report.txt</code></td><td>new &mdash; every match, every
+        no-op, and any name that matched nothing.</td></tr>
+    </tbody>
+  </table>
+  <div class="tip">Changed your mind? Edit the list and re-run
+  <code>dropfilter.py</code>. It reads the parquet, so there is no re-scan, no
+  re-convert, and the ROOT file is not needed &mdash; you can do it on your
+  laptop from a copied-down scan directory.</div>
+</section>
+
+</main>
+
+<script src="../assets/js/site.js?v=35"></script>
+<script>
+(function () {
+  var fams = document.getElementById('igfams');
+  var err  = document.getElementById('igerr');
+  fetch('../drop_list.txt', { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(function (txt) {
+      var groups = [], cur = null, total = 0;
+      txt.split(/\r?\n/).forEach(function (raw) {
+        var line = raw.trim();
+        if (!line) return;
+        if (line.charAt(0) === '#') {
+          // a "# --- Title (n) ---" banner opens a section; plain # notes are skipped
+          var m = line.match(/^#\s*-+\s*(.+?)\s*-+\s*$/);
+          if (m) { cur = { title: m[1], names: [] }; groups.push(cur); }
+          return;
+        }
+        var name = line.split('#')[0].trim();
+        if (!name) return;
+        if (!cur) { cur = { title: 'UNGROUPED', names: [] }; groups.push(cur); }
+        cur.names.push(name); total++;
+      });
+      groups = groups.filter(function (g) { return g.names.length; });
+      fams.innerHTML = groups.map(function (g) {
+        return '<div class="igfam"><h4>' + g.title.toUpperCase().replace(/\(\d+\)/, '') +
+               '<span class="cnt">' + g.names.length + '</span></h4><div class="ignames">' +
+               g.names.map(function (n) { return '<code>' + n + '</code>'; }).join('') +
+               '</div></div>';
+      }).join('');
+      document.getElementById('ig-n').textContent = total;
+      document.getElementById('ig-f').textContent = groups.length;
+    })
+    .catch(function () {
+      err.style.display = 'block';
+      document.getElementById('ig-n').textContent = '—';
+      document.getElementById('ig-f').textContent = '—';
+    });
+})();
+</script>
+</body>
+</html>

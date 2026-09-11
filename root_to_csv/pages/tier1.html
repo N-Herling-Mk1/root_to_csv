@@ -45,9 +45,7 @@ one-line bootstrap and the fully vetted install sequence live on the
 
 <section>
   <p style="font-size:12px">Prerequisites: python 3.9+ and pip
-  (<code>python3 --version</code>). <code>drop_list.txt</code> ships with the
-  repo and is found automatically from any working directory, so step 5 needs
-  no path. Use <code>--drop-file</code> only to point at a list of your own.</p>
+  (<code>python3 --version</code>).</p>
 
   <div class="step1card">
     <h3>THE COMMANDS — INSTALL · PRE-SCAN · DECIDE · CONVERT · FILTER</h3>
@@ -68,8 +66,7 @@ python3 convert.py --from-scan ./s1_scan
 python3 dropfilter.py ./s1_scan --preview      <span class="cm"># counts only, writes nothing</span>
 python3 dropfilter.py ./s1_scan                <span class="cm"># writes s1_filtered.csv</span>
 <span class="cm"># QUICK PATH — skip the pre-scan: install → CSV in one command (scan runs internally)</span>
-python3 convert.py &lt;file&gt;.root --name s1
-python3 dropfilter.py ./s1_scan</div>
+python3 convert.py &lt;file&gt;.root</div>
     <h4 class="s1h">SAMPLE OUTPUT — THE SYNOPSIS LINES</h4>
     <div class="cmd sample"><span class="cm"># after step 2 (scan.py)</span>
   ------------------------------------------------------------

@@ -1,14 +1,10 @@
 # root2csv
 
-ROOT→CSV tooling for ATLAS ntuples. **Layer 1** scans a file and classifies
-every branch (scalar / vec / jagged / jagged-deep / unreadable) into a
-manifest; **Layer 2** flattens to CSV — quick single-pass, or manifest-driven
-full unfold. **Layer 3** is optional and trims columns by branch name, working
-from the parquet rather than the ROOT file. Pure uproot/awkward, no ROOT build
-needed, headless-friendly.
-
-Layers 1 and 2 are the pipeline. Layer 3 is a post-processing step you can
-ignore entirely — delete its list and everything else still runs.
+Two-layer ROOT→CSV tooling for ATLAS ntuples. Layer 1 scans a file and
+classifies every branch (scalar / vec / jagged / jagged-deep / unreadable)
+into a manifest; Layer 2 flattens to CSV — quick single-pass, or
+manifest-driven full unfold. Pure uproot/awkward, no ROOT build needed,
+headless-friendly.
 
 Lineage: `flatten_events.py` (2026-04-21), the events.root two-pass
 flattener. Design lock-in: `SPEC.txt`.
@@ -18,8 +14,7 @@ flattener. Design lock-in: `SPEC.txt`.
 [![Open the root2csv documentation site](assets/images/site_banner.png)](https://n-herling-mk1.github.io/root_to_csv/)
 
 **Live:** <https://n-herling-mk1.github.io/root_to_csv/> — the full guide:
-tiers, the manifest how-to, the ignored-branch list, the six bins, glossary,
-and the vetting transcript. Click the banner.
+tiers, the manifest how-to, the six bins, glossary. Click the banner.
 
 ## Install (headless server, via clone)
 
@@ -46,19 +41,12 @@ That's it. Outputs land in `./<name>_scan/`:
 | `<name>_manifest.txt` | human-readable audit — what every branch is and what happened to it (Ctrl-F any branch name) |
 | `<name>_manifest.json` | machine-readable census; edit per-branch policies here |
 
-Layer 3, if you run it, adds two more:
-
-| file | what it is |
-|---|---|
-| `<name>_filtered.csv` | the CSV with every branch named in `drop_list.txt` removed |
-| `<name>_drop_report.txt` | the audit — every branch matched and how many columns it removed, every listed branch that was empty-bin, and every name that matched nothing |
-
 Useful options: `--tree reco` (default: auto-picks the tree with most
 entries) · `--name mySample` · `--out DIR` · `--tag is_signal=1`
 (stamp an integer column on every row, repeatable) ·
 `--fill x` (legacy events.root sentinel) · `--fill nan` (NaN pads).
 
-## The layers
+## The two layers
 
 **Layer 1 — scan only** (census, no CSV):
 
@@ -82,51 +70,6 @@ Jagged policies: `pad_max` (default) · `first:N` (keep first N columns —
 kills outlier-driven column explosions) · `drop` (exclude from CSV).
 The manifest's `len_med / len_p95 / len_max` per branch shows you where
 `first:N` is worth it *before* you build.
-
-**Layer 3 — filter (optional):**
-
-```bash
-python3 dropfilter.py ./s1_scan --preview   # resolve + count, write nothing
-python3 dropfilter.py ./s1_scan             # write s1_filtered.csv
-```
-
-Removes whole branches named in `drop_list.txt`. Reads the canonical parquet
-and **never modifies it** — the parquet stays the complete master copy, so
-changing your mind costs one re-run with an edited list. No ROOT file needed,
-no re-scan, no re-convert.
-
-### The drop list
-
-`drop_list.txt` ships with the repo. Plain text, one **branch** name per line;
-`#` comments and blank lines are skipped, inline comments too.
-
-```
-# --- Jets (10) ---
-jet_pt_NOSYS
-jet_eta          # inline comments work
-caloCluster_*    # globs resolve against manifest branch names
-```
-
-Three rules worth knowing:
-
-- **Branch names, not column names.** Write `trackID_pt`, never
-  `trackID_pt_0`. `manifest.json` expands each branch to every column it
-  produced — on the vet file that one line removes 487 columns.
-- **A name that matches nothing is a hard error.** Nothing is written, the run
-  exits non-zero, and the offending line numbers are printed. A typo cannot
-  quietly hand you a wider CSV than you asked for. Override with
-  `--allow-unmatched`.
-- **Matching is anchored on the whole branch name.** `trackID_eta` and
-  `track_eta_NOSYS` are different families and never touch each other — but a
-  sloppy glob like `track*` eats both.
-
-The list is found automatically from any working directory. Search order,
-most specific first: `<scan_dir>/drop_list.txt`, then `./drop_list.txt`, then
-the copy beside `dropfilter.py`. `--drop-file` overrides all three. Delete
-every copy and layer 3 becomes a clean no-op at exit 0 — layers 1 and 2 are
-unaffected.
-
-Full list and rationale: <https://n-herling-mk1.github.io/root_to_csv/pages/ignored.html>
 
 ## The six bins
 
@@ -217,12 +160,9 @@ ps aux | grep '[s]sh -L'   # then kill <PID>
 common.py     shared core: six-bin classifier, profiling, progress UI, IO
 scan.py       Layer 1 — census → parquet + manifest.json + manifest.txt
 convert.py    Layer 2 — quick (2a) and from-scan (2b) → flat CSV
-dropfilter.py Layer 3 — optional; parquet + drop_list.txt → filtered CSV
-drop_list.txt the branch names layer 3 removes — edit this, not the code
 SPEC.txt      stage-A design lock-in (read before changing anything)
 index.html    front-end home (TRON light) — the only page at root
-pages/        about / tier1 / ignored / tier2 / tier3 / manifest / test1 /
-              bins / glossary
+pages/        about / tier1 / tier2 / tier3 / bins / glossary
 assets/       css/tron_light.css · js/site.js · images/ (logo, mark,
               icon, tier screenshots)
 ```

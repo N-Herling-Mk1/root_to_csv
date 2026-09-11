@@ -1,0 +1,161 @@
+# root2csv - FEATURE FILTER / DROP LIST
+# ---------------------------------------------------------------------------
+# One branch name per line. These branches are removed from the filtered CSV.
+# The canonical parquet is NEVER modified - it stays the complete master copy.
+#
+# RULES
+#   - Blank lines and lines starting with # are ignored.
+#   - Inline comments after a name are allowed:   jet_pt_NOSYS   # too wide
+#   - Names are matched against branch names in <name>_manifest.json,
+#     NOT against CSV column headers. One branch may expand to many columns.
+#   - Shell-style globs are allowed and resolve against manifest branch names:
+#         caloCluster_*        drops every caloCluster branch
+#     Globs are convenient but opaque in review - prefer explicit names for
+#     anything that encodes a physics decision.
+#   - A name that matches nothing in the manifest is an ERROR by default,
+#     not a silent no-op. See the UNMATCHED section of the drop report.
+#
+# To add or remove a feature: edit this file and re-run dropfilter.py against
+# the parquet. No re-conversion from ROOT is needed.
+# ---------------------------------------------------------------------------
+
+# --- L1 muon RoI (5) -------------------------------------------------------
+L1MuRoI_eta
+L1MuRoI_phi
+L1MuRoI_sectorID
+L1MuRoI_threshold
+L1MuRoI_word
+
+# --- Calorimeter clusters (29) ---------------------------------------------
+caloCluster_EMB1
+caloCluster_EMB2
+caloCluster_EMB3
+caloCluster_EME1
+caloCluster_EME2
+caloCluster_EME3
+caloCluster_FCAL0
+caloCluster_FCAL1
+caloCluster_FCAL2
+caloCluster_HEC0
+caloCluster_HEC1
+caloCluster_HEC2
+caloCluster_HEC3
+caloCluster_PreSamplerB
+caloCluster_PreSamplerE
+caloCluster_TileBar0
+caloCluster_TileBar1
+caloCluster_TileBar2
+caloCluster_TileExt0
+caloCluster_TileExt1
+caloCluster_TileExt2
+caloCluster_TileGap1
+caloCluster_TileGap2
+caloCluster_TileGap3
+caloCluster_e
+caloCluster_eta
+caloCluster_phi
+caloCluster_pt
+caloCluster_time
+
+# --- Jets (10) -------------------------------------------------------------
+jet_EMFrac_NOSYS
+jet_HadEMRatioLog10_NOSYS
+jet_e_NOSYS
+jet_eta
+jet_fjvtEfficiency_NOSYS
+jet_jvtEfficiency_NOSYS
+jet_phi
+jet_pt_NOSYS
+jet_select_baselineFJvt_NOSYS
+jet_select_baselineJvt_NOSYS
+
+# --- Muon segments, non-collision background (14) --------------------------
+msegNCB_chIndex
+msegNCB_chiSquared
+msegNCB_nDOF
+msegNCB_nPhiLayers
+msegNCB_nPrecisionHits
+msegNCB_nTrigEtaLayers
+msegNCB_t0
+msegNCB_techIndex
+msegNCB_x
+msegNCB_xDir
+msegNCB_y
+msegNCB_yDir
+msegNCB_z
+msegNCB_zDir
+
+# --- Muon segments, unassociated (15) --------------------------------------
+msegUnAssoc_chIndex
+msegUnAssoc_chiSquared
+msegUnAssoc_eta_NOSYS
+msegUnAssoc_nDOF
+msegUnAssoc_nPhiLayers
+msegUnAssoc_nPrecisionHits
+msegUnAssoc_nTrigEtaLayers
+msegUnAssoc_t0
+msegUnAssoc_techIndex
+msegUnAssoc_x
+msegUnAssoc_xDir
+msegUnAssoc_y
+msegUnAssoc_yDir
+msegUnAssoc_z
+msegUnAssoc_zDir
+
+# --- Muon segments (14) ----------------------------------------------------
+mseg_chIndex
+mseg_chiSquared
+mseg_nDOF
+mseg_nPhiLayers
+mseg_nPrecisionHits
+mseg_nTrigEtaLayers
+mseg_t0
+mseg_techIndex
+mseg_x
+mseg_xDir
+mseg_y
+mseg_yDir
+mseg_z
+mseg_zDir
+
+# --- Muon RoI cluster trigger (2) ------------------------------------------
+muRoIClusTrig_eta_NOSYS
+muRoIClusTrig_phi_NOSYS
+
+# --- RoI mask (1) ----------------------------------------------------------
+roi_mask_NOSYS
+
+# --- Inner-detector tracks, trackID family (11) ----------------------------
+# NOTE: this family dominates CSV fan-out on the fastframe files.
+trackID_charge
+trackID_chi2
+trackID_d0
+trackID_e
+trackID_eta
+trackID_isFromPV
+trackID_m
+trackID_phi
+trackID_pt
+trackID_qOverp
+trackID_z0
+
+# --- Tracks, NOSYS family (5) ----------------------------------------------
+# NOTE: distinct from trackID_* above. A "track*" glob would eat both.
+track_eta_NOSYS
+track_isJetTrack_NOSYS
+track_phi_NOSYS
+track_pt_NOSYS
+track_selectForIso_NOSYS
+
+# --- Tracklets (11) --------------------------------------------------------
+trklet_e
+trklet_m
+trklet_msvtxLink
+trklet_nMDTHits
+trklet_px
+trklet_py
+trklet_pz
+trklet_q
+trklet_x
+trklet_y
+trklet_z

@@ -21,8 +21,7 @@ LOCKED DECISIONS
                                                     only; that is good enough
   2. Canonical parquet = bulk storage. Lists stay lists, jagged_deep intact.
      CSVs are disposable views regenerable without re-touching ROOT.
-  3. Three layers, three scripts. Layers 1-2 are the pipeline; layer 3 is
-     optional post-processing and nothing depends on it:
+  3. Two layers, two scripts:
        Layer 1  scan.py     census every struct -> parquet + manifest.json
                             + manifest.txt
        Layer 2  convert.py  ROOT -> flat CSV
@@ -32,11 +31,6 @@ LOCKED DECISIONS
                   2b FROM-SCAN  manifest-driven; honors per-branch policy
                                 edits in manifest.json; reads canonical
                                 parquet, never re-reads ROOT
-       Layer 3  dropfilter.py  OPTIONAL. Removes whole branches named in
-                            drop_list.txt -> filtered CSV + drop report.
-                            Reads canonical parquet + manifest.json ONLY;
-                            never opens ROOT, never writes the parquet,
-                            never edits flat.csv or the manifests.
   4. Jagged policies (per branch, "policy" field in manifest.json):
        pad_max (default) | first:N | drop
   5. BASE-POLICY pad flag: -999 (numeric; jagged-derived columns stay
@@ -54,23 +48,6 @@ LOCKED DECISIONS
      argparse CLI, custom \r progress bars on every pass, zero display
      requirements. Deploy = git clone + pip install -r requirements.txt.
   9. Any served pages bind 127.0.0.1 ONLY; ssh tunnel is the only door.
- 10. LAYER-3 FILTERING is BY NAME, never by structure. drop_list.txt holds
-     BRANCH names (trackID_pt), never CSV column names (trackID_pt_0).
-     manifest.json is the lookup table that expands branch -> columns; it is
-     never the policy. Deliberately orthogonal to the six bins: a branch is
-     dropped because it is listed, not because of which bin it landed in.
-     Structure-based rules (e.g. "drop everything jagged") are NOT in scope.
- 11. LAYER-3 FAILURE MODE is LOUD. A drop-list name matching no branch in
-     manifest.json is a hard error: nothing written, non-zero exit, offending
-     line numbers printed (--allow-unmatched to downgrade). A resolved-but-
-     absent column, or a manifest width disagreeing with the data, is
-     reported as an integrity failure. Rationale: a silent skip yields a CSV
-     wider than the operator believes, which corrupts everything downstream.
-     An ABSENT drop list is the one quiet case - that is a clean no-op at
-     exit 0, because layer 3 is optional by design.
- 12. MASTER COPY: canonical.parquet keeps EVERY branch, including every one
-     layer 3 removes. Only the CSV is filtered. Re-filtering with an edited
-     list must never require a re-scan, a re-convert, or the ROOT file.
      Port/tunnel hygiene checklist lives in README ("before you log out").
 
 ------------------------------------------------------------------------------

@@ -1,0 +1,511 @@
+==============================================================================
+  root2csv Scan Manifest  (v0.1.0)
+  Sample:    v1
+  Source:    /data2/kjohns/run3_sample_fastframe_files/HSS_mH125_mS55_ct5320_537840_mc23e_fullsim.root
+  Tree:      analysis
+  Generated: 2026-07-22 20:22:01
+  Events:    423
+  Pass 1:    1.0 s
+  Parquet:   0.2 s
+==============================================================================
+
+------------------------------------------------------------------------------
+PASS 1 SUMMARY  (branch classification — the six bins)
+------------------------------------------------------------------------------
+  Total branches encountered:             227
+  Readable:                               227
+    scalar          (1D):                 47
+    vec1            (length-1 2D):        38
+    jagged          (explode + pad):      117
+    jagged-deep     (ndim > 2, pq only):  0
+    empty           (max_len=0, skipped): 25
+  Unreadable (recorded by name):          0
+
+  Projected flat CSV column count:        24925
+  Projected sentinel insertions:          7271765 (fill='-999.0')
+  User-added tag columns:                 0  -> []
+
+------------------------------------------------------------------------------
+OUTPUT FILES
+------------------------------------------------------------------------------
+  Parquet:   ./v1_scan/v1_canonical.parquet
+  JSON:      ./v1_scan/v1_manifest.json
+  TXT:       ./v1_scan/v1_manifest.txt
+
+------------------------------------------------------------------------------
+BRANCH CENSUS  (individual entries)
+------------------------------------------------------------------------------
+
+  [scalar]  actualInteractionsPerCrossing                        dtype=float32
+  [scalar]  averageInteractionsPerCrossing                       dtype=float32
+  [scalar]  coreFlags                                            dtype=bool
+  [scalar]  eventNumber                                          dtype=uint64
+  [scalar]  globalTriggerEffSF_NOSYS                             dtype=float32
+  [scalar]  globalTriggerMatch_NOSYS                             dtype=int8
+  [scalar]  hasGoodPV                                            dtype=bool
+  [scalar]  htmissScalar_NOSYS                                   dtype=float32
+  [scalar]  htmiss_NOSYS                                         dtype=float32
+  [scalar]  htmiss_x_NOSYS                                       dtype=float32
+  [scalar]  htmiss_y_NOSYS                                       dtype=float32
+  [scalar]  isCompleteEvent                                      dtype=bool
+  [scalar]  isGoodLAr                                            dtype=bool
+  [scalar]  isGoodSCT                                            dtype=bool
+  [scalar]  isGoodTile                                           dtype=bool
+  [scalar]  jet_n_NOSYS                                          dtype=int32
+  [scalar]  jet_pt_max_NOSYS                                     dtype=float32
+  [scalar]  lumi                                                 dtype=float64
+  [scalar]  mcChannelNumber                                      dtype=uint32
+  [scalar]  met_met_NOSYS                                        dtype=float32
+  [scalar]  met_phi_NOSYS                                        dtype=float32
+  [scalar]  met_significance_NOSYS                               dtype=float32
+  [scalar]  met_sumet_NOSYS                                      dtype=float32
+  [scalar]  msvtx_closestJet_pt_NOSYS                            dtype=float32
+  [scalar]  nBOL_NOSYS                                           dtype=int32
+  [scalar]  nEOL_NOSYS                                           dtype=int32
+  [scalar]  runNumber                                            dtype=uint32
+  [scalar]  sumWeights_NOSYS                                     dtype=float64
+  [scalar]  trigPassed_HLT_2e17_lhvloose_L12eEM18M               dtype=bool
+  [scalar]  trigPassed_HLT_2e24_lhvloose_L12eEM24L               dtype=bool
+  [scalar]  trigPassed_HLT_2mu14_L12MU8F                         dtype=bool
+  [scalar]  trigPassed_HLT_e140_lhloose_L1eEM26M                 dtype=bool
+  [scalar]  trigPassed_HLT_e26_lhtight_ivarloose_L1eEM26M        dtype=bool
+  [scalar]  trigPassed_HLT_e300_etcut_L1eEM26M                   dtype=bool
+  [scalar]  trigPassed_HLT_e60_lhmedium_L1eEM26M                 dtype=bool
+  [scalar]  trigPassed_HLT_j460_wildcard                         dtype=bool
+  [scalar]  trigPassed_HLT_mu24_ivarmedium_L1MU14FCH             dtype=bool
+  [scalar]  trigPassed_HLT_mu3vtx_L12MU8F                        dtype=bool
+  [scalar]  trigPassed_HLT_mu3vtx_j30_L12MU8F                    dtype=bool
+  [scalar]  trigPassed_HLT_mu50_L1MU14FCH                        dtype=bool
+  [scalar]  weight_fjvt_effSF_NOSYS                              dtype=float32
+  [scalar]  weight_jvt_effSF_NOSYS                               dtype=float32
+  [scalar]  weight_mc_NOSYS                                      dtype=float32
+  [scalar]  weight_pileup_NOSYS                                  dtype=float32
+  [scalar]  weight_total_NOSYS                                   dtype=float64
+  [scalar]  weight_total_squared_NOSYS                           dtype=float64
+  [scalar]  xSection                                             dtype=float64
+
+  [vec1]    HLTmuRoIClus_eta                                     dtype=float32
+  [vec1]    HLTmuRoIClus_nRoI                                    dtype=int32
+  [vec1]    HLTmuRoIClus_phi                                     dtype=float32
+  [vec1]    msvtx_chiSquared                                     dtype=float32
+  [vec1]    msvtx_eta_NOSYS                                      dtype=float32
+  [vec1]    msvtx_inBarrel_NOSYS                                 dtype=uint8
+  [vec1]    msvtx_inEndcaps_NOSYS                                dtype=uint8
+  [vec1]    msvtx_jetMinDR_NOSYS                                 dtype=float64
+  [vec1]    msvtx_muRoIClusTrig_mindR_NOSYS                      dtype=float64
+  [vec1]    msvtx_nCaloClusters_Egt300MeV_NOSYS                  dtype=int32
+  [vec1]    msvtx_nCaloClusters_NOSYS                            dtype=int32
+  [vec1]    msvtx_nMDT                                           dtype=int32
+  [vec1]    msvtx_nMDTExtendedStation                            dtype=int32
+  [vec1]    msvtx_nMDTInnerStation                               dtype=int32
+  [vec1]    msvtx_nMDTInwards                                    dtype=int32
+  [vec1]    msvtx_nMDTMiddleStation                              dtype=int32
+  [vec1]    msvtx_nMDTOuterStation                               dtype=int32
+  [vec1]    msvtx_nRPC                                           dtype=int32
+  [vec1]    msvtx_nRPCExtendedStation                            dtype=int32
+  [vec1]    msvtx_nRPCInnerStation                               dtype=int32
+  [vec1]    msvtx_nRPCInwards                                    dtype=int32
+  [vec1]    msvtx_nRPCMiddleStation                              dtype=int32
+  [vec1]    msvtx_nRPCOuterStation                               dtype=int32
+  [vec1]    msvtx_nTGC                                           dtype=int32
+  [vec1]    msvtx_nTGCExtendedStation                            dtype=int32
+  [vec1]    msvtx_nTGCInnerStation                               dtype=int32
+  [vec1]    msvtx_nTGCInwards                                    dtype=int32
+  [vec1]    msvtx_nTGCMiddleStation                              dtype=int32
+  [vec1]    msvtx_nTGCOuterStation                               dtype=int32
+  [vec1]    msvtx_nTrk                                           dtype=int32
+  [vec1]    msvtx_phi_NOSYS                                      dtype=float32
+  [vec1]    msvtx_trackHardMinDR_NOSYS                           dtype=float64
+  [vec1]    msvtx_trackSoftSumPt_NOSYS                           dtype=float64
+  [vec1]    msvtx_x                                              dtype=float32
+  [vec1]    msvtx_y                                              dtype=float32
+  [vec1]    msvtx_z                                              dtype=float32
+  [vec1]    score_NN1_NOSYS                                      dtype=float64
+  [vec1]    score_NN2_NOSYS                                      dtype=float64
+
+  [jagged]  L1MuRoI_eta                                          max=33   med=12.0  p95=22.0   spacers=8888      policy=pad_max -> 33 cols
+  [jagged]  L1MuRoI_phi                                          max=33   med=12.0  p95=22.0   spacers=8888      policy=pad_max -> 33 cols
+  [jagged]  L1MuRoI_sectorID                                     max=33   med=12.0  p95=22.0   spacers=8888      policy=pad_max -> 33 cols
+  [jagged]  L1MuRoI_threshold                                    max=33   med=12.0  p95=22.0   spacers=8888      policy=pad_max -> 33 cols
+  [jagged]  L1MuRoI_word                                         max=33   med=12.0  p95=22.0   spacers=8888      policy=pad_max -> 33 cols
+  [jagged]  caloCluster_EMB1                                     max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_EMB2                                     max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_EMB3                                     max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_EME1                                     max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_EME2                                     max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_EME3                                     max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_FCAL0                                    max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_FCAL1                                    max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_FCAL2                                    max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_HEC0                                     max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_HEC1                                     max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_HEC2                                     max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_HEC3                                     max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_PreSamplerB                              max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_PreSamplerE                              max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_TileBar0                                 max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_TileBar1                                 max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_TileBar2                                 max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_TileExt0                                 max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_TileExt1                                 max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_TileExt2                                 max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_TileGap1                                 max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_TileGap2                                 max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_TileGap3                                 max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_e                                        max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_eta                                      max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_phi                                      max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_pt                                       max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  caloCluster_time                                     max=442  med=117.0 p95=288.0  spacers=129985    policy=pad_max -> 442 cols
+  [jagged]  jet_EMFrac_NOSYS                                     max=15   med=2.0   p95=5.0    spacers=5324      policy=pad_max -> 15 cols
+  [jagged]  jet_HadEMRatioLog10_NOSYS                            max=15   med=2.0   p95=5.0    spacers=5324      policy=pad_max -> 15 cols
+  [jagged]  jet_e_NOSYS                                          max=15   med=2.0   p95=5.0    spacers=5324      policy=pad_max -> 15 cols
+  [jagged]  jet_eta                                              max=15   med=2.0   p95=5.0    spacers=5324      policy=pad_max -> 15 cols
+  [jagged]  jet_fjvtEfficiency_NOSYS                             max=15   med=2.0   p95=5.0    spacers=5324      policy=pad_max -> 15 cols
+  [jagged]  jet_jvtEfficiency_NOSYS                              max=15   med=2.0   p95=5.0    spacers=5324      policy=pad_max -> 15 cols
+  [jagged]  jet_phi                                              max=15   med=2.0   p95=5.0    spacers=5324      policy=pad_max -> 15 cols
+  [jagged]  jet_pt_NOSYS                                         max=15   med=2.0   p95=5.0    spacers=5324      policy=pad_max -> 15 cols
+  [jagged]  jet_select_baselineFJvt_NOSYS                        max=15   med=2.0   p95=5.0    spacers=5324      policy=pad_max -> 15 cols
+  [jagged]  jet_select_baselineJvt_NOSYS                         max=15   med=2.0   p95=5.0    spacers=5324      policy=pad_max -> 15 cols
+  [jagged]  msegNCB_chIndex                                      max=36   med=16.0  p95=28.0   spacers=8545      policy=pad_max -> 36 cols
+  [jagged]  msegNCB_chiSquared                                   max=36   med=16.0  p95=28.0   spacers=8545      policy=pad_max -> 36 cols
+  [jagged]  msegNCB_nDOF                                         max=36   med=16.0  p95=28.0   spacers=8545      policy=pad_max -> 36 cols
+  [jagged]  msegNCB_nPhiLayers                                   max=36   med=16.0  p95=28.0   spacers=8545      policy=pad_max -> 36 cols
+  [jagged]  msegNCB_nPrecisionHits                               max=36   med=16.0  p95=28.0   spacers=8545      policy=pad_max -> 36 cols
+  [jagged]  msegNCB_nTrigEtaLayers                               max=36   med=16.0  p95=28.0   spacers=8545      policy=pad_max -> 36 cols
+  [jagged]  msegNCB_t0                                           max=36   med=16.0  p95=28.0   spacers=8545      policy=pad_max -> 36 cols
+  [jagged]  msegNCB_techIndex                                    max=36   med=16.0  p95=28.0   spacers=8545      policy=pad_max -> 36 cols
+  [jagged]  msegNCB_x                                            max=36   med=16.0  p95=28.0   spacers=8545      policy=pad_max -> 36 cols
+  [jagged]  msegNCB_xDir                                         max=36   med=16.0  p95=28.0   spacers=8545      policy=pad_max -> 36 cols
+  [jagged]  msegNCB_y                                            max=36   med=16.0  p95=28.0   spacers=8545      policy=pad_max -> 36 cols
+  [jagged]  msegNCB_yDir                                         max=36   med=16.0  p95=28.0   spacers=8545      policy=pad_max -> 36 cols
+  [jagged]  msegNCB_z                                            max=36   med=16.0  p95=28.0   spacers=8545      policy=pad_max -> 36 cols
+  [jagged]  msegNCB_zDir                                         max=36   med=16.0  p95=28.0   spacers=8545      policy=pad_max -> 36 cols
+  [jagged]  msegUnAssoc_chIndex                                  max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  msegUnAssoc_chiSquared                               max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  msegUnAssoc_eta_NOSYS                                max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  msegUnAssoc_nDOF                                     max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  msegUnAssoc_nPhiLayers                               max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  msegUnAssoc_nPrecisionHits                           max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  msegUnAssoc_nTrigEtaLayers                           max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  msegUnAssoc_t0                                       max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  msegUnAssoc_techIndex                                max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  msegUnAssoc_x                                        max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  msegUnAssoc_xDir                                     max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  msegUnAssoc_y                                        max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  msegUnAssoc_yDir                                     max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  msegUnAssoc_z                                        max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  msegUnAssoc_zDir                                     max=233  med=110.0 p95=157.0  spacers=51216     policy=pad_max -> 233 cols
+  [jagged]  mseg_chIndex                                         max=54   med=7.0   p95=20.9   spacers=19140     policy=pad_max -> 54 cols
+  [jagged]  mseg_chiSquared                                      max=54   med=7.0   p95=20.9   spacers=19140     policy=pad_max -> 54 cols
+  [jagged]  mseg_nDOF                                            max=54   med=7.0   p95=20.9   spacers=19140     policy=pad_max -> 54 cols
+  [jagged]  mseg_nPhiLayers                                      max=54   med=7.0   p95=20.9   spacers=19140     policy=pad_max -> 54 cols
+  [jagged]  mseg_nPrecisionHits                                  max=54   med=7.0   p95=20.9   spacers=19140     policy=pad_max -> 54 cols
+  [jagged]  mseg_nTrigEtaLayers                                  max=54   med=7.0   p95=20.9   spacers=19140     policy=pad_max -> 54 cols
+  [jagged]  mseg_t0                                              max=54   med=7.0   p95=20.9   spacers=19140     policy=pad_max -> 54 cols
+  [jagged]  mseg_techIndex                                       max=54   med=7.0   p95=20.9   spacers=19140     policy=pad_max -> 54 cols
+  [jagged]  mseg_x                                               max=54   med=7.0   p95=20.9   spacers=19140     policy=pad_max -> 54 cols
+  [jagged]  mseg_xDir                                            max=54   med=7.0   p95=20.9   spacers=19140     policy=pad_max -> 54 cols
+  [jagged]  mseg_y                                               max=54   med=7.0   p95=20.9   spacers=19140     policy=pad_max -> 54 cols
+  [jagged]  mseg_yDir                                            max=54   med=7.0   p95=20.9   spacers=19140     policy=pad_max -> 54 cols
+  [jagged]  mseg_z                                               max=54   med=7.0   p95=20.9   spacers=19140     policy=pad_max -> 54 cols
+  [jagged]  mseg_zDir                                            max=54   med=7.0   p95=20.9   spacers=19140     policy=pad_max -> 54 cols
+  [jagged]  muRoIClusTrig_eta_NOSYS                              max=16   med=5.0   p95=9.0    spacers=4495      policy=pad_max -> 16 cols
+  [jagged]  muRoIClusTrig_phi_NOSYS                              max=16   med=5.0   p95=9.0    spacers=4495      policy=pad_max -> 16 cols
+  [jagged]  roi_mask_NOSYS                                       max=33   med=12.0  p95=22.0   spacers=8888      policy=pad_max -> 33 cols
+  [jagged]  trackID_charge                                       max=487  med=90.0  p95=275.5  spacers=159981    policy=pad_max -> 487 cols
+  [jagged]  trackID_chi2                                         max=487  med=90.0  p95=275.5  spacers=159981    policy=pad_max -> 487 cols
+  [jagged]  trackID_d0                                           max=487  med=90.0  p95=275.5  spacers=159981    policy=pad_max -> 487 cols
+  [jagged]  trackID_e                                            max=487  med=90.0  p95=275.5  spacers=159981    policy=pad_max -> 487 cols
+  [jagged]  trackID_eta                                          max=487  med=90.0  p95=275.5  spacers=159981    policy=pad_max -> 487 cols
+  [jagged]  trackID_isFromPV                                     max=487  med=90.0  p95=275.5  spacers=159981    policy=pad_max -> 487 cols
+  [jagged]  trackID_m                                            max=487  med=90.0  p95=275.5  spacers=159981    policy=pad_max -> 487 cols
+  [jagged]  trackID_phi                                          max=487  med=90.0  p95=275.5  spacers=159981    policy=pad_max -> 487 cols
+  [jagged]  trackID_pt                                           max=487  med=90.0  p95=275.5  spacers=159981    policy=pad_max -> 487 cols
+  [jagged]  trackID_qOverp                                       max=487  med=90.0  p95=275.5  spacers=159981    policy=pad_max -> 487 cols
+  [jagged]  trackID_z0                                           max=487  med=90.0  p95=275.5  spacers=159981    policy=pad_max -> 487 cols
+  [jagged]  track_eta_NOSYS                                      max=90   med=24.0  p95=60.0   spacers=26725     policy=pad_max -> 90 cols
+  [jagged]  track_isJetTrack_NOSYS                               max=487  med=90.0  p95=275.5  spacers=159981    policy=pad_max -> 487 cols
+  [jagged]  track_phi_NOSYS                                      max=90   med=24.0  p95=60.0   spacers=26725     policy=pad_max -> 90 cols
+  [jagged]  track_pt_NOSYS                                       max=90   med=24.0  p95=60.0   spacers=26725     policy=pad_max -> 90 cols
+  [jagged]  track_selectForIso_NOSYS                             max=487  med=90.0  p95=275.5  spacers=159981    policy=pad_max -> 487 cols
+  [jagged]  trklet_e                                             max=26   med=10.0  p95=18.0   spacers=6444      policy=pad_max -> 26 cols
+  [jagged]  trklet_m                                             max=26   med=10.0  p95=18.0   spacers=6444      policy=pad_max -> 26 cols
+  [jagged]  trklet_msvtxLink                                     max=26   med=10.0  p95=18.0   spacers=6444      policy=pad_max -> 26 cols
+  [jagged]  trklet_nMDTHits                                      max=26   med=10.0  p95=18.0   spacers=6444      policy=pad_max -> 26 cols
+  [jagged]  trklet_px                                            max=26   med=10.0  p95=18.0   spacers=6444      policy=pad_max -> 26 cols
+  [jagged]  trklet_py                                            max=26   med=10.0  p95=18.0   spacers=6444      policy=pad_max -> 26 cols
+  [jagged]  trklet_pz                                            max=26   med=10.0  p95=18.0   spacers=6444      policy=pad_max -> 26 cols
+  [jagged]  trklet_q                                             max=26   med=10.0  p95=18.0   spacers=6444      policy=pad_max -> 26 cols
+  [jagged]  trklet_x                                             max=26   med=10.0  p95=18.0   spacers=6444      policy=pad_max -> 26 cols
+  [jagged]  trklet_y                                             max=26   med=10.0  p95=18.0   spacers=6444      policy=pad_max -> 26 cols
+  [jagged]  trklet_z                                             max=26   med=10.0  p95=18.0   spacers=6444      policy=pad_max -> 26 cols
+
+------------------------------------------------------------------------------
+EMPTY BRANCHES (max_len = 0, skipped from CSV)
+------------------------------------------------------------------------------
+  el_caloClusterEnergyReso
+  el_charge
+  el_e_NOSYS
+  el_eta
+  el_id_effSF_baseline_NOSYS
+  el_isol_effSF_baseline_NOSYS
+  el_phi
+  el_pt_NOSYS
+  el_reco_effSF_baseline_NOSYS
+  el_select_baseline_NOSYS
+  el_trigMatched_HLT_e140_lhloose_L1eEM26M
+  el_trigMatched_HLT_e26_lhtight_ivarloose_L1eEM26M
+  el_trigMatched_HLT_e300_etcut_L1eEM26M
+  el_trigMatched_HLT_e60_lhmedium_L1eEM26M
+  mu_TTVA_effSF_baseline_NOSYS
+  mu_charge
+  mu_e_NOSYS
+  mu_eta
+  mu_isol_effSF_baseline_NOSYS
+  mu_phi
+  mu_pt_NOSYS
+  mu_reco_effSF_baseline_NOSYS
+  mu_select_baseline_NOSYS
+  mu_trigMatched_HLT_mu24_ivarmedium_L1MU14FCH
+  mu_trigMatched_HLT_mu50_L1MU14FCH
+
+------------------------------------------------------------------------------
+UNABLE TO READ   (0)  — names recorded; nothing more can be done
+------------------------------------------------------------------------------
+  (none)
+
+------------------------------------------------------------------------------
+CONDENSED BRANCH AUDIT  (binary: flattened vs unreadable)
+------------------------------------------------------------------------------
+
+  Total: 227   flattened=202   unreadable=25
+
+  [flattened]   HLTmuRoIClus_eta
+  [flattened]   HLTmuRoIClus_nRoI
+  [flattened]   HLTmuRoIClus_phi
+  [flattened]   L1MuRoI_eta
+  [flattened]   L1MuRoI_phi
+  [flattened]   L1MuRoI_sectorID
+  [flattened]   L1MuRoI_threshold
+  [flattened]   L1MuRoI_word
+  [flattened]   actualInteractionsPerCrossing
+  [flattened]   averageInteractionsPerCrossing
+  [flattened]   caloCluster_EMB1
+  [flattened]   caloCluster_EMB2
+  [flattened]   caloCluster_EMB3
+  [flattened]   caloCluster_EME1
+  [flattened]   caloCluster_EME2
+  [flattened]   caloCluster_EME3
+  [flattened]   caloCluster_FCAL0
+  [flattened]   caloCluster_FCAL1
+  [flattened]   caloCluster_FCAL2
+  [flattened]   caloCluster_HEC0
+  [flattened]   caloCluster_HEC1
+  [flattened]   caloCluster_HEC2
+  [flattened]   caloCluster_HEC3
+  [flattened]   caloCluster_PreSamplerB
+  [flattened]   caloCluster_PreSamplerE
+  [flattened]   caloCluster_TileBar0
+  [flattened]   caloCluster_TileBar1
+  [flattened]   caloCluster_TileBar2
+  [flattened]   caloCluster_TileExt0
+  [flattened]   caloCluster_TileExt1
+  [flattened]   caloCluster_TileExt2
+  [flattened]   caloCluster_TileGap1
+  [flattened]   caloCluster_TileGap2
+  [flattened]   caloCluster_TileGap3
+  [flattened]   caloCluster_e
+  [flattened]   caloCluster_eta
+  [flattened]   caloCluster_phi
+  [flattened]   caloCluster_pt
+  [flattened]   caloCluster_time
+  [flattened]   coreFlags
+  [unreadable]  el_caloClusterEnergyReso
+  [unreadable]  el_charge
+  [unreadable]  el_e_NOSYS
+  [unreadable]  el_eta
+  [unreadable]  el_id_effSF_baseline_NOSYS
+  [unreadable]  el_isol_effSF_baseline_NOSYS
+  [unreadable]  el_phi
+  [unreadable]  el_pt_NOSYS
+  [unreadable]  el_reco_effSF_baseline_NOSYS
+  [unreadable]  el_select_baseline_NOSYS
+  [unreadable]  el_trigMatched_HLT_e140_lhloose_L1eEM26M
+  [unreadable]  el_trigMatched_HLT_e26_lhtight_ivarloose_L1eEM26M
+  [unreadable]  el_trigMatched_HLT_e300_etcut_L1eEM26M
+  [unreadable]  el_trigMatched_HLT_e60_lhmedium_L1eEM26M
+  [flattened]   eventNumber
+  [flattened]   globalTriggerEffSF_NOSYS
+  [flattened]   globalTriggerMatch_NOSYS
+  [flattened]   hasGoodPV
+  [flattened]   htmissScalar_NOSYS
+  [flattened]   htmiss_NOSYS
+  [flattened]   htmiss_x_NOSYS
+  [flattened]   htmiss_y_NOSYS
+  [flattened]   isCompleteEvent
+  [flattened]   isGoodLAr
+  [flattened]   isGoodSCT
+  [flattened]   isGoodTile
+  [flattened]   jet_EMFrac_NOSYS
+  [flattened]   jet_HadEMRatioLog10_NOSYS
+  [flattened]   jet_e_NOSYS
+  [flattened]   jet_eta
+  [flattened]   jet_fjvtEfficiency_NOSYS
+  [flattened]   jet_jvtEfficiency_NOSYS
+  [flattened]   jet_n_NOSYS
+  [flattened]   jet_phi
+  [flattened]   jet_pt_NOSYS
+  [flattened]   jet_pt_max_NOSYS
+  [flattened]   jet_select_baselineFJvt_NOSYS
+  [flattened]   jet_select_baselineJvt_NOSYS
+  [flattened]   lumi
+  [flattened]   mcChannelNumber
+  [flattened]   met_met_NOSYS
+  [flattened]   met_phi_NOSYS
+  [flattened]   met_significance_NOSYS
+  [flattened]   met_sumet_NOSYS
+  [flattened]   msegNCB_chIndex
+  [flattened]   msegNCB_chiSquared
+  [flattened]   msegNCB_nDOF
+  [flattened]   msegNCB_nPhiLayers
+  [flattened]   msegNCB_nPrecisionHits
+  [flattened]   msegNCB_nTrigEtaLayers
+  [flattened]   msegNCB_t0
+  [flattened]   msegNCB_techIndex
+  [flattened]   msegNCB_x
+  [flattened]   msegNCB_xDir
+  [flattened]   msegNCB_y
+  [flattened]   msegNCB_yDir
+  [flattened]   msegNCB_z
+  [flattened]   msegNCB_zDir
+  [flattened]   msegUnAssoc_chIndex
+  [flattened]   msegUnAssoc_chiSquared
+  [flattened]   msegUnAssoc_eta_NOSYS
+  [flattened]   msegUnAssoc_nDOF
+  [flattened]   msegUnAssoc_nPhiLayers
+  [flattened]   msegUnAssoc_nPrecisionHits
+  [flattened]   msegUnAssoc_nTrigEtaLayers
+  [flattened]   msegUnAssoc_t0
+  [flattened]   msegUnAssoc_techIndex
+  [flattened]   msegUnAssoc_x
+  [flattened]   msegUnAssoc_xDir
+  [flattened]   msegUnAssoc_y
+  [flattened]   msegUnAssoc_yDir
+  [flattened]   msegUnAssoc_z
+  [flattened]   msegUnAssoc_zDir
+  [flattened]   mseg_chIndex
+  [flattened]   mseg_chiSquared
+  [flattened]   mseg_nDOF
+  [flattened]   mseg_nPhiLayers
+  [flattened]   mseg_nPrecisionHits
+  [flattened]   mseg_nTrigEtaLayers
+  [flattened]   mseg_t0
+  [flattened]   mseg_techIndex
+  [flattened]   mseg_x
+  [flattened]   mseg_xDir
+  [flattened]   mseg_y
+  [flattened]   mseg_yDir
+  [flattened]   mseg_z
+  [flattened]   mseg_zDir
+  [flattened]   msvtx_chiSquared
+  [flattened]   msvtx_closestJet_pt_NOSYS
+  [flattened]   msvtx_eta_NOSYS
+  [flattened]   msvtx_inBarrel_NOSYS
+  [flattened]   msvtx_inEndcaps_NOSYS
+  [flattened]   msvtx_jetMinDR_NOSYS
+  [flattened]   msvtx_muRoIClusTrig_mindR_NOSYS
+  [flattened]   msvtx_nCaloClusters_Egt300MeV_NOSYS
+  [flattened]   msvtx_nCaloClusters_NOSYS
+  [flattened]   msvtx_nMDT
+  [flattened]   msvtx_nMDTExtendedStation
+  [flattened]   msvtx_nMDTInnerStation
+  [flattened]   msvtx_nMDTInwards
+  [flattened]   msvtx_nMDTMiddleStation
+  [flattened]   msvtx_nMDTOuterStation
+  [flattened]   msvtx_nRPC
+  [flattened]   msvtx_nRPCExtendedStation
+  [flattened]   msvtx_nRPCInnerStation
+  [flattened]   msvtx_nRPCInwards
+  [flattened]   msvtx_nRPCMiddleStation
+  [flattened]   msvtx_nRPCOuterStation
+  [flattened]   msvtx_nTGC
+  [flattened]   msvtx_nTGCExtendedStation
+  [flattened]   msvtx_nTGCInnerStation
+  [flattened]   msvtx_nTGCInwards
+  [flattened]   msvtx_nTGCMiddleStation
+  [flattened]   msvtx_nTGCOuterStation
+  [flattened]   msvtx_nTrk
+  [flattened]   msvtx_phi_NOSYS
+  [flattened]   msvtx_trackHardMinDR_NOSYS
+  [flattened]   msvtx_trackSoftSumPt_NOSYS
+  [flattened]   msvtx_x
+  [flattened]   msvtx_y
+  [flattened]   msvtx_z
+  [flattened]   muRoIClusTrig_eta_NOSYS
+  [flattened]   muRoIClusTrig_phi_NOSYS
+  [unreadable]  mu_TTVA_effSF_baseline_NOSYS
+  [unreadable]  mu_charge
+  [unreadable]  mu_e_NOSYS
+  [unreadable]  mu_eta
+  [unreadable]  mu_isol_effSF_baseline_NOSYS
+  [unreadable]  mu_phi
+  [unreadable]  mu_pt_NOSYS
+  [unreadable]  mu_reco_effSF_baseline_NOSYS
+  [unreadable]  mu_select_baseline_NOSYS
+  [unreadable]  mu_trigMatched_HLT_mu24_ivarmedium_L1MU14FCH
+  [unreadable]  mu_trigMatched_HLT_mu50_L1MU14FCH
+  [flattened]   nBOL_NOSYS
+  [flattened]   nEOL_NOSYS
+  [flattened]   roi_mask_NOSYS
+  [flattened]   runNumber
+  [flattened]   score_NN1_NOSYS
+  [flattened]   score_NN2_NOSYS
+  [flattened]   sumWeights_NOSYS
+  [flattened]   trackID_charge
+  [flattened]   trackID_chi2
+  [flattened]   trackID_d0
+  [flattened]   trackID_e
+  [flattened]   trackID_eta
+  [flattened]   trackID_isFromPV
+  [flattened]   trackID_m
+  [flattened]   trackID_phi
+  [flattened]   trackID_pt
+  [flattened]   trackID_qOverp
+  [flattened]   trackID_z0
+  [flattened]   track_eta_NOSYS
+  [flattened]   track_isJetTrack_NOSYS
+  [flattened]   track_phi_NOSYS
+  [flattened]   track_pt_NOSYS
+  [flattened]   track_selectForIso_NOSYS
+  [flattened]   trigPassed_HLT_2e17_lhvloose_L12eEM18M
+  [flattened]   trigPassed_HLT_2e24_lhvloose_L12eEM24L
+  [flattened]   trigPassed_HLT_2mu14_L12MU8F
+  [flattened]   trigPassed_HLT_e140_lhloose_L1eEM26M
+  [flattened]   trigPassed_HLT_e26_lhtight_ivarloose_L1eEM26M
+  [flattened]   trigPassed_HLT_e300_etcut_L1eEM26M
+  [flattened]   trigPassed_HLT_e60_lhmedium_L1eEM26M
+  [flattened]   trigPassed_HLT_j460_wildcard
+  [flattened]   trigPassed_HLT_mu24_ivarmedium_L1MU14FCH
+  [flattened]   trigPassed_HLT_mu3vtx_L12MU8F
+  [flattened]   trigPassed_HLT_mu3vtx_j30_L12MU8F
+  [flattened]   trigPassed_HLT_mu50_L1MU14FCH
+  [flattened]   trklet_e
+  [flattened]   trklet_m
+  [flattened]   trklet_msvtxLink
+  [flattened]   trklet_nMDTHits
+  [flattened]   trklet_px
+  [flattened]   trklet_py
+  [flattened]   trklet_pz
+  [flattened]   trklet_q
+  [flattened]   trklet_x
+  [flattened]   trklet_y
+  [flattened]   trklet_z
+  [flattened]   weight_fjvt_effSF_NOSYS
+  [flattened]   weight_jvt_effSF_NOSYS
+  [flattened]   weight_mc_NOSYS
+  [flattened]   weight_pileup_NOSYS
+  [flattened]   weight_total_NOSYS
+  [flattened]   weight_total_squared_NOSYS
+  [flattened]   xSection
+

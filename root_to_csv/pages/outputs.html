@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>root2csv — OUTPUTS</title>
+<link rel="icon" type="image/x-icon" href="../assets/images/icon.ico">
+<link rel="stylesheet" href="../assets/css/tron_light.css">
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">
+    <img src="../assets/images/mark.png" alt="root2csv mark"
+         onerror="this.style.display='none'">
+    <div><div class="t">root<b>2</b>csv</div>
+    <div class="v">v0.1.0 · TRON LIGHT</div></div>
+  </div>
+  <nav>
+    <a href="../index.html">HOME</a>
+    <a href="deploy.html">INSTRUCTIONS</a>
+    <a href="run.html">RUN ORDER</a>
+    <a href="bins.html">SIX BINS</a>
+    <a href="outputs.html" class="on">OUTPUTS</a>
+    <a href="glossary.html">GLOSSARY</a>
+    <a href="access.html">ACCESS</a>
+    <a href="hygiene.html">CLEAN UP TUNNEL/PROCESSES</a>
+  </nav>
+  <div class="foot">UA ATLAS · Run-3<br>lineage: flatten_events.py</div>
+</aside>
+
+<main>
+
+<div class="ph"><h1>OUTPUTS — <b>what lands on disk</b></h1>
+<p>A scan (or quick convert) drops everything into one output directory,
+default <code style="background:rgba(255,255,255,.08);border-color:#20394a;color:#9fdcea">./&lt;name&gt;_scan/</code></p></div>
+
+<section>
+  <table>
+    <tr><th>FILE</th><th>WHAT IT IS</th></tr>
+    <tr><td><code>&lt;name&gt;_flat.csv</code></td>
+        <td>The flat CSV. Jagged branches exploded to <code>_0&hellip;_N</code>
+        columns, pads filled with the sentinel. This is the file that feeds
+        pandas / NN training.</td></tr>
+    <tr><td><code>&lt;name&gt;_canonical.parquet</code></td>
+        <td><b>Bulk storage.</b> Everything readable, lists kept as lists,
+        jagged-deep intact. CSVs are disposable views — regenerate them from
+        this without ever re-reading ROOT.</td></tr>
+    <tr><td><code>&lt;name&gt;_manifest.txt</code></td>
+        <td>Human-readable audit: the six-bin summary, per-branch census with
+        length stats, jagged-deep structure detail, and a condensed
+        flattened-vs-unreadable list. Ctrl-F any branch name.</td></tr>
+    <tr><td><code>&lt;name&gt;_manifest.json</code></td>
+        <td>Machine-readable census. The <code>"policy"</code> field per jagged
+        branch (<code>pad_max</code> &middot; <code>first:N</code> &middot;
+        <code>drop</code>) is yours to edit; <code>--from-scan</code> obeys
+        it.</td></tr>
+    <tr><td><code>&lt;name&gt;_build.txt</code></td>
+        <td>Written by <code>--from-scan</code> builds: CSV shape/size, fill
+        used, and which branches the policies dropped.</td></tr>
+  </table>
+</section>
+
+</main>
+
+<footer>
+  root2csv v0.1.0 · UA ATLAS Run-3 · lineage: flatten_events.py (2026-04-21)
+  · design: TRON LIGHT · stage C — design lock-in lives in SPEC.txt
+</footer>
+
+<script src="../assets/js/site.js"></script>
+</body>
+</html>
