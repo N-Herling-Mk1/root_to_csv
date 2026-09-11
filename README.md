@@ -21,23 +21,52 @@ flattener. Design lock-in: `SPEC.txt`.
 tiers, the manifest how-to, the ignored-branch list, the six bins, glossary,
 and the vetting transcript. Click the banner.
 
-## Install (headless server, via clone)
+No ATLAS environment, no ROOT build, no display needed — `pip install` and go.
+Deps: uproot, awkward, pandas, numpy, pyarrow. (`dropfilter.py` alone needs
+none of them; it is pure stdlib.)
+
+## Fastest path: one ROOT file → one small CSV
+
+Four commands, start to finish. Copy-paste the whole block.
 
 ```bash
-git clone <REPO_URL>
-cd root2csv
-python3 -m pip install --user -r requirements.txt     # or into a venv
+# 1 · get the toolkit
+git clone https://github.com/N-Herling-Mk1/root_to_csv.git
+python3 -m pip install --user -r root_to_csv/requirements.txt
+
+# 2 · ROOT -> full flat CSV  (scan runs internally; ~15 s on a 6 MB file)
+python3 root_to_csv/convert.py /data2/kjohns/run3_sample_fastframe_files/ml/<file>.root --name s1
+
+# 3 · see what the filter would remove — writes nothing
+python3 root_to_csv/dropfilter.py ./s1_scan --preview
+
+# 4 · apply it -> a much smaller CSV, verified on the way out
+python3 root_to_csv/dropfilter.py ./s1_scan
 ```
 
-No ATLAS environment, no ROOT build, no display needed.
+Run it from wherever you like — outputs land in the directory you are standing
+in, not in the repo, and `drop_list.txt` is found automatically.
 
-## Fastest path: one file → one CSV
+**What you get**, measured on `HSS_mH125_mS55_ct5320_537840_mc23e_fullsim.root`
+(423 events, 6.2 MB):
 
-```bash
-python3 convert.py /data2/kjohns/run3_sample_fastframe_files/<file>.root
-```
+| after | file | shape | size |
+|---|---|---|---|
+| step 2 | `s1_flat.csv` | 423 × 24,925 | 85.6 MB |
+| step 4 | `<stamp>_filtered.csv` | 423 × **85** | **239 KB** |
 
-That's it. Outputs land in `./<name>_scan/`:
+Same rows, 99.7% fewer columns. Step 4 re-reads what it wrote and checks the
+column count, the row count against the source, that every row is the same
+width, that no dropped column leaked through, and that `flat.csv`, the parquet
+and the manifests are all untouched — any failure exits non-zero.
+
+Don't want the filter? Stop after step 2; `flat.csv` is a complete CSV on its
+own. Want different columns? Edit `root_to_csv/drop_list.txt` and re-run step 4
+— it costs seconds and needs no re-scan, no re-convert, and no ROOT file.
+
+### Where things land
+
+Steps 1–2 write `./<name>_scan/`:
 
 | file | what it is |
 |---|---|
@@ -46,7 +75,7 @@ That's it. Outputs land in `./<name>_scan/`:
 | `<name>_manifest.txt` | human-readable audit — what every branch is and what happened to it (Ctrl-F any branch name) |
 | `<name>_manifest.json` | machine-readable census; edit per-branch policies here |
 
-Layer 3, if you run it, adds two more:
+Step 4 (layer 3), if you run it, adds two more:
 
 | file | what it is |
 |---|---|
