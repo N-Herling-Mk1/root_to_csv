@@ -100,6 +100,14 @@ LOCKED DECISIONS
      Rationale: the drop list is expected to churn, so re-runs are the normal
      case and each one's result must survive for comparison. Cost: the scan
      dir accumulates runs — pruning is the operator's call, never the tool's.
+ 17. NEVER CALL .tell() ON A HANDLE A csv.reader IS CONSUMING. Python disables
+     tell() once next() has been called on a file object; the call raises
+     "OSError: telling position disabled by next() call". Size progress bars
+     by ROW COUNT, not by byte offset. (Field failure 2026-09-12: the writer
+     called tell() every 500th row, so the 423-row vet file never reached the
+     faulty branch and every local test passed. Any test set whose row count
+     is below the progress interval cannot exercise the progress path — vet
+     files must exceed it.)
      Port/tunnel hygiene checklist lives in README ("before you log out").
 
 ------------------------------------------------------------------------------

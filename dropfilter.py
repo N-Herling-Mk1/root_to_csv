@@ -431,9 +431,37 @@ def csv_headers(path):
     return list(row), path
 
 
+def count_rows(path, quiet=False):
+    """
+    Data rows in a CSV, by counting newlines in raw chunks.
+
+    Used only to size the progress bar. A newline inside a quoted field would
+    over-count; that is cosmetic and cannot affect the output.
+    """
+    n = 0
+    with open(path, "rb") as fh:
+        while True:
+            chunk = fh.read(1 << 20)
+            if not chunk:
+                break
+            n += chunk.count(b"\n")
+    return max(n - 1, 0)          # minus the header
+
+
 def write_filtered_from_csv(src, dst, keep_idx, quiet):
+    """
+    Stream src -> dst keeping only keep_idx columns.
+
+    PROGRESS IS COUNTED IN ROWS, NEVER BYTES. csv.reader consumes the handle
+    via next(), and Python disables tell() on a file once next() has been
+    called on it -- so fin.tell() here raises
+        OSError: telling position disabled by next() call
+    (Found in the field 2026-09-12 on a >=500-row file: the old code only
+    called tell() every 500th row, so every test we had run -- all 423 rows --
+    skipped the faulty branch entirely.)
+    """
     import csv as _csv
-    total = max(os.path.getsize(src), 1)
+    total = max(count_rows(src), 1)
     bar = Progress(total, "writing filtered csv", enabled=not quiet)
     rows = 0
     with open(src, "r", newline="", encoding="utf-8") as fin, \
@@ -441,14 +469,11 @@ def write_filtered_from_csv(src, dst, keep_idx, quiet):
         reader, writer = _csv.reader(fin), _csv.writer(fout)
         header = next(reader)
         writer.writerow([header[i] for i in keep_idx])
-        seen_bytes = 0
         for row in reader:
             writer.writerow([row[i] for i in keep_idx])
             rows += 1
             if rows % 500 == 0:
-                seen_bytes = fin.tell() if hasattr(fin, "tell") else seen_bytes
-                bar.n = min(seen_bytes, total)
-                bar._draw()
+                bar.step(500)
     bar.done()
     return rows
 
