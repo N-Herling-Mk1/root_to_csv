@@ -108,7 +108,7 @@ All three programs, complete. `--help` on any of them prints the same set.
 | `--version` | | | Y | print the tool version and exit |
 
 **Exit codes** (`dropfilter.py`): `0` clean · `2` a drop-list name matched no
-branch, nothing written · `3` bad inputs / missing files · `4` the written CSV
+branch — checked before writing, so no file exists · `3` bad inputs / missing files · `4` the written CSV
 failed post-write verification. Worth checking in any script that chains steps.
 
 ## The layers
@@ -174,8 +174,9 @@ Three rules worth knowing:
 - **Branch names, not column names.** Write `trackID_pt`, never
   `trackID_pt_0`. `manifest.json` expands each branch to every column it
   produced — on the vet file that one line removes 487 columns.
-- **A name that matches nothing is a hard error.** Nothing is written, the run
-  exits non-zero, and the offending line numbers are printed. A typo cannot
+- **A name that matches nothing is a hard error.** The check is a *pre-write
+  gate* — it runs before the CSV is opened, so a non-zero exit guarantees no
+  output file exists. The offending line numbers are printed. A typo cannot
   quietly hand you a wider CSV than you asked for. Override with
   `--allow-unmatched`.
 - **Matching is anchored on the whole branch name.** `trackID_eta` and

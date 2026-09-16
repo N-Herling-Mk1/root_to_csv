@@ -809,6 +809,28 @@ def main(argv=None):
         candidates = width_candidates(manifest, headers, args.suggest_width,
                                       matched_branches)
 
+    # ---- UNMATCHED IS A PRE-WRITE GATE -----------------------------------
+    # A name that matches no branch means the operator's intent and this file
+    # disagree. Writing anyway leaves a plausible-looking CSV filtered by an
+    # incomplete list, with nothing on disk to say so. Decide before writing.
+    # (Found 2026-09-16: the check used to run AFTER the write, so exit 2 left
+    # a file behind while every doc claimed nothing was written.)
+    if unmatched and not args.allow_unmatched and not args.preview:
+        say("")
+        say(f"UNMATCHED: {len(unmatched)} drop-list entr(ies) matched no branch")
+        say("           in this file's manifest:")
+        for lineno, pat in unmatched[:12]:
+            say(f"   line {lineno:>4}:  {pat}")
+        if len(unmatched) > 12:
+            say(f"   ... and {len(unmatched) - 12} more")
+        say("")
+        say("NOTHING WAS WRITTEN. Either the names are wrong, or this sample")
+        say("genuinely lacks those branches (real data has no MC weights, an")
+        say("empty-bin branch never reaches the CSV). To filter anyway with")
+        say("the names that DID match, re-run with --allow-unmatched.")
+        say("")
+        return 2
+
     rows = None
     out_path = None
     verify_lines, verify_ok = [], None
@@ -917,12 +939,11 @@ def main(argv=None):
             say(f"   line {lineno:>4}:  {pat}")
         if len(unmatched) > 12:
             say(f"   ... and {len(unmatched) - 12} more (full list in the report)")
-        if not args.allow_unmatched:
+        if args.preview:
             say("")
-            say("Nothing above was dropped. Fix the names, or pass --allow-unmatched.")
-            say("")
+            say("  (--preview: a real run would stop here and write nothing.)")
             return 2
-        say("  (--allow-unmatched: continuing)")
+        say("  (--allow-unmatched: the names above were skipped; the rest applied)")
     say("")
     return 0
 

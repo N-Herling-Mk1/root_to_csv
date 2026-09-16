@@ -152,9 +152,10 @@ python3 dropfilter.py ./s1_scan</div>
     Names are matched against branch names in <code>manifest.json</code>, not
     against CSV column headers &mdash; write <code>trackID_pt</code>, never
     <code>trackID_pt_0</code>. A name that matches nothing is an
-    <b>error</b>, not a silent skip: nothing is written and the run exits
-    non-zero, so a typo cannot quietly hand you a wider CSV than you asked
-    for. See <a href="ignored.html">IGNORED BRANCHES</a> for the list currently shipped
+    <b>error</b>, not a silent skip. The check runs <i>before</i> the CSV is
+    opened, so a non-zero exit means no output file exists at all &mdash; a
+    typo cannot quietly hand you a wider CSV than you asked for, and cannot
+    leave a plausible-looking one behind either. See <a href="ignored.html">IGNORED BRANCHES</a> for the list currently shipped
     in the repo.
   </div>
 </section>
@@ -364,7 +365,7 @@ python3 dropfilter.py ./s1_scan</div>
 
   <div class="tip"><b>Exit codes, <code>dropfilter.py</code> only:</b>
   <code>0</code> clean &middot; <code>2</code> a drop-list name matched no branch
-  (nothing written) &middot; <code>3</code> bad inputs or missing files &middot;
+  (checked pre-write &mdash; no file exists) &middot; <code>3</code> bad inputs &middot;
   <code>4</code> the written CSV failed post-write verification. Worth checking
   in any script that chains the steps.</div>
 </section>

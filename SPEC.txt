@@ -63,8 +63,11 @@ LOCKED DECISIONS
      dropped because it is listed, not because of which bin it landed in.
      Structure-based rules (e.g. "drop everything jagged") are NOT in scope.
  11. LAYER-3 FAILURE MODE is LOUD. A drop-list name matching no branch in
-     manifest.json is a hard error: nothing written, non-zero exit, offending
-     line numbers printed (--allow-unmatched to downgrade). A resolved-but-
+     manifest.json is a hard error: checked pre-write so no file exists, offending
+     line numbers printed (--allow-unmatched to downgrade). The check is a
+     PRE-WRITE GATE: it runs before the CSV is opened, so exit 2 guarantees
+     no output file exists. (Corrected 2026-09-16: it previously ran after
+     the write, leaving a file on disk while reporting failure.) A resolved-but-
      absent column, or a manifest width disagreeing with the data, is
      reported as an integrity failure. Rationale: a silent skip yields a CSV
      wider than the operator believes, which corrupts everything downstream.

@@ -139,8 +139,9 @@ python3 dropfilter.py ./s1_scan --out ./s1_scan/barrel_only.csv</div>
       <tr><td><code># jets — not used downstream</code></td><td>a comment. Skipped.
         Inline after a name works too.</td></tr>
       <tr><td><i>(a name that matches nothing)</i></td><td><span class="tx-bad">&#10007;</span>
-        <b>hard error.</b> Nothing is written, the run exits non-zero, and the
-        offending line numbers are printed. A typo cannot quietly hand you a
+        <b>hard error.</b> Checked <i>before</i> the CSV is opened, so a non-zero
+        exit guarantees no output file exists. The offending line numbers are
+        printed. A typo cannot quietly hand you a
         wider CSV than you asked for.</td></tr>
     </tbody>
   </table>
