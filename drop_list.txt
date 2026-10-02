@@ -19,10 +19,11 @@
 # the parquet. No re-conversion from ROOT is needed.
 # ---------------------------------------------------------------------------
 
-# --- L1 muon RoI (5) -------------------------------------------------------
+# --- L1 muon RoI (6) -------------------------------------------------------
 L1MuRoI_eta
 L1MuRoI_phi
 L1MuRoI_sectorID
+L1MuRoI_thrNumber_NOSYS
 L1MuRoI_threshold
 L1MuRoI_word
 
@@ -69,9 +70,10 @@ jet_pt_NOSYS
 jet_select_baselineFJvt_NOSYS
 jet_select_baselineJvt_NOSYS
 
-# --- Muon segments, non-collision background (14) --------------------------
+# --- Muon segments, non-collision background (15) --------------------------
 msegNCB_chIndex
 msegNCB_chiSquared
+msegNCB_eta_NOSYS
 msegNCB_nDOF
 msegNCB_nPhiLayers
 msegNCB_nPrecisionHits
@@ -85,7 +87,7 @@ msegNCB_yDir
 msegNCB_z
 msegNCB_zDir
 
-# --- Muon segments, unassociated (15) --------------------------------------
+# --- Muon segments, unassociated (16) --------------------------------------
 msegUnAssoc_chIndex
 msegUnAssoc_chiSquared
 msegUnAssoc_eta_NOSYS
@@ -93,6 +95,7 @@ msegUnAssoc_nDOF
 msegUnAssoc_nPhiLayers
 msegUnAssoc_nPrecisionHits
 msegUnAssoc_nTrigEtaLayers
+msegUnAssoc_phi_NOSYS
 msegUnAssoc_t0
 msegUnAssoc_techIndex
 msegUnAssoc_x
@@ -102,9 +105,10 @@ msegUnAssoc_yDir
 msegUnAssoc_z
 msegUnAssoc_zDir
 
-# --- Muon segments (14) ----------------------------------------------------
+# --- Muon segments (15) ----------------------------------------------------
 mseg_chIndex
 mseg_chiSquared
+mseg_eta_NOSYS
 mseg_nDOF
 mseg_nPhiLayers
 mseg_nPrecisionHits
@@ -159,3 +163,31 @@ trklet_q
 trklet_x
 trklet_y
 trklet_z
+
+# --- Truth tree, LLP children (7) ------------------------------------------
+truthTree_llpChild_E
+truthTree_llpChild_eta
+truthTree_llpChild_llp_link
+truthTree_llpChild_m
+truthTree_llpChild_pT
+truthTree_llpChild_pdgId
+truthTree_llpChild_phi
+
+# --- Truth tree, LLPs (17) -------------------------------------------------
+truthTree_llp_E
+truthTree_llp_Lx
+truthTree_llp_Ly
+truthTree_llp_Lz
+truthTree_llp_beta
+truthTree_llp_decayLength
+truthTree_llp_eta
+truthTree_llp_gamma
+truthTree_llp_labDecayTime
+truthTree_llp_m
+truthTree_llp_nChildren
+truthTree_llp_pT
+truthTree_llp_pdgId
+truthTree_llp_phi
+truthTree_llp_properDecayTime
+truthTree_llp_status
+truthTree_llp_t
