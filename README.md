@@ -34,8 +34,8 @@ Four commands, start to finish. Copy-paste the whole block.
 git clone https://github.com/N-Herling-Mk1/root_to_csv.git
 python3 -m pip install --user -r root_to_csv/requirements.txt
 
-# 2 · ROOT -> full flat CSV  (scan runs internally; ~15 s on a 6 MB file)
-python3 root_to_csv/convert.py /data2/kjohns/run3_sample_fastframe_files/ml/<file>.root --name s1
+# 2 · ROOT -> full flat CSV  (scan runs internally; ~16 s on a 7 MB file)
+python3 root_to_csv/convert.py /data2/kjohns/run3_sample_fastframe_files/ml-092126/<file>.root --name s1
 
 # 3 · see what the filter would remove — writes nothing
 python3 root_to_csv/dropfilter.py ./s1_scan --preview
@@ -47,18 +47,29 @@ python3 root_to_csv/dropfilter.py ./s1_scan
 Run it from wherever you like — outputs land in the directory you are standing
 in, not in the repo, and `drop_list.txt` is found automatically.
 
-**What you get**, measured on `HSS_mH125_mS55_ct5320_537840_mc23e_fullsim.root`
-(423 events, 6.2 MB):
+**What you get**, measured on
+`ml-092126/HSS_mH125_mS55_ct5320_537840_mc23e_fullsim.root`
+(423 events, 7.0 MB, run 2026-10-02 with the 145-name `drop_list.txt`):
 
 | after | file | shape | size |
 |---|---|---|---|
-| step 2 | `s1_flat.csv` | 423 × 24,925 | 85.6 MB |
-| step 4 | `<stamp>_filtered.csv` | 423 × **85** | **239 KB** |
+| step 2 | `s1_flat.csv` | 423 × 26,395 | 90.7 MB |
+| step 4 | `<stamp>_filtered.csv` | 423 × **255** | **1.2 MB** |
 
-Same rows, 99.7% fewer columns. Step 4 re-reads what it wrote and checks the
+Same rows, 99.0% fewer columns. Step 4 re-reads what it wrote and checks the
 column count, the row count against the source, that every row is the same
 width, that no dropped column leaked through, and that `flat.csv`, the parquet
 and the manifests are all untouched — any failure exits non-zero.
+
+**Step 4 stops with `UNMATCHED` (exit 2)?** The shipped `drop_list.txt` names
+branches from the `ml-092126/` production. A file that lacks some of them — the
+older `ml/` files, or data files with no `truthTree_*` branches — makes step 4
+refuse to write rather than silently skip names. Step 3 lists exactly which
+names missed. To drop the names that do match and ignore the rest:
+
+```bash
+python3 root_to_csv/dropfilter.py ./s1_scan --allow-unmatched
+```
 
 Don't want the filter? Stop after step 2; `flat.csv` is a complete CSV on its
 own. Want different columns? Edit `root_to_csv/drop_list.txt` and re-run step 4

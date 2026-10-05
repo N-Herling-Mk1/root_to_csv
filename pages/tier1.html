@@ -84,23 +84,24 @@ python3 dropfilter.py ./s1_scan</div>
   SYNOPSIS  s1   3,233 rows x 39,769 cols -&gt; s1_flat.csv
     709.4 MB | fill -999 | dropped by policy: 0
   ------------------------------------------------------------
-<span class="cm"># after step 5 (dropfilter.py) — real numbers, v1 vet file</span>
+<span class="cm"># after step 5 (dropfilter.py) — real numbers, ml-092126 mS55 file, 145-name list (2026-10-02)</span>
   ==============================================================
   SYNOPSIS
-    branches   227 -&gt; 110   (117 dropped)
-    columns    24,925 -&gt; 85   (24,840 removed, 99.7%)
-    master     ./v1_scan/v1_canonical.parquet - UNCHANGED
+    branches   426 -&gt; 281   (145 dropped)
+    columns    26,395 -&gt; 255   (26,140 removed, 99.0%)
+    wrote      423 x 255 -&gt; ./v4_scan/10_02_26_140728_filtered.csv  (1.2 MB)
+    master     ./v4_scan/v4_canonical.parquet - UNCHANGED (not read)
   ==============================================================
   VERIFICATION
-    OK    columns written    85  (expected 85)
+    OK    columns written    255  (expected 255)
     OK    rows written       423  (source had 423)
     OK    rectangular        every row the same width
     OK    dropped columns    none present in the output
-    OK    source flat.csv    UNCHANGED (size+mtime+md5)
-    OK    canonical.parquet  UNCHANGED (size+mtime+md5)
+    OK    source flat.csv    UNCHANGED (size+mtime)
+    OK    canonical.parquet  UNCHANGED (size+mtime)
 
   ###[filtered .csv]#####
-  ---&gt; 09_11_26_150421_filtered.csv
+  ---&gt; 10_02_26_140728_filtered.csv
   #######################</div>
     <h4 class="s1h">COPY RESULTS DOWN &nbsp;(from your local machine, after a run)</h4>
     <div class="cmd"><button data-copy>COPY</button>scp -r user@atlng02.physics.arizona.edu:/path/to/s1_scan .</div>
