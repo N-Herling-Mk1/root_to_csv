@@ -14,7 +14,7 @@
     <img src="../assets/images/mark.png" alt="root2csv mark"
          onerror="this.style.display='none'">
     <div><div class="t">root<b>2</b>csv</div>
-    <div class="v">v0.1.0 · style: TRON LIGHT</div></div>
+    <div class="v">v0.2.0 · style: TRON LIGHT</div></div>
   </div>
   <nav>
     <a href="../index.html">HOME</a>
@@ -152,11 +152,11 @@ python3 dropfilter.py ./s1_scan</div>
     <br><br>
     Names are matched against branch names in <code>manifest.json</code>, not
     against CSV column headers &mdash; write <code>trackID_pt</code>, never
-    <code>trackID_pt_0</code>. A name that matches nothing is an
-    <b>error</b>, not a silent skip. The check runs <i>before</i> the CSV is
-    opened, so a non-zero exit means no output file exists at all &mdash; a
-    typo cannot quietly hand you a wider CSV than you asked for, and cannot
-    leave a plausible-looking one behind either. See <a href="ignored.html">IGNORED BRANCHES</a> for the list currently shipped
+    <code>trackID_pt_0</code>. A name the file does not
+    contain is <b>skipped with a printed warning</b> &mdash; samples do not all
+    carry the same branches, so the same commands work on every file. Read the
+    warning: a typo shows up there too. <code>--strict</code> makes it a hard
+    stop before anything is written. See <a href="ignored.html">IGNORED BRANCHES</a> for the list currently shipped
     in the repo.
   </div>
 </section>
@@ -349,8 +349,8 @@ python3 dropfilter.py ./s1_scan</div>
         <td>resolve and count only. Writes nothing.</td></tr>
       <tr><td><code>--report PATH</code></td><td></td><td></td><td>&#10003;</td>
         <td>write the drop report somewhere other than beside the CSV.</td></tr>
-      <tr><td><code>--allow-unmatched</code></td><td></td><td></td><td>&#10003;</td>
-        <td>downgrade a name matching no branch from a hard error to a warning.</td></tr>
+      <tr><td><code>--strict</code></td><td></td><td></td><td>&#10003;</td>
+        <td>stop before writing (exit 2) if a listed name is not in the file. Default: skip it with a warning.</td></tr>
       <tr><td><code>--suggest-width N</code></td><td></td><td></td><td>&#10003;</td>
         <td>list kept branches wider than N columns. Advisory &mdash; drops nothing.</td></tr>
       <tr><td><code>--verify-hash</code></td><td></td><td></td><td>&#10003;</td>
@@ -365,7 +365,8 @@ python3 dropfilter.py ./s1_scan</div>
   </table>
 
   <div class="tip"><b>Exit codes, <code>dropfilter.py</code> only:</b>
-  <code>0</code> clean &middot; <code>2</code> a drop-list name matched no branch
+  <code>0</code> clean (names not in the file are skipped with a warning) &middot;
+  <code>2</code> <code>--strict</code> only: a drop-list name matched no branch
   (checked pre-write &mdash; no file exists) &middot; <code>3</code> bad inputs &middot;
   <code>4</code> the written CSV failed post-write verification. Worth checking
   in any script that chains the steps.</div>
@@ -500,6 +501,6 @@ python3 dropfilter.py ./s1_scan</div>
 </main>
 
 
-<script src="../assets/js/site.js?v=35"></script>
+<script src="../assets/js/site.js?v=46"></script>
 </body>
 </html>

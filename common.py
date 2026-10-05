@@ -23,7 +23,7 @@ import numpy as np
 import awkward as ak
 import uproot
 
-TOOL_VERSION  = "0.1.0"
+TOOL_VERSION  = "0.2.0"
 FILL_SENTINEL = -999.0       # base-policy pad flag; override with --fill (x | nan | literal)
 
 CATEGORIES = ("scalar", "vec1", "jagged", "jagged_deep", "empty", "unreadable")

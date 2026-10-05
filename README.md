@@ -61,15 +61,12 @@ column count, the row count against the source, that every row is the same
 width, that no dropped column leaked through, and that `flat.csv`, the parquet
 and the manifests are all untouched — any failure exits non-zero.
 
-**Step 4 stops with `UNMATCHED` (exit 2)?** The shipped `drop_list.txt` names
-branches from the `ml-092126/` production. A file that lacks some of them — the
-older `ml/` files, or data files with no `truthTree_*` branches — makes step 4
-refuse to write rather than silently skip names. Step 3 lists exactly which
-names missed. To drop the names that do match and ignore the rest:
-
-```bash
-python3 root_to_csv/dropfilter.py ./s1_scan --allow-unmatched
-```
+**The same four commands work on every file.** Not every sample carries every
+branch on the list — `HSS_mH125_mS15` has no `L1MuRoI_word`, data has no
+`truthTree_*`. A listed name that a file does not contain is skipped: steps 3
+and 4 print a `WARNING` naming each one, the report records them, and the rest
+of the list is applied. (Read the warning once — a typo in `drop_list.txt`
+shows up there too.)
 
 Don't want the filter? Stop after step 2; `flat.csv` is a complete CSV on its
 own. Want different columns? Edit `root_to_csv/drop_list.txt` and re-run step 4
@@ -111,16 +108,32 @@ All three programs, complete. `--help` on any of them prints the same set.
 | `--drop-file PATH` | | | Y | use a different list. Default search: scan dir, cwd, then beside `dropfilter.py` |
 | `--preview` | | | Y | resolve and count only; writes nothing |
 | `--report PATH` | | | Y | write the drop report somewhere other than beside the CSV |
-| `--allow-unmatched` | | | Y | downgrade an unmatched name from hard error to warning |
+| `--strict` | | | Y | stop before writing (exit 2) if a listed name is not in the file. Default: skip it with a warning |
 | `--suggest-width N` | | | Y | list kept branches wider than N columns. Advisory — drops nothing |
 | `--verify-hash` | | | Y | md5 the untouched inputs as well as stat them |
 | `--no-verify` | | | Y | skip the post-write verification pass |
 | `--quiet` | | | Y | suppress progress bars; the synopsis still prints |
 | `--version` | | | Y | print the tool version and exit |
 
-**Exit codes** (`dropfilter.py`): `0` clean · `2` a drop-list name matched no
+**Exit codes** (`dropfilter.py`): `0` clean (names not in the file are
+skipped with a warning) · `2` `--strict` only: a drop-list name matched no
 branch — checked before writing, so no file exists · `3` bad inputs / missing files · `4` the written CSV
 failed post-write verification. Worth checking in any script that chains steps.
+
+## Versions
+
+| version | date | what changed |
+|---|---|---|
+| **0.2.0** (current) | 2026-10-05 | **Filter no longer stops on names a file does not contain.** A `drop_list.txt` name with no matching branch is skipped with a printed `WARNING` and recorded in the report; the rest of the list is applied and the exit code is `0`. New `--strict` flag restores the old hard stop (exit `2`, nothing written). `--allow-unmatched` is still accepted and now does nothing. `drop_list.txt` grown from 117 to 145 names (adds `truthTree_llp*`, `truthTree_llpChild*` and four `L1MuRoI` / `mseg*` branches). Fast path and sample numbers moved to the `ml-092126/` production. |
+| 0.1.0 | 2026-07-20 → 2026-09-16 | First release. Layer 1 scan + six-bin classifier + manifest, Layer 2 convert (quick and from-scan), canonical parquet, Layer 3 `dropfilter.py` with a 117-name `drop_list.txt`. A drop-list name matching no branch was a hard error (exit `2`) unless `--allow-unmatched` was given. |
+
+`scan.py` and `convert.py` print the version in their banner,
+`dropfilter.py --version` prints it on request, and every manifest records it
+as `tool_version`.
+
+Vetted on atlng02 (RHEL 9, python 3.9). 0.1.0 with the 145-name list:
+`HSS_mH125_mS55` 423 × 26,395 → 423 × 255 and `HSS_mH200_mS50`
+1,520 × 37,067 → 1,520 × 255, all verification checks passing.
 
 ## The layers
 
@@ -185,11 +198,11 @@ Three rules worth knowing:
 - **Branch names, not column names.** Write `trackID_pt`, never
   `trackID_pt_0`. `manifest.json` expands each branch to every column it
   produced — on the vet file that one line removes 487 columns.
-- **A name that matches nothing is a hard error.** The check is a *pre-write
-  gate* — it runs before the CSV is opened, so a non-zero exit guarantees no
-  output file exists. The offending line numbers are printed. A typo cannot
-  quietly hand you a wider CSV than you asked for. Override with
-  `--allow-unmatched`.
+- **A name the file does not contain is skipped, loudly.** One list serves
+  samples that do not all carry the same branches, so a missing name is not
+  an error: it is printed in a `WARNING` with its line number and recorded in
+  the report. A typo lands in that same warning — read it. `--strict` turns
+  it back into a pre-write hard stop (exit 2, no output file).
 - **Matching is anchored on the whole branch name.** `trackID_eta` and
   `track_eta_NOSYS` are different families and never touch each other — but a
   sloppy glob like `track*` eats both.

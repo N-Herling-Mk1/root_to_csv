@@ -12,8 +12,9 @@
 #         caloCluster_*        drops every caloCluster branch
 #     Globs are convenient but opaque in review - prefer explicit names for
 #     anything that encodes a physics decision.
-#   - A name that matches nothing in the manifest is an ERROR by default,
-#     not a silent no-op. See the UNMATCHED section of the drop report.
+#   - A name this file does not contain is SKIPPED with a printed warning
+#     (and listed in the UNMATCHED section of the drop report). Samples do
+#     not all carry the same branches. --strict makes it an error instead.
 #
 # To add or remove a feature: edit this file and re-run dropfilter.py against
 # the parquet. No re-conversion from ROOT is needed.

@@ -24,7 +24,7 @@ const TERMS = [
 ["dropfilter","dropfilter.py — step 5, the optional filter layer. Reads canonical.parquet + manifest.json + drop_list.txt, writes filtered.csv + drop_report.txt. Never opens the ROOT file and never modifies the parquet."],
 ["drop report","drop_report.txt — the audit written by step 5: every branch matched and how many columns it removed, every listed branch that was empty-bin (a no-op), and every name that matched nothing."],
 ["filtered csv","filtered.csv — the trimmed table from step 5. A separate file: flat.csv and the parquet are both left intact, so filtering is always reversible by re-running with an edited list."],
-["unmatched","A drop-list name that matches no branch in manifest.json — a typo, or a branch absent from this file. Treated as a hard error: nothing is written and the run exits non-zero, so a bad name cannot silently leave the CSV wider than intended."],
+["unmatched","A drop-list name that matches no branch in manifest.json — a typo, or a branch absent from this file. Skipped by default: the name is printed in a WARNING with its line number and recorded in the drop report, and the rest of the list is applied. --strict makes it a hard stop before anything is written (exit 2)."],
 ["base policy","The defaults you get by never editing manifest.json (or taking the quick path): jagged = pad_max with -999 pads, scalar as-is, vec1 collapsed, hard structs per the fate table. Run the steps in sequence and take what comes out — policy editing is opt-in."],
 ["branch","One named column of a TTree/RNTuple. Every branch is read once in Pass 1 and filed into exactly one of the six bins."],
 ["TTree","ROOT's classic columnar event container. The toolkit auto-detects the tree with the most entries; override with --tree."],

@@ -64,9 +64,11 @@ USAGE
     python3 dropfilter.py ./s1_scan --drop-file drop_list.txt --suggest-width 64
 
 EXIT CODES
-    0  clean
-    2  one or more drop-list entries matched no branch in the manifest
-       (override with --allow-unmatched)
+    0  clean. Drop-list names this file does not contain are SKIPPED with
+       a printed warning and listed in the report - the list is shared
+       across samples that do not all carry the same branches.
+    2  --strict only: one or more drop-list entries matched no branch in
+       the manifest. Checked before writing, so no file exists.
     3  bad inputs / missing files
     4  the written CSV failed post-write verification
 """
@@ -82,7 +84,7 @@ import sys
 import time
 from datetime import datetime, timezone
 
-VERSION = "dropfilter 0.1.0"
+VERSION = "dropfilter 0.2.0"
 ROWGROUP_ROWS = 20000
 
 
@@ -342,7 +344,7 @@ def resolve_patterns(patterns, manifest):
 
     Returns (matches, unmatched, duplicates) where
       matches    ordered [(lineno, pattern, [branch, ...])]
-      unmatched  [(lineno, pattern)]   <- the audit that stops silent no-ops
+      unmatched  [(lineno, pattern)]   <- warned + reported; fatal under --strict
       duplicates [(branch, [pattern, ...])]
     """
     branches = list(manifest.keys())
@@ -661,7 +663,7 @@ def write_report(path, ctx):
         w("")
 
     w("-" * 74)
-    w("UNMATCHED  (no such branch in the manifest - typo or wrong file)")
+    w("UNMATCHED  (listed, but not in this file - skipped; check for typos)")
     w("-" * 74)
     if ctx["unmatched"]:
         for lineno, pat in ctx["unmatched"]:
@@ -719,8 +721,13 @@ def main(argv=None):
                          "auto-named MM_DD_YY_HHMMSS_filtered.csv, so a re-run "
                          "never overwrites an earlier one.")
     ap.add_argument("--report", default=None, help="drop report path")
+    ap.add_argument("--strict", action="store_true",
+                    help="treat a drop-list name that matches no branch as an "
+                         "error: stop before writing, exit 2. Default is to "
+                         "skip such names with a warning.")
     ap.add_argument("--allow-unmatched", action="store_true",
-                    help="downgrade unmatched drop-list entries to a warning")
+                    help="accepted for backward compatibility; this is now "
+                         "the default behaviour and the flag does nothing.")
     ap.add_argument("--suggest-width", type=int, default=None, metavar="N",
                     help="list kept branches wider than N columns (advisory only)")
     ap.add_argument("--verify-hash", action="store_true",
@@ -809,13 +816,15 @@ def main(argv=None):
         candidates = width_candidates(manifest, headers, args.suggest_width,
                                       matched_branches)
 
-    # ---- UNMATCHED IS A PRE-WRITE GATE -----------------------------------
-    # A name that matches no branch means the operator's intent and this file
-    # disagree. Writing anyway leaves a plausible-looking CSV filtered by an
-    # incomplete list, with nothing on disk to say so. Decide before writing.
-    # (Found 2026-09-16: the check used to run AFTER the write, so exit 2 left
-    # a file behind while every doc claimed nothing was written.)
-    if unmatched and not args.allow_unmatched and not args.preview:
+    # ---- UNMATCHED: SKIP BY DEFAULT, GATE UNDER --strict ------------------
+    # Changed 2026-10-05. The drop list is shared across samples that do not
+    # all carry the same branches (mS15 lacks two L1MuRoI branches the other
+    # signal files have; data has no truth branches). A listed name that is
+    # absent from this file is, by definition, already not in the CSV - so
+    # the default is to skip it, warn, and record it in the report.
+    # --strict restores the old behaviour for typo-hunting: stop BEFORE the
+    # CSV is opened, so exit 2 guarantees no output file exists.
+    if unmatched and args.strict and not args.preview:
         say("")
         say(f"UNMATCHED: {len(unmatched)} drop-list entr(ies) matched no branch")
         say("           in this file's manifest:")
@@ -824,10 +833,9 @@ def main(argv=None):
         if len(unmatched) > 12:
             say(f"   ... and {len(unmatched) - 12} more")
         say("")
-        say("NOTHING WAS WRITTEN. Either the names are wrong, or this sample")
-        say("genuinely lacks those branches (real data has no MC weights, an")
-        say("empty-bin branch never reaches the CSV). To filter anyway with")
-        say("the names that DID match, re-run with --allow-unmatched.")
+        say("NOTHING WAS WRITTEN (--strict). Either the names are wrong, or")
+        say("this sample genuinely lacks those branches. To filter with the")
+        say("names that DID match, re-run without --strict.")
         say("")
         return 2
 
@@ -886,6 +894,9 @@ def main(argv=None):
     rule("=")
     say(f"  branches   {len(manifest)} -> {len(manifest) - len(matched_branches)}"
         f"   ({len(matched_branches)} dropped)")
+    if unmatched:
+        say(f"  skipped    {len(unmatched)} listed name(s) not in this file"
+            f" - see WARNING below")
     pct = 100.0 * len(drop_cols) / max(len(headers), 1)
     say(f"  columns    {len(headers):,} -> {len(keep_cols):,}"
         f"   ({len(drop_cols):,} removed, {pct:.1f}%)")
@@ -934,16 +945,18 @@ def main(argv=None):
 
     if unmatched:
         say("")
-        say(f"UNMATCHED: {len(unmatched)} drop-list entr(ies) matched no branch:")
+        say(f"WARNING - {len(unmatched)} drop-list name(s) are not in this file "
+            f"and were SKIPPED:")
         for lineno, pat in unmatched[:12]:
             say(f"   line {lineno:>4}:  {pat}")
         if len(unmatched) > 12:
             say(f"   ... and {len(unmatched) - 12} more (full list in the report)")
-        if args.preview:
+        say("  Nothing to drop for those names. If one is a typo, fix it in")
+        say("  drop_list.txt and re-run. --strict turns this into a hard stop.")
+        if args.preview and args.strict:
             say("")
-            say("  (--preview: a real run would stop here and write nothing.)")
+            say("  (--preview --strict: a real run would stop here and write nothing.)")
             return 2
-        say("  (--allow-unmatched: the names above were skipped; the rest applied)")
     say("")
     return 0
 
