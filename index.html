@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>root2csv — HOME</title>
 <link rel="icon" type="image/x-icon" href="assets/images/icon.ico">
-<link rel="stylesheet" href="assets/css/tron_light.css?v=35">
+<link rel="stylesheet" href="assets/css/tron_light.css?v=36">
 </head>
 <body>
+<a class="ghcorner" href="https://github.com/N-Herling-Mk1/root_to_csv" target="_blank" rel="noopener" title="View the repo on GitHub" aria-label="View the repo on GitHub"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943"/></svg></a>
 
-<aside class="rail" data-guide-click="1" data-guide-title="SITE PANELS" data-guide="Every page of the site: ABOUT explains the toolkit, the TIER pages hold instructions, SIX BINS and GLOSSARY are reference.">
+<aside class="rail">
   <div class="brand">
     <img src="assets/images/mark.png" alt="root2csv mark"
          onerror="this.style.display='none'">
@@ -35,7 +36,7 @@
 <main class="home">
 
 <div class="toprow">
-  <div class="hero solid" data-guide-title="THE HEADLINE" data-guide="What this toolkit does: scan a ROOT file, classify every branch into six bins, and unfold the jagged ones into a flat CSV.">
+  <div class="hero solid">
   <div class="beam"></div>
   <h1>ROOT <b>&rarr;</b> CSV <span class="hsep">|</span>
       <span class="hsub">SCAN &middot; CLASSIFY &middot; UNFOLD</span></h1>
@@ -43,7 +44,7 @@
   This toolkit scans, classifies, and unfolds them.</p>
 </div>
   <div class="topdiv" aria-hidden="true"></div>
-  <aside class="instcard" data-guide-title="THE GROUP" data-guide="University of Arizona ATLAS group — tooling built for the Run-3 LLP analysis.">
+  <aside class="instcard">
     <img src="assets/images/0_CERN_logo.png" alt="CERN"
          onerror="this.style.display='none'">
     <div class="d">University of Arizona ATLAS group<br>Run-3 LLP analysis tooling</div>
@@ -64,7 +65,7 @@
       <p class="cap">Three ways to run the toolkit — pick the tier that matches your
   setup. Each tier page carries its complete, self-contained instructions,
   including the clean-up warnings where tunnels are involved.</p>
-      <div class="tsteps tiersq" role="tablist" aria-label="the three tiers" data-guide-click="1" data-guide-title="TIER SELECTOR" data-guide="Three ways to run the toolkit. Click a numbered square to preview that tier on the right — blue 1: command line, green 2: VS Code tunnel, red 3: full stack.">
+      <div class="tsteps tiersq" role="tablist" aria-label="the three tiers">
     <button class="tstep on" data-c="1" data-pane="pane1" role="tab" aria-selected="true">
       <span class="tnum">1</span><span class="tlabel">TIER 1</span></button>
     <div class="tconn c1"></div>
@@ -74,14 +75,14 @@
     <button class="tstep" data-c="3" data-pane="pane3" role="tab" aria-selected="false">
       <span class="tnum">3</span><span class="tlabel">TIER 3</span></button>
   </div>
-      <aside class="taccess" aria-label="open tier instructions" data-guide-click="1" data-guide-title="JUMP BOX" data-guide="Shortcuts straight to each tier&#39;s full instructions page. The highlighted entry follows your selection.">
+      <aside class="taccess" aria-label="open tier instructions">
     <div class="tt">GO TO TIER</div>
     <a class="ta t1 on" data-pane="pane1" href="pages/tier1.html">TIER 1 &middot; COMMAND LINE</a>
     <a class="ta t2" data-pane="pane2" href="pages/tier2.html">TIER 2 &middot; VS CODE TUNNEL</a>
     <a class="ta t3" data-pane="pane3" href="pages/tier3.html">TIER 3 &middot; FULL STACK</a>
   </aside>
     </div>
-    <div class="tierright" data-guide-title="TIER PREVIEW" data-guide="A snapshot of the selected tier — what it is and what it looks like. The complete, copy-paste instructions live on that tier&#39;s page.">
+    <div class="tierright">
       <div class="tpane on" id="pane1" role="tabpanel">
     <h2>TIER 1 — COMMAND LINE</h2>
     <p class="cap">Run through the command line on a headless server
@@ -116,17 +117,8 @@
 </main>
 
 
-<aside class="edgerail" id="edgerail" aria-hidden="true">
-  <div class="er-line"></div>
-  <span class="er-tracer" id="erTracer"></span>
-  <div class="er-card" id="erCard">
-    <div class="ec-t" id="erTitle"></div>
-    <span class="ec-click" id="erClick">&#9889; CLICKABLE — try it</span>
-    <div class="ec-x" id="erText"></div>
-  </div>
-</aside>
 
-<script src="assets/js/site.js?v=46"></script>
+<script src="assets/js/site.js?v=47"></script>
 
 
 </body>

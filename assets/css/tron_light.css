@@ -311,49 +311,28 @@ td code{white-space:nowrap}
 .cta:hover{border-color:var(--cyan);color:var(--ink);
   box-shadow:0 1px 10px rgba(0,169,201,.2)}
 
-/* ---------------- edge rail: contextual hover GUIDE v4 --------------- */
-.edgerail{position:fixed;right:30px;top:96px;bottom:56px;width:46px;
-  z-index:60;display:block}
-.edgerail .er-tag{position:absolute;top:-26px;left:50%;transform:translateX(-50%);
-  font-family:var(--display);font-size:9.5px;letter-spacing:.22em;
-  color:var(--cyan-ink);white-space:nowrap}
-.edgerail .er-line{position:absolute;top:0;bottom:0;left:50%;width:2px;
-  transform:translateX(-50%);
-  background:linear-gradient(180deg,transparent,var(--cyan) 8%,
-             var(--cyan) 92%,transparent);opacity:.55}
-.edgerail .er-tracer{position:absolute;left:50%;transform:translate(-50%,-50%);
-  width:14px;height:26px;border-radius:5px;background:var(--dark);
-  border:2px solid var(--cyan);box-shadow:0 0 14px rgba(0,169,201,.8);
-  top:50%;transition:top .45s cubic-bezier(.5,.05,.2,1),height .2s ease}
-/* v6: tracer rests still at center when idle; slides only on hover */
-.edgerail.active .er-tracer{height:34px}
-.edgerail .er-card{position:absolute;right:58px;top:50%;
-  transform:translateY(-50%) translateX(12px);width:310px;
-  background:var(--panel);border:1px solid var(--edge-strong);
-  border-right:4px solid var(--cyan);border-radius:6px;padding:14px 16px;
-  font-size:12px;color:var(--ink);line-height:1.5;
-  box-shadow:0 10px 28px rgba(16,34,46,.16);
-  opacity:0;pointer-events:none;
-  transition:opacity .2s ease,transform .2s ease,
-             top .45s cubic-bezier(.5,.05,.2,1)}
-.edgerail.active .er-card{opacity:1;transform:translateY(-50%) translateX(0)}
+/* hero solid variant */
 .hero.solid{background:linear-gradient(180deg,var(--dark) 0%,var(--dark-2) 100%)}
-.edgerail .ec-x{font-size:12px;color:var(--ink)}
-.edgerail .ec-t{font-family:var(--display);font-size:13px;letter-spacing:.16em;
-  color:var(--cyan-ink);margin-bottom:6px}
-.ec-click{display:none;font-family:var(--display);font-size:10.5px;
-  letter-spacing:.14em;color:#fff;background:var(--amber);
-  border-radius:3px;padding:3px 9px;margin:2px 0 8px}
-.edgerail.clickable .er-card{border-right-color:var(--amber)}
-.edgerail.clickable .er-tracer{border-color:var(--amber);
-  box-shadow:0 0 14px rgba(255,139,23,.85)}
+
+/* ---------------- GitHub corner link (every page, top right) --------- */
+.ghcorner{position:absolute;top:14px;right:18px;z-index:70;
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--dark);color:#fff;border:2px solid var(--cyan);
+  box-shadow:0 0 10px rgba(0,169,201,.45);
+  transition:transform .15s ease,box-shadow .15s ease,color .15s ease}
+.ghcorner:hover{transform:translateY(-2px) scale(1.06);color:var(--cyan);
+  box-shadow:0 0 18px rgba(0,169,201,.85)}
+.ghcorner:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
 
 /* ------------------------------ media ------------------------------- */
+/* keep a clear gutter for the GitHub corner when the column reaches the right edge */
+@media(max-width:1600px){main{padding-right:86px}}
 @media(max-width:1650px){.toprow{width:100%}}
-@media(max-width:1440px){.edgerail{display:none}}
 @media(max-width:1250px){.hero h1{white-space:normal}}
 @media(max-width:959px){
   body{padding-left:0}
+  .ghcorner{position:fixed;top:auto;bottom:16px;right:16px}
   .rail{position:sticky;width:auto;bottom:auto;flex-direction:row;
     align-items:center;gap:0;padding:8px 10px;overflow-x:auto;
     border-right:none;border-bottom:1px solid var(--dark-edge)}
@@ -388,7 +367,8 @@ td code{white-space:nowrap}
 }
 @media(prefers-reduced-motion:reduce){
   .hero .beam{display:none}
-  .edgerail .er-tracer{transition:none}
+  .ghcorner{transition:none}
+  .ghcorner:hover{transform:none}
   .rail nav a,.tstep .tnum,.taccess .ta{transition:none}
   .tstep:hover .tnum,.taccess .ta:hover{transform:none}
 }
