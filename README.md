@@ -1,5 +1,107 @@
 # root2csv
 
+## START HERE
+
+> **updated: Tue-Nov-10-2026 (v0.2.1)** — the filtered CSV is now named after
+> its source file, not the clock:
+> `HSS_mH400_mS100_ct1610_571250_mc23e_flat.csv` →
+> `HSS_mH400_mS100_ct1610_571250_mc23e_filtered.csv`
+> (was `11_04_26_123429_filtered.csv`). New: `batch.sh` converts a whole
+> directory of fastframe files in one command.
+
+Get / update the toolkit first (once per server):
+
+```bash
+git clone https://github.com/N-Herling-Mk1/root_to_csv.git    # first time
+git -C root_to_csv pull                                       # already cloned
+python3 -m pip install --user -r root_to_csv/requirements.txt
+```
+
+### How output files are named
+
+*updated: Tue-Nov-10-2026* — every output is named after the `.root` file
+with `.root` removed. Nothing else is added or stripped. For a file
+`<stem>.root`, the batch gives:
+
+```
+<out>/<stem>_scan/<stem>_flat.csv
+<out>/<stem>_scan/<stem>_filtered.csv
+<out>/<stem>_scan/<stem>_drop_report.txt
+```
+
+So `HSS_mH400_mS100_ct1610_571250_mc23e.root` becomes
+`HSS_mH400_mS100_ct1610_571250_mc23e_filtered.csv`.
+
+**Check the file names before a run:** any suffix on the ROOT file name is
+kept. The ml-092126 production ended in `_fullsim.root`, so those files give
+`..._mc23e_fullsim_filtered.csv`, not `..._mc23e_filtered.csv`. `ls` the input
+directory first to see what the outputs will be called.
+
+### (1) The drop filter — one file
+
+Run after `convert.py` has made `<name>_scan/<name>_flat.csv`:
+
+```bash
+python3 root_to_csv/dropfilter.py ./<name>_scan --preview   # what would be dropped; writes nothing
+python3 root_to_csv/dropfilter.py ./<name>_scan             # do it
+```
+
+| in `./<name>_scan/` | what it is |
+|---|---|
+| `<name>_flat.csv` | input — every column; never modified |
+| `<name>_filtered.csv` | **output** — branches in `drop_list.txt` removed. *updated: Tue-Nov-10-2026* — same name as the flat CSV with `_flat` → `_filtered` |
+| `<name>_drop_report.txt` | output — what was dropped, names skipped, verification |
+
+- `drop_list.txt` ships in the repo and is found automatically; edit it to
+  change what is dropped, then re-run — no re-convert needed.
+- A re-run **replaces** `<name>_filtered.csv`. To keep an earlier one, name
+  the new one yourself: `--out ./<name>_scan/<name>_v2_filtered.csv`.
+- Drop-list names a file doesn't contain are skipped with a `WARNING`, not an
+  error.
+
+### (2) Many fastframe files at once — `batch.sh`
+
+Convert + filter every `.root` file in a directory, one after another:
+
+```bash
+bash root_to_csv/batch.sh --out ./csv_new /data2/kjohns/run3_sample_fastframe_files/<new-dir>/
+```
+
+Every output is named after its ROOT file. For `<name>.root`:
+
+```
+csv_new/
+├── <name>_scan/
+│   ├── <name>_flat.csv            all columns
+│   ├── <name>_filtered.csv        drop list applied   <- the one you want
+│   ├── <name>_drop_report.txt
+│   ├── <name>_canonical.parquet   master copy, lists kept as lists
+│   └── <name>_manifest.json / .txt
+└── batch_logs/
+    ├── <name>.log                 full output for that file
+    └── summary_<date>.txt         one line per file: OK / FAIL / SKIP, rows x cols, MB
+```
+
+- **Use a fresh `--out` folder** for a new production so new and deprecated
+  outputs never mix.
+- **One bad file doesn't stop the batch** — it is marked FAIL in the summary
+  and the script exits 1 at the end.
+- **Re-running resumes**: files that already have `<name>_filtered.csv` are
+  skipped; `--force` redoes them.
+- **Long batch?** Keep it alive after you log out, then watch it:
+  ```bash
+  nohup bash root_to_csv/batch.sh --out ./csv_new <dir>/ > batch.out 2>&1 &
+  tail -f batch.out          # Ctrl-C stops watching, not the batch
+  ```
+- Only the top level of the directory is searched. To choose files, pass them
+  or a glob instead: `bash root_to_csv/batch.sh --out ./csv_new <dir>/HSS_*.root`.
+- Options: `--no-filter` (flat CSV only) · `--fill VALUE` · `--drop-file PATH`
+  · `--force` · `--help`.
+- Don't pass a directory straight to `convert.py` for this — given a
+  directory it converts only the single largest `.root` file in it.
+
+---
+
 ROOT→CSV tooling for ATLAS ntuples. **Layer 1** scans a file and classifies
 every branch (scalar / vec / jagged / jagged-deep / unreadable) into a
 manifest; **Layer 2** flattens to CSV — quick single-pass, or manifest-driven
@@ -54,7 +156,7 @@ in, not in the repo, and `drop_list.txt` is found automatically.
 | after | file | shape | size |
 |---|---|---|---|
 | step 2 | `s1_flat.csv` | 423 × 26,395 | 90.7 MB |
-| step 4 | `<stamp>_filtered.csv` | 423 × **255** | **1.2 MB** |
+| step 4 | `s1_filtered.csv` | 423 × **255** | **1.2 MB** |
 
 Same rows, 99.0% fewer columns. Step 4 re-reads what it wrote and checks the
 column count, the row count against the source, that every row is the same
@@ -87,8 +189,8 @@ Step 4 (layer 3), if you run it, adds two more:
 
 | file | what it is |
 |---|---|
-| `<stamp>_filtered.csv` | the CSV with every branch named in `drop_list.txt` removed. Auto-named `MM_DD_YY_HHMMSS` from the clock, so a re-run never overwrites an earlier result; `--out PATH` to choose the name yourself |
-| `<stamp>_drop_report.txt` | the audit — every branch matched and how many columns it removed, every listed branch that was empty-bin, every name that matched nothing, and the verification block. Shares the CSV's base name |
+| `<name>_filtered.csv` | the CSV with every branch named in `drop_list.txt` removed. Named after the flat CSV — `HSS_mH400_mS100_ct1610_571250_mc23e_flat.csv` → `HSS_mH400_mS100_ct1610_571250_mc23e_filtered.csv`. A re-run replaces it; `--out PATH` to keep an earlier one |
+| `<name>_drop_report.txt` | the audit — every branch matched and how many columns it removed, every listed branch that was empty-bin, every name that matched nothing, and the verification block. Shares the CSV's base name |
 
 ### Every option
 
@@ -124,7 +226,8 @@ failed post-write verification. Worth checking in any script that chains steps.
 
 | version | date | what changed |
 |---|---|---|
-| **0.2.0** (current) | 2026-10-05 | **Filter no longer stops on names a file does not contain.** A `drop_list.txt` name with no matching branch is skipped with a printed `WARNING` and recorded in the report; the rest of the list is applied and the exit code is `0`. New `--strict` flag restores the old hard stop (exit `2`, nothing written). `--allow-unmatched` is still accepted and now does nothing. `drop_list.txt` grown from 117 to 145 names (adds `truthTree_llp*`, `truthTree_llpChild*` and four `L1MuRoI` / `mseg*` branches). Fast path and sample numbers moved to the `ml-092126/` production. |
+| **0.2.1** (current) | 2026-11-10 | **Filtered CSV named after its source.** `<name>_flat.csv` → `<name>_filtered.csv` (and `<name>_drop_report.txt`) instead of the `MM_DD_YY_HHMMSS_filtered.csv` clock stamp; a re-run replaces it, `--out` still names it yourself. New `batch.sh` runs convert + filter over a whole directory of ROOT files. |
+| 0.2.0 | 2026-10-05 | **Filter no longer stops on names a file does not contain.** A `drop_list.txt` name with no matching branch is skipped with a printed `WARNING` and recorded in the report; the rest of the list is applied and the exit code is `0`. New `--strict` flag restores the old hard stop (exit `2`, nothing written). `--allow-unmatched` is still accepted and now does nothing. `drop_list.txt` grown from 117 to 145 names (adds `truthTree_llp*`, `truthTree_llpChild*` and four `L1MuRoI` / `mseg*` branches). Fast path and sample numbers moved to the `ml-092126/` production. |
 | 0.1.0 | 2026-07-20 → 2026-09-16 | First release. Layer 1 scan + six-bin classifier + manifest, Layer 2 convert (quick and from-scan), canonical parquet, Layer 3 `dropfilter.py` with a 117-name `drop_list.txt`. A drop-list name matching no branch was a hard error (exit `2`) unless `--allow-unmatched` was given. |
 
 `scan.py` and `convert.py` print the version in their banner,
@@ -164,7 +267,7 @@ The manifest's `len_med / len_p95 / len_max` per branch shows you where
 
 ```bash
 python3 dropfilter.py ./s1_scan --preview   # resolve + count, write nothing
-python3 dropfilter.py ./s1_scan             # -> MM_DD_YY_HHMMSS_filtered.csv
+python3 dropfilter.py ./s1_scan             # -> s1_filtered.csv
 python3 dropfilter.py ./s1_scan --out ./s1_scan/barrel.csv    # or name it
 ```
 
@@ -305,6 +408,7 @@ common.py     shared core: six-bin classifier, profiling, progress UI, IO
 scan.py       Layer 1 — census → parquet + manifest.json + manifest.txt
 convert.py    Layer 2 — quick (2a) and from-scan (2b) → flat CSV
 dropfilter.py Layer 3 — optional; flat.csv + drop_list.txt → filtered CSV
+batch.sh      convert + filter over a whole directory of ROOT files
 drop_list.txt the branch names layer 3 removes — edit this, not the code
 SPEC.txt      stage-A design lock-in (read before changing anything)
 index.html    front-end home (TRON light) — the only page at root

@@ -45,7 +45,7 @@
     <img src="../assets/images/mark.png" alt="root2csv mark"
          onerror="this.style.display='none'">
     <div><div class="t">root<b>2</b>csv</div>
-    <div class="v">v0.2.0 · style: TRON LIGHT</div></div>
+    <div class="v">v0.2.1 · style: TRON LIGHT</div></div>
   </div>
   <nav>
     <a href="../index.html">HOME</a>
@@ -115,7 +115,7 @@ Nothing here is permanent &mdash; the list is a plain text file you edit.</p></d
 nano drop_list.txt
 <span class="cm"># see what it would do — counts only, writes nothing</span>
 python3 dropfilter.py ./s1_scan --preview
-<span class="cm"># apply it — writes MM_DD_YY_HHMMSS_filtered.csv + its drop report</span>
+<span class="cm"># apply it — writes s1_filtered.csv + s1_drop_report.txt</span>
 python3 dropfilter.py ./s1_scan
 <span class="cm"># or choose the output name yourself</span>
 python3 dropfilter.py ./s1_scan --out ./s1_scan/barrel_only.csv</div>
@@ -163,11 +163,11 @@ python3 dropfilter.py ./s1_scan --out ./s1_scan/barrel_only.csv</div>
         untouched, all columns. Step 5 writes a new file rather than editing this one.</td></tr>
       <tr><td><code>s1_manifest.json</code> / <code>.txt</code></td><td><span class="tx-ok">&#10003;</span>
         untouched. Still the full census of all branches.</td></tr>
-      <tr><td><code>&lt;stamp&gt;_filtered.csv</code></td><td>new &mdash; the trimmed
-        table. Auto-named from the clock (<code>MM_DD_YY_HHMMSS</code>), so a
-        second run never overwrites the first. <code>--out NAME</code> to name
-        it yourself.</td></tr>
-      <tr><td><code>&lt;stamp&gt;_drop_report.txt</code></td><td>new &mdash; every
+      <tr><td><code>s1_filtered.csv</code></td><td>new &mdash; the trimmed
+        table, named after the flat CSV (<code>s1_flat.csv</code> &rarr;
+        <code>s1_filtered.csv</code>). A re-run replaces it;
+        <code>--out NAME</code> to keep an earlier one.</td></tr>
+      <tr><td><code>s1_drop_report.txt</code></td><td>new &mdash; every
         match, every no-op, any name that matched nothing, and the verification
         block. Shares the CSV&rsquo;s name so the pair is unambiguous.</td></tr>
     </tbody>

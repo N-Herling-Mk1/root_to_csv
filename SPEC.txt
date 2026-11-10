@@ -100,12 +100,15 @@ LOCKED DECISIONS
      --verify-hash). A failure exits 4 and says the output is suspect. The
      operator must not have to run head/wc/md5sum by hand to learn whether
      the tool did what it said.
- 16. LAYER-3 OUTPUT IS NEVER OVERWRITTEN. The filtered CSV is auto-named
-     MM_DD_YY_HHMMSS_filtered.csv from local clock time; --out PATH overrides.
-     The drop report takes the same base name so the pair is unambiguous.
-     Rationale: the drop list is expected to churn, so re-runs are the normal
-     case and each one's result must survive for comparison. Cost: the scan
-     dir accumulates runs — pruning is the operator's call, never the tool's.
+ 16. LAYER-3 OUTPUT IS NAMED AFTER ITS SOURCE. (Revised 2026-11-10, v0.2.1,
+     at K. Johns' request; supersedes the clock-stamped name.) The filtered
+     CSV is <name>_filtered.csv beside <name>_flat.csv — e.g.
+     HSS_mH400_mS100_ct1610_571250_mc23e_flat.csv ->
+     HSS_mH400_mS100_ct1610_571250_mc23e_filtered.csv. The drop report is
+     <name>_drop_report.txt. A re-run REPLACES both (announced on screen),
+     matching convert.py's treatment of flat.csv. Rationale: a batch of
+     samples must be identifiable by name, not by run time. To keep an
+     earlier result for comparison, pass --out PATH.
  17. NEVER CALL .tell() ON A HANDLE A csv.reader IS CONSUMING. Python disables
      tell() once next() has been called on a file object; the call raises
      "OSError: telling position disabled by next() call". Size progress bars

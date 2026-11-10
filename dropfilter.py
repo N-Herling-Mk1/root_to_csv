@@ -51,7 +51,11 @@ USAGE
     # what would happen - resolve and count, write nothing
     python3 dropfilter.py ./s1_scan --preview
 
-    # do it -> MM_DD_YY_HHMMSS_filtered.csv (a re-run never overwrites)
+    # do it -> <name>_filtered.csv beside <name>_flat.csv
+    #   e.g. HSS_mH400_mS100_ct1610_571250_mc23e_flat.csv
+    #     -> HSS_mH400_mS100_ct1610_571250_mc23e_filtered.csv
+    # a re-run REPLACES the previous filtered.csv (same as convert.py does
+    # with flat.csv); use --out to keep an earlier one
     python3 dropfilter.py ./s1_scan
 
     # name it yourself instead
@@ -84,7 +88,7 @@ import sys
 import time
 from datetime import datetime, timezone
 
-VERSION = "dropfilter 0.2.0"
+VERSION = "dropfilter 0.2.1"
 ROWGROUP_ROWS = 20000
 
 
@@ -143,9 +147,18 @@ class Progress:
 
 
 
-def _stamp():
-    """MM_DD_YY_HHMMSS — local time, so every run gets its own filename."""
-    return time.strftime("%m_%d_%y_%H%M%S")
+def _filtered_name(flat_csv_path):
+    """<name>_flat.csv -> <name>_filtered.csv  (bare flat.csv -> filtered.csv).
+
+    The filtered file carries the same sample name as the flat CSV it came
+    from, so the pair sorts together and a batch of samples stays readable.
+    """
+    base = os.path.basename(flat_csv_path)
+    if base.endswith("_flat.csv"):
+        return base[: -len("_flat.csv")] + "_filtered.csv"
+    if base == "flat.csv":
+        return "filtered.csv"
+    return os.path.splitext(base)[0] + "_filtered.csv"
 
 
 def _banner(label, value):
@@ -718,8 +731,9 @@ def main(argv=None):
                     help=argparse.SUPPRESS)   # retired: parquet keeps lists
     ap.add_argument("--out", default=None, metavar="PATH",
                     help="name the output CSV yourself. Omit it and the file is "
-                         "auto-named MM_DD_YY_HHMMSS_filtered.csv, so a re-run "
-                         "never overwrites an earlier one.")
+                         "named after the flat CSV: <name>_flat.csv -> "
+                         "<name>_filtered.csv, in the scan dir. A re-run "
+                         "replaces it.")
     ap.add_argument("--report", default=None, help="drop report path")
     ap.add_argument("--strict", action="store_true",
                     help="treat a drop-list name that matches no branch as an "
@@ -843,9 +857,11 @@ def main(argv=None):
     out_path = None
     verify_lines, verify_ok = [], None
     if not args.preview:
-        stamp = _stamp()
         out_path = args.out or os.path.join(args.scan_dir,
-                                            f"{stamp}_filtered.csv")
+                                            _filtered_name(found["csv"]))
+        if os.path.exists(out_path):
+            say(f"  note       : {os.path.basename(out_path)} exists - "
+                f"it will be replaced")
 
         # fingerprint every input we promise not to touch, BEFORE writing
         watch = {"csv": found["csv"], "parquet": found["parquet"],
@@ -874,7 +890,7 @@ def main(argv=None):
         "candidates": candidates, "cand_threshold": args.suggest_width,
         "verify_lines": verify_lines, "verify_ok": verify_ok,
     }
-    # the report shares the CSV's stamp so the pair is unambiguous
+    # the report shares the CSV's base name so the pair is unambiguous
     if args.preview:
         report_path = args.report
     elif args.report:
@@ -939,7 +955,7 @@ def main(argv=None):
     if verify_ok is False:
         say("")
         say("VERIFICATION FAILED - the output does not match what was promised.")
-        say("Treat v*_filtered.csv as suspect and report the FAIL lines above.")
+        say(f"Treat {os.path.basename(out_path)} as suspect and report the FAIL lines above.")
         say("")
         return 4
 
