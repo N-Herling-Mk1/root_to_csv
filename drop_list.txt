@@ -28,7 +28,20 @@ L1MuRoI_thrNumber_NOSYS
 L1MuRoI_threshold
 L1MuRoI_word
 
-# --- Calorimeter clusters (29) ---------------------------------------------
+# --- LRT (11) -------------------------------------------------------
+LRTmuon_pt
+LRTmuon_eta
+LRTmuon_phi
+LRTmuon_msTrackIndex
+LRTmuon_type
+LRTtrack_d0
+LRTtrack_phi
+LRTtrack_qOverP
+LRTtrack_theta
+LRTtrack_vz
+LRTtrack_z0
+
+# --- Calorimeter clusters (38) ---------------------------------------------
 caloCluster_EMB1
 caloCluster_EMB2
 caloCluster_EMB3
@@ -58,8 +71,17 @@ caloCluster_eta
 caloCluster_phi
 caloCluster_pt
 caloCluster_time
+caloCluster_Lxy2
+caloCluster_centerLambda
+caloCluster_centerLambda2
+caloCluster_centerMag
+caloCluster_isolation
+caloCluster_time2
+caloCluster_x
+caloCluster_y
+caloCluster_z
 
-# --- Jets (10) -------------------------------------------------------------
+# --- Jets (13) -------------------------------------------------------------
 jet_EMFrac_NOSYS
 jet_HadEMRatioLog10_NOSYS
 jet_e_NOSYS
@@ -70,8 +92,16 @@ jet_phi
 jet_pt_NOSYS
 jet_select_baselineFJvt_NOSYS
 jet_select_baselineJvt_NOSYS
+jet_maxEcellEnergy_NOSYS
+jet_maxEcellGain_NOSYS
+jet_maxEcellOnlId_NOSYS
+jet_maxEcellTime_NOSYS
+jet_maxEcellX_NOSYS
+jet_maxEcellY_NOSYS
+jet_maxEcellZ_NOSYS
 
-# --- Muon segments, non-collision background (15) --------------------------
+
+# --- Muon segments, non-collision background (24) --------------------------
 msegNCB_chIndex
 msegNCB_chiSquared
 msegNCB_eta_NOSYS
@@ -87,8 +117,17 @@ msegNCB_y
 msegNCB_yDir
 msegNCB_z
 msegNCB_zDir
+msegNCB_ClusterTime
+msegNCB_ClusterTimeError
+msegNCB_ClusterTimeValid
+msegNCB_NMicromegaEtaHits
+msegNCB_NMicromegaStereoHits
+msegNCB_NStgcEtaHits
+msegNCB_NStgcPhiHits
+msegNCB_etaIndex
+msegNCB_sector
 
-# --- Muon segments, unassociated (16) --------------------------------------
+# --- Muon segments, unassociated (25) --------------------------------------
 msegUnAssoc_chIndex
 msegUnAssoc_chiSquared
 msegUnAssoc_eta_NOSYS
@@ -105,8 +144,17 @@ msegUnAssoc_y
 msegUnAssoc_yDir
 msegUnAssoc_z
 msegUnAssoc_zDir
+msegUnAssoc_ClusterTime
+msegUnAssoc_ClusterTimeError
+msegUnAssoc_ClusterTimeValid
+msegUnAssoc_NMicromegaEtaHits
+msegUnAssoc_NMicromegaStereoHits
+msegUnAssoc_NStgcEtaHits
+msegUnAssoc_NStgcPhiHits
+msegUnAssoc_etaIndex
+msegUnAssoc_sector
 
-# --- Muon segments (15) ----------------------------------------------------
+# --- Muon segments (24) ----------------------------------------------------
 mseg_chIndex
 mseg_chiSquared
 mseg_eta_NOSYS
@@ -122,10 +170,20 @@ mseg_y
 mseg_yDir
 mseg_z
 mseg_zDir
+mseg_ClusterTime
+mseg_ClusterTimeError
+mseg_ClusterTimeValid
+mseg_NMicromegaEtaHits
+mseg_NMicromegaStereoHits
+mseg_NStgcEtaHits
+mseg_NStgcPhiHits
+mseg_etaIndex
+mseg_sector
 
-# --- Muon RoI cluster trigger (2) ------------------------------------------
+# --- Muon RoI cluster trigger (3) ------------------------------------------
 muRoIClusTrig_eta_NOSYS
 muRoIClusTrig_phi_NOSYS
+muRoIClusTrig_nRoI_NOSYS
 
 # --- RoI mask (1) ----------------------------------------------------------
 roi_mask_NOSYS
@@ -152,7 +210,7 @@ track_phi_NOSYS
 track_pt_NOSYS
 track_selectForIso_NOSYS
 
-# --- Tracklets (11) --------------------------------------------------------
+# --- Tracklets (13) --------------------------------------------------------
 trklet_e
 trklet_m
 trklet_msvtxLink
@@ -164,6 +222,8 @@ trklet_q
 trklet_x
 trklet_y
 trklet_z
+trkletPos_x
+trkletPos_y
 
 # --- Truth tree, LLP children (7) ------------------------------------------
 truthTree_llpChild_E
